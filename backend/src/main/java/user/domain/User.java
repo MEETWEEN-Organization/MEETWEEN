@@ -28,7 +28,10 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String profileImageUrl;
+
+    @Column(nullable = false)
     private String displayName;
 
     @Enumerated(value = EnumType.STRING)
