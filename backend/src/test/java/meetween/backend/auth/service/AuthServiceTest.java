@@ -19,7 +19,7 @@ public class AuthServiceTest {
     @Test
     void 카카오_소셜_로그인을_위한_링크를_생성한다() {
         // given
-        String kakaoLink = authService.getKakaoLink();
+        String kakaoLink = authService.getSocialLink();
 
         // when, then
         assertThat(kakaoLink).isNotEmpty();
@@ -32,7 +32,7 @@ public class AuthServiceTest {
         String code = "authorization code";
 
         // when
-        TokenResponse tokenResponse = authService.getTokenWithCode();
+        TokenResponse tokenResponse = authService.getTokenWithCode(code);
 
         // then
         assertThat(tokenResponse.getAccessToken()).isNotEmpty();
