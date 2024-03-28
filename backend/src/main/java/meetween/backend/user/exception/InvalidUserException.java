@@ -1,4 +1,4 @@
-package user.exception;
+package meetween.backend.user.exception;
 
 public class InvalidUserException extends RuntimeException {
     public InvalidUserException() {

@@ -1,4 +1,4 @@
-package user.domain;
+package meetween.backend.user.domain;
 
 public enum SocialType {
     KAKAO

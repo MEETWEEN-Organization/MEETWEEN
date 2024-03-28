@@ -1,12 +1,10 @@
-package meetween.backend.domain.user;
+package meetween.backend.user.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import user.domain.SocialType;
-import user.domain.User;
-import user.exception.InvalidUserException;
+import meetween.backend.user.exception.InvalidUserException;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

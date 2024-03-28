@@ -1,4 +1,4 @@
-package user.domain;
+package meetween.backend.user.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import meetween.backend.entity.BaseEntity;
-import user.exception.InvalidUserException;
+import meetween.backend.user.exception.InvalidUserException;
 
 @Entity
 @Table(name = "user")

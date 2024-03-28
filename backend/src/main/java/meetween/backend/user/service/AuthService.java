@@ -1,4 +1,4 @@
-package user.service;
+package meetween.backend.user.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
