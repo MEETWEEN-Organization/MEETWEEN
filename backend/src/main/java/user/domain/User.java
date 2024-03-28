@@ -37,7 +37,6 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private SocialType socialType;
 
-
     protected User() {}
 
     public User(final String email, final String profileImageUrl, final String displayName, final SocialType socialType) {
