@@ -31,7 +31,8 @@ public class JwtTokenProvider {
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .setSubject(payload)
+                .setHeaderParam("type", "jwt")
+                .setSubject(payload) // subject 는 payload 로 저장된다.
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -54,7 +55,9 @@ public class JwtTokenProvider {
                     .build()
                     .parseClaimsJws(token);
 
-            claims.getBody().getExpiration().before(new Date());
+            claims.getBody()
+                    .getExpiration()
+                    .before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidTokenException();
         }

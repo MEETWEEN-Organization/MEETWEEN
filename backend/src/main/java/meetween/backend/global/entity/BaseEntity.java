@@ -1,4 +1,4 @@
-package meetween.backend.entity;
+package meetween.backend.global.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

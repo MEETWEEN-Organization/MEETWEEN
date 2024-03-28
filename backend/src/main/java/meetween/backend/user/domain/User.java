@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import meetween.backend.entity.BaseEntity;
+import meetween.backend.global.entity.BaseEntity;
 import meetween.backend.user.exception.InvalidUserException;
 
 @Entity
