@@ -1,5 +1,6 @@
 package meetween.backend.user.service;
 
+import meetween.backend.user.dto.OAuthMember;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +27,8 @@ public class AuthService {
                 + "scope=account_email,gender";
     }
     // https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=account_email,gender
+
+    public String getTokenWithCode(final String code) {
+
+    }
 }

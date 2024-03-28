@@ -1,13 +1,16 @@
 package meetween.backend.auth.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import meetween.backend.config.TestConfig;
+import meetween.backend.user.dto.TokenResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import meetween.backend.user.service.AuthService;
 
-@SpringBootTest
+@SpringBootTest(classes = TestConfig.class)
 public class AuthServiceTest {
     @Autowired
     private AuthService authService;
@@ -20,5 +23,18 @@ public class AuthServiceTest {
 
         // when, then
         assertThat(kakaoLink).isNotEmpty();
+    }
+
+    @DisplayName("토큰 생성을 하면 OAuth 서버에서 인증 후 토큰을 반환한다")
+    @Test
+    void 토큰_생성을_하면_OAuth_서버에서_인증_후_토큰을_반환한다() {
+        // given
+        String code = "authorization code";
+
+        // when
+        TokenResponse tokenResponse = authService.getTokenWithCode();
+
+        // then
+        assertThat(tokenResponse.getAccessToken()).isNotEmpty();
     }
 }
