@@ -1,34 +1,26 @@
 package meetween.backend.user.service;
 
+import meetween.backend.user.client.OAuthClient;
 import meetween.backend.user.dto.OAuthMember;
+import meetween.backend.user.oauth.endpoint.ProviderProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
-    private static final String KAKAO_OAUTH_END_POINT = "https://kauth.kakao.com/oauth/authorize";
-    private final String kakaoRedirectUri;
-    private final String kakaoClientId;
-    private final String kakaoClientSecret;
+    private final ProviderProperties providerProperties;
+    private final OAuthClient oAuthClient;
 
-    public AuthService(@Value("${oauth.properties.kakao.redirect_uri}") final String kakaoRedirectUri,
-                       @Value("${oauth.properties.kakao.client_id}") final String kakaoClientId,
-                       @Value("${oauth.properties.kakao.client_secret}") final String kakaoClientSecret) {
-        this.kakaoRedirectUri = kakaoRedirectUri;
-        this.kakaoClientId = kakaoClientId;
-        this.kakaoClientSecret = kakaoClientSecret;
+    public AuthService(final ProviderProperties providerProperties) {
+        this.providerProperties = providerProperties;
     }
 
-    public String getKakaoLink() {
-        return KAKAO_OAUTH_END_POINT + "?"
-                + "client_id=" + kakaoClientId + "&"
-                + "redirect_uri=" + kakaoRedirectUri + "&"
-                + "response_type=code&"
-                + "scope=account_email,gender";
+    public String getSocialLink() {
+        return providerProperties.generate();
     }
-    // https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=account_email,gender
 
     public String getTokenWithCode(final String code) {
-
+        OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
+        return null;
     }
 }
