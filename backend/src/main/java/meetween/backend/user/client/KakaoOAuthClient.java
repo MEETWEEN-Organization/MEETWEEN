@@ -21,9 +21,6 @@ import org.springframework.web.client.RestTemplate;
 // 카카오 소설 계정 사용자
 @Component
 public class KakaoOAuthClient implements OAuthClient {
-    private static final String KAKAO_REDIRECT_URI = "http://localhost:3000";
-    private static final String KAKAO_LOGIN_TOKEN_URI = "https://kauth.kakao.com/oauth/token";
-    private static final String KAKAO_USER_URI = "https://kapi.kakao.com/v2/user/me";
     private static final String DELIMITER = "\\.";
     private final String grantType = "authorization_code";
     private final RestTemplate restTemplate;
@@ -59,7 +56,7 @@ public class KakaoOAuthClient implements OAuthClient {
         final HttpEntity<MultiValueMap<String, String>> userInfoRequestEntity = new HttpEntity<>(httpHeaders);
 
         final ResponseEntity<OAuthMember> oAuthMember = restTemplate.exchange(
-                KAKAO_USER_URI,
+                userUri,
                 HttpMethod.GET,
                 userInfoRequestEntity,
                 OAuthMember.class
@@ -77,12 +74,12 @@ public class KakaoOAuthClient implements OAuthClient {
         params.add("code", code);
         params.add("client_id", clientId);
         params.add("client_secret", clientSecret);
-        params.add("redirect_uri", KAKAO_REDIRECT_URI);
+        params.add("redirect_uri", redirectUri);
         params.add("grant_type", grantType);
 
         final HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, httpHeaders);
         final ResponseEntity<OAuthAccessToken> accessToken = restTemplate.exchange(
-                KAKAO_LOGIN_TOKEN_URI,
+                tokenUri,
                 HttpMethod.POST,
                 accessTokenRequestEntity,
                 OAuthAccessToken.class
@@ -98,7 +95,7 @@ public class KakaoOAuthClient implements OAuthClient {
         params.add("code", code);
         params.add("client_id", clientId);
         params.add("client_secret", clientSecret);
-        params.add("redirect_uri", KAKAO_REDIRECT_URI);
+        params.add("redirect_uri", redirectUri);
         params.add("grant_type", "authorization_code");
         return params;
     }

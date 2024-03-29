@@ -12,9 +12,7 @@ public class KakaoProviderProperties implements OAuthProviderProperties {
     private final String clientId;
     private final String redirectUri;
     private final String response_type = "code"; //  'code'로 고정
-    private final List<String> scopes = List.of("profile_nickname", "profile_image", "account_email", "birthday", "gender"); // 카카오 개발자센터에서 설정한 동의 항목
-   //  private final String clientSecret;
-
+    private final List<String> scopes = List.of("name", "profile_nickname", "profile_image");
 
     public KakaoProviderProperties(@Value("${oauth.kakao.authorize_uri}") final String authorizationUri,
                                    @Value("${oauth.kakao}") final String clientId,
@@ -35,11 +33,7 @@ public class KakaoProviderProperties implements OAuthProviderProperties {
     }
 
     private String generateScope() {
-        String newScope = "";
-        for(String scope : scopes) {
-            newScope += scope;
-            newScope += " ";
-        }
-        return newScope;
+        return String.join(" ", scopes);
     }
+
 }
