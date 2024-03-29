@@ -6,6 +6,7 @@ import java.util.Base64;
 import java.util.Optional;
 import meetween.backend.user.domain.OAuthAccessToken;
 import meetween.backend.user.dto.OAuthMember;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,21 +21,34 @@ import org.springframework.web.client.RestTemplate;
 // 카카오 소설 계정 사용자
 @Component
 public class KakaoOAuthClient implements OAuthClient {
-    private static final String KAKAO_REDIRECT_URI = "https://kauth.kakao.com/oauth/authorize";
+    private static final String KAKAO_REDIRECT_URI = "http://localhost:3000";
     private static final String KAKAO_LOGIN_TOKEN_URI = "https://kauth.kakao.com/oauth/token";
-    private static final String KAKAO_USER_URI = "";
+    private static final String KAKAO_USER_URI = "https://kapi.kakao.com/v2/user/me";
     private static final String DELIMITER = "\\.";
-    private final String grant_type = "authorization_code";
-    private final String clientId = "kakao_client_id";
-    private final String clientSecret = "kakao_client_secret";
+    private final String grantType = "authorization_code";
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final String redirectUri;
+    private final String clientId;
+    private final String clientSecret;
+    private final String tokenUri;
+    private final String userUri;
 
 
     public KakaoOAuthClient(final RestTemplate restTemplate,
-                            final ObjectMapper objectMapper) {
+                            final ObjectMapper objectMapper,
+                            @Value("${oauth.kakao.redirect_uri}") final String redirectUri,
+                            @Value("${oauth.kakao.client_id}") final String clientId,
+                            @Value("${oauth.kakao.client_secret}") final String clientSecret,
+                            @Value("${oauth.kakao.token_uri}") final String tokenUri,
+                            @Value("${oauth.kakao.user_uri}") final String userUri) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.redirectUri = redirectUri;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.tokenUri = tokenUri;
+        this.userUri = userUri;
     }
 
     @Override
@@ -64,7 +78,7 @@ public class KakaoOAuthClient implements OAuthClient {
         params.add("client_id", clientId);
         params.add("client_secret", clientSecret);
         params.add("redirect_uri", KAKAO_REDIRECT_URI);
-        params.add("grant_type", "authorization_code");
+        params.add("grant_type", grantType);
 
         final HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, httpHeaders);
         final ResponseEntity<OAuthAccessToken> accessToken = restTemplate.exchange(
