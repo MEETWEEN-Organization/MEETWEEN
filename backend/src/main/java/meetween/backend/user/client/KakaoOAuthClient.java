@@ -1,17 +1,16 @@
 package meetween.backend.user.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import meetween.backend.user.dto.KakaoTokenResponse;
+import java.util.Optional;
+import meetween.backend.user.domain.OAuthAccessToken;
 import meetween.backend.user.dto.OAuthMember;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -23,43 +22,61 @@ import org.springframework.web.client.RestTemplate;
 public class KakaoOAuthClient implements OAuthClient {
     private static final String KAKAO_REDIRECT_URI = "https://kauth.kakao.com/oauth/authorize";
     private static final String KAKAO_LOGIN_TOKEN_URI = "https://kauth.kakao.com/oauth/token";
+    private static final String KAKAO_USER_URI = "";
     private static final String DELIMITER = "\\.";
     private final String grant_type = "authorization_code";
-    private final String clientId;
-    private final String clientSecret;
+    private final String clientId = "kakao_client_id";
+    private final String clientSecret = "kakao_client_secret";
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
 
-    public KakaoOAuthClient(@Value("${}") final String clientId,
-                            @Value("${}") final String clientSecret,
-                            final RestTemplate restTemplate,
+    public KakaoOAuthClient(final RestTemplate restTemplate,
                             final ObjectMapper objectMapper) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
     }
 
     @Override
     public OAuthMember getOAuthMember(final String code) {
-        try {
-            KakaoTokenResponse kakaoTokenResponse = requestKakaoToken(code);
-            String payload = getPayloadFrom(kakaoTokenResponse.getIdToken());
-            String decodedPayload = getDecodedJwtPayload(payload);
-            return generateOAuthUserBy(decodedPayload);
-        } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException();
-        }
+        final String accessToken = requestKakaoAccessToken(code);
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setBearerAuth(accessToken);
+        final HttpEntity<MultiValueMap<String, String>> userInfoRequestEntity = new HttpEntity<>(httpHeaders);
+
+        final ResponseEntity<OAuthMember> oAuthMember = restTemplate.exchange(
+                KAKAO_USER_URI,
+                HttpMethod.GET,
+                userInfoRequestEntity,
+                OAuthMember.class
+        );
+
+        return oAuthMember.getBody();
     }
 
-    private KakaoTokenResponse requestKakaoToken(String code) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        MultiValueMap<String, String> params = generateRequestParams(code);
+    private String requestKakaoAccessToken(String code) {
+        final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        final HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setBasicAuth(clientId, clientSecret);
+        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        final HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, headers);
-        return restTemplate.postForEntity(KAKAO_LOGIN_TOKEN_URI, accessTokenRequestEntity, KakaoTokenResponse.class).getBody();
+        params.add("code", code);
+        params.add("client_id", clientId);
+        params.add("client_secret", clientSecret);
+        params.add("redirect_uri", KAKAO_REDIRECT_URI);
+        params.add("grant_type", "authorization_code");
+
+        final HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, httpHeaders);
+        final ResponseEntity<OAuthAccessToken> accessToken = restTemplate.exchange(
+                KAKAO_LOGIN_TOKEN_URI,
+                HttpMethod.POST,
+                accessTokenRequestEntity,
+                OAuthAccessToken.class
+        );
+
+        return Optional.ofNullable(accessToken.getBody())
+                .orElseThrow(IllegalArgumentException::new)
+                .getAccessToken();
     }
 
     private MultiValueMap<String, String> generateRequestParams(final String code) {
@@ -78,14 +95,5 @@ public class KakaoOAuthClient implements OAuthClient {
 
     private String getDecodedJwtPayload(String payload) {
         return new String(Base64.getUrlDecoder().decode(payload), StandardCharsets.UTF_8);
-    }
-
-
-    private OAuthMember generateOAuthUserBy(final String decodedIdToken) throws JsonProcessingException {
-        Map<String, String> userInfo = objectMapper.readValue(decodedIdToken, HashMap.class);
-        String email = userInfo.get("email");
-        String displayName = userInfo.get("name");
-        String profileImageUri = userInfo.get("picture");
-        return new OAuthMember(email, displayName, profileImageUri);
     }
 }

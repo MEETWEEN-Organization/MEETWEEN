@@ -33,21 +33,25 @@ public class AuthService {
     @Transactional
     public TokenResponse generateTokenWithCode(final String code) {
         OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
-        String email = oAuthMember.getEmail();
-
-        if (!userService.existsByEmail(email)) {
-            userService.save(generateUserBy(oAuthMember));
-        }
-
-        User foundMember = userService.findByEmail(email);
-        String accessToken = jwtTokenProvider.createToken(String.valueOf(foundMember.getId()));  // pk 를 payload 로 지정함.
+        User foundUser = findOrCreateUser(oAuthMember);
+        String accessToken = jwtTokenProvider.createToken(String.valueOf(foundUser.getId()));  // pk 를 payload 로 지정
         return new TokenResponse(accessToken);
     }
 
+    private User findOrCreateUser(OAuthMember oAuthMember) {
+        String socialLoginId = oAuthMember.getSocialLoginId();
+
+        if (!userService.existsBySocialLoginId(socialLoginId)) {
+            userService.save(generateUserBy(oAuthMember));
+        }
+        User foundUser = userService.findBySocialLoginId(socialLoginId);
+        return foundUser;
+    }
+
     private User generateUserBy(final OAuthMember oAuthMember) {
-        return new User(oAuthMember.getEmail(),
-                oAuthMember.getProfileImageUri(),
-                oAuthMember.getDisplayName(),
+        return new User(oAuthMember.getSocialLoginId(),
+                oAuthMember.getImageUrl(),
+                oAuthMember.getNickname(),
                 SocialType.KAKAO);
     }
 }

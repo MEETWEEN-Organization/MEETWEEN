@@ -14,28 +14,13 @@ public class UserTest {
     @Test
     void 회원을_생성한다() {
         // given
-        String email = "msung99@gmail.com";
+        String socialLoginId = "msung99";
         String profileImageUrl = "https://avatars.githubusercontent.com/u/88240193?v=4";
         String displayName = "Haon";
         SocialType socialType = SocialType.KAKAO;
 
         // when, then
-        assertDoesNotThrow(() -> new User(email, profileImageUrl, displayName, socialType));
-    }
-
-    @DisplayName("회원의 이메일 형식이 올바르지 않으면 예외가 발생한다.")
-    @ParameterizedTest
-    @ValueSource(strings = {"msung99@", "devhaon.com", "msung99@naver", "dev.haon"})
-    void 회원을_생성한다(final String email) {
-        // given
-        String profileImageUrl = "https://avatars.githubusercontent.com/u/88240193?v=4";
-        String displayName = "Haon";
-        SocialType socialType = SocialType.KAKAO;
-
-        // when, then
-        assertThatThrownBy(() -> new User(email, profileImageUrl, displayName, socialType))
-                .isInstanceOf(InvalidUserException.class)
-                .hasMessage("이메일 형식이 올바르지 않습니다.");
+        assertDoesNotThrow(() -> new User(socialLoginId, profileImageUrl, displayName, socialType));
     }
 
     @DisplayName("회원의 이름이 10자 이상인 경우 예외가 발생한다.")
@@ -43,12 +28,12 @@ public class UserTest {
     @ValueSource(strings = {"", "ThisIsSoLongName", "abcdefghijklmop"})
     void 회원의_이름이_10자_이하인_경우_예외가_발생한다(final String displayName) {
         // given
-        String email = "msung99@gmail.com";
+        String socialLoginId = "msung99";
         String profileImageUrl = "https://avatars.githubusercontent.com/u/59357153?v=4";
         SocialType socialType = SocialType.KAKAO;
 
         // when & then
-        assertThatThrownBy(() -> new User(email, profileImageUrl, displayName, socialType))
+        assertThatThrownBy(() -> new User(socialLoginId, profileImageUrl, displayName, socialType))
                 .isInstanceOf(InvalidUserException.class)
                 .hasMessage("이름 형식이 올바르지 않습니다.");
     }

@@ -6,6 +6,6 @@ import meetween.backend.user.dto.OAuthMember;
 public class StubOAuthClient implements OAuthClient {
     @Override
     public OAuthMember getOAuthMember(final String code) {
-        return new OAuthMember("Fake Email", "Fake Name", "Fake Profile Image Uri");
+        return new OAuthMember("Fake Social Login Id", "Fake Name", "Fake Profile Image Uri");
     }
 }

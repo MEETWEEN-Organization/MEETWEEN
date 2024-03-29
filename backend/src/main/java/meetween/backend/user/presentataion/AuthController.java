@@ -29,7 +29,7 @@ public class AuthController {
     }
 
     // 로그인 성공 후 발급받은 code 를 백엔드에 전달한다. (즉, 프론트엔드 페이지에서 얻은 인가 code 를 전달받음)
-    // 이 전달된 code 를 전달받고 로그인에 필요한 토큰을 받급해준다.
+    // 이 전달된 code 를 전달받고 로그인에 필요한 토큰을 프론트엔드에게 받급해준다. (프론트엔드는 이 리턴해준 토큰을 로컬 스토리지에 저장)
     @PostMapping("/{provider}/token")
     public ResponseEntity<TokenResponse> generateToken(@PathVariable final String provider,
                                                        @RequestBody final TokenRequest tokenRequest) {

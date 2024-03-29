@@ -21,12 +21,12 @@ public class UserService {
         return memberRepository.save(member);
     }
 
-    public User findByEmail(final String email) {
-        return memberRepository.findByEmail(email)
+    public User findBySocialLoginId(final String socialLoginId) {
+        return memberRepository.findBySocialLoginId(socialLoginId)
                 .orElseThrow(NoExistUserException::new);
     }
 
-    public boolean existsByEmail(final String email) {
-        return memberRepository.existsByEmail(email);
+    public boolean existsBySocialLoginId(final String socialLoginId) {
+        return memberRepository.existsBySocialLoginId(socialLoginId);
     }
 }

@@ -1,25 +1,32 @@
 package meetween.backend.user.dto;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class OAuthMember {
-    private final String email;
-    private final String displayName;
-    private final String profileImageUri;
+    @JsonProperty("id")
+    private String socialLoginId;
 
-    public OAuthMember(final String email, final String displayName, final String profileImageUri) {
-        this.email = email;
-        this.displayName = displayName;
-        this.profileImageUri = profileImageUri;
+    @JsonProperty("kakao_account.profile.nickname")
+    private String nickname;
+    @JsonProperty("kakao_account.profile.profile_image_url")
+    private String image;
+
+    public OAuthMember(String socialLoginId, String nickname, String image) {
+        this.socialLoginId = socialLoginId;
+        this.nickname = nickname;
+        this.image = image;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSocialLoginId() {
+        return socialLoginId;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public String getProfileImageUri() {
-        return profileImageUri;
+    public String getImageUrl() {
+        return image;
     }
 }

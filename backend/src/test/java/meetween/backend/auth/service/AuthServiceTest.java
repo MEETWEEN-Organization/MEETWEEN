@@ -32,7 +32,7 @@ public class AuthServiceTest {
         String code = "authorization code";
 
         // when
-        TokenResponse tokenResponse = authService.getTokenWithCode(code);
+        TokenResponse tokenResponse = authService.generateTokenWithCode(code);
 
         // then
         assertThat(tokenResponse.getAccessToken()).isNotEmpty();
