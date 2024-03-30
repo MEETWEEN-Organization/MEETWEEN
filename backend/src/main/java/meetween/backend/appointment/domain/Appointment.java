@@ -3,7 +3,6 @@ package meetween.backend.appointment.domain;
 import jakarta.persistence.*;
 import meetween.backend.appointment.exception.InvalidAppointmentException;
 import meetween.backend.global.entity.BaseEntity;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -32,7 +31,7 @@ public class Appointment extends BaseEntity {
     private BigDecimal longitude;
 
     @Column(name = "invite_code", nullable = false)
-    private final String  inviteCode = RandomStringUtils.randomAlphanumeric(6);
+    private final Long inviteCode = (long)(Math.random() * 999999L - 100000L) + 100000L;
 
     @Column(name = "member_count", nullable = false)
     private Long memberCount;
