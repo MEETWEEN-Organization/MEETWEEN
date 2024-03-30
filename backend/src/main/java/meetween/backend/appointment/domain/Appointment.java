@@ -1,0 +1,76 @@
+package meetween.backend.appointment.domain;
+
+import jakarta.persistence.*;
+import meetween.backend.appointment.exception.InvalidAppointmentException;
+import meetween.backend.global.entity.BaseEntity;
+import org.apache.commons.lang3.RandomStringUtils;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "appointment")
+public class Appointment extends BaseEntity {
+
+    private static final int MAX_TITLE_LENGTH = 20;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "appointment_date_time", nullable = false)
+    private LocalDateTime appointmentDateTime;
+
+    @Column(name = "latitude", nullable = false)
+    private BigDecimal latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private BigDecimal longitude;
+
+    @Column(name = "invite_code", nullable = false)
+    private final String  inviteCode = RandomStringUtils.randomAlphanumeric(6);
+
+    @Column(name = "member_count", nullable = false)
+    private Long memberCount;
+
+//    @Column(name = "category_id", nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private Category category;
+
+    protected Appointment() {}
+
+    public Appointment(final String title, final LocalDateTime appointmentDateTime, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
+        validateTitleLength(title);
+        validateDateTime(appointmentDateTime);
+        validateMemberCount(memberCount);
+        this.title = title;
+        this.appointmentDateTime = appointmentDateTime;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    private void validateTitleLength(final String title) {
+        if (title.length() > MAX_TITLE_LENGTH) {
+            throw new InvalidAppointmentException(String.format("약속 이름의 길이는 %d을 초과할 수 없습니다.", MAX_TITLE_LENGTH));
+        }
+    }
+
+    private void validateDateTime(final LocalDateTime appointmentDateTime) {
+        if (appointmentDateTime.isBefore(LocalDateTime.now())) {
+            throw new InvalidAppointmentException("약속 시간은 현재 시간 이후여야 합니다.");
+        }
+    }
+
+    private void validateMemberCount(final Long memberCount) {
+        if (memberCount > 10) {
+            throw new InvalidAppointmentException("최대 약속 인원수는 10명 입니다.");
+        }
+        if (memberCount < 2) {
+            throw new InvalidAppointmentException("최소 2명 이상이 약속에 필요합니다.");
+        }
+    }
+}
