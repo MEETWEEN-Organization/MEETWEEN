@@ -43,12 +43,13 @@ public class Appointment extends BaseEntity {
 
     protected Appointment() {}
 
-    public Appointment(final String title, final LocalDateTime appointmentDateTime, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
+    public Appointment(final String title, final LocalDateTime appointmentDateTime, Category category, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
         validateTitleLength(title);
         validateDateTime(appointmentDateTime);
         validateMemberCount(memberCount);
         this.title = title;
         this.appointmentDateTime = appointmentDateTime;
+        this.category = category;
         this.memberCount = memberCount;
         this.latitude = latitude;
         this.longitude = longitude;
