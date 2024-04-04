@@ -49,6 +49,7 @@ public class Appointment extends BaseEntity {
         validateMemberCount(memberCount);
         this.title = title;
         this.appointmentDateTime = appointmentDateTime;
+        this.memberCount = memberCount;
         this.latitude = latitude;
         this.longitude = longitude;
     }
