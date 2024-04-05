@@ -14,7 +14,7 @@ class CategoryTest {
     void 카테고리를_생성한다() {
         //given
         String name = "미트윈 약속";
-        CategoryColor categoryColor = CategoryColor.B4C8BB;
+        CategoryColor categoryColor = CategoryColor._9A61D2;
 
         //when, then
         assertDoesNotThrow(() -> new Category(name, categoryColor));
@@ -25,7 +25,7 @@ class CategoryTest {
     void 카테고리의_이름이_10글자를_초과하는_경우_예외를_발생시킨다() {
         //given
         String name = "미트윈미트윈미트윈미트윈";
-        CategoryColor categoryColor = CategoryColor.B4C8BB;
+        CategoryColor categoryColor = CategoryColor._5B59B3;
 
         //when, then
         assertThatThrownBy(() -> new Category(name, categoryColor))
