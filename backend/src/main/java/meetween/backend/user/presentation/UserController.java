@@ -1,6 +1,7 @@
 package meetween.backend.user.presentation;
 
 import meetween.backend.authentication.dto.LoginUser;
+import meetween.backend.authentication.presentataion.AuthPrincipal;
 import meetween.backend.user.dto.UserResponse;
 import meetween.backend.user.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping("/about")
-    public ResponseEntity<UserResponse> about(LoginUser loginUser) {
+    public ResponseEntity<UserResponse> about(@AuthPrincipal LoginUser loginUser) {
         UserResponse userResponse = userService.findById(loginUser.getId());
         return ResponseEntity.ok(userResponse);
     }
