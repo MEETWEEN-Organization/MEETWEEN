@@ -53,4 +53,8 @@ public class User extends BaseEntity {
     public Long getId() {
         return id;
     }
+
+    public String getSocialLoginId() {
+        return socialLoginId;
+    }
 }

@@ -10,24 +10,24 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import meetween.backend.authentication.exception.InvalidTokenException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider {
 
     private final SecretKey key;
-    private final long validityInMilliseconds;
-    private static final String secret_key = "qweqweoijiouqwoieoiqwjoiwjoijoqwoioijejoijodqoi";
-    private static final long expire_length = 3600;
+    private final long expireLength;
 
-    public JwtTokenProvider() {
-        this.key = Keys.hmacShaKeyFor(secret_key.getBytes(StandardCharsets.UTF_8));
-        this.validityInMilliseconds = expire_length;
+    public JwtTokenProvider(@Value("${jwt.token.secret-key}") final String secretKey,
+                            @Value("${jwt.token.expire-length}") final long expireLength) {
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+        this.expireLength = expireLength;
     }
 
     public String createToken(String payload) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date validity = new Date(now.getTime() + expireLength);
 
         return Jwts.builder()
                 .setHeaderParam("type", "jwt")

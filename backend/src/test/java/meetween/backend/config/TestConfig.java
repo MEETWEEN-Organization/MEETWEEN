@@ -1,6 +1,6 @@
 package meetween.backend.config;
 
-import meetween.backend.auth.service.client.StubOAuthClient;
+import meetween.backend.authentication.service.client.StubOAuthClient;
 import meetween.backend.authentication.infrastructure.client.OAuthClient;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
