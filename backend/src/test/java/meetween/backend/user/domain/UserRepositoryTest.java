@@ -28,4 +28,21 @@ public class UserRepositoryTest {
         // then
         assertThat(actual).isTrue();
     }
+
+    @DisplayName("소셜 로그인 아이디를 통해 회원을 찾는다.")
+    @Test
+    void 소셜_로그인_아이디를_통해_회원을_찾는다() {
+        // given
+        String socialLoginId = "msung99";
+        String profileImageUrl = "https://avatars.githubusercontent.com/u/88240193?v=4";
+        String displayName = "이민성";
+        User memoryUser = new User(socialLoginId, profileImageUrl, displayName, SocialType.KAKAO);
+        User savedUser = userRepository.save(memoryUser);
+
+        // when
+        User foundUser = userRepository.findBySocialLoginId(socialLoginId).get();
+
+        // then
+        assertThat(savedUser.getId()).isEqualTo(foundUser.getId());
+    }
 }
