@@ -2,6 +2,7 @@ package meetween.backend.user.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import meetween.backend.support.fixture.UserFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,11 @@ public class UserRepositoryTest {
     @Test
     void 소셜_로그인_아이디를_통해_회원을_찾는다() {
         // given
-        String socialLoginId = "msung99";
-        String profileImageUrl = "https://avatars.githubusercontent.com/u/88240193?v=4";
-        String displayName = "이민성";
-        User memoryUser = new User(socialLoginId, profileImageUrl, displayName, SocialType.KAKAO);
+        User memoryUser = UserFixtures.수현_유저_생성();
         User savedUser = userRepository.save(memoryUser);
 
         // when
+        String socialLoginId = memoryUser.getSocialLoginId();
         User foundUser = userRepository.findBySocialLoginId(socialLoginId).get();
 
         // then
