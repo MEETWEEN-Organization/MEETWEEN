@@ -1,9 +1,9 @@
-package meetween.backend.user.presentataion;
+package meetween.backend.authentication.presentataion;
 
-import meetween.backend.user.dto.OAuthUriResponse;
-import meetween.backend.user.dto.TokenRequest;
-import meetween.backend.user.dto.TokenResponse;
-import meetween.backend.user.service.AuthService;
+import meetween.backend.authentication.dto.OAuthUriResponse;
+import meetween.backend.authentication.dto.TokenRequest;
+import meetween.backend.authentication.dto.TokenResponse;
+import meetween.backend.authentication.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

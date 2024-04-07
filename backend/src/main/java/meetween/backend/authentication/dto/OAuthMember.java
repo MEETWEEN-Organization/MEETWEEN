@@ -1,4 +1,4 @@
-package meetween.backend.user.dto;
+package meetween.backend.authentication.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

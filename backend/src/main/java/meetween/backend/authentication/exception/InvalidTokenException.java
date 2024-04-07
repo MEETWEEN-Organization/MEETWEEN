@@ -1,4 +1,4 @@
-package meetween.backend.user.exception;
+package meetween.backend.authentication.exception;
 
 public class InvalidTokenException extends RuntimeException {
 

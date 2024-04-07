@@ -1,4 +1,4 @@
-package meetween.backend.user.dto;
+package meetween.backend.authentication.dto;
 
 
 public class TokenResponse {

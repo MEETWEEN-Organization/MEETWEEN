@@ -1,4 +1,4 @@
-package meetween.backend.user.provider;
+package meetween.backend.authentication.provider;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -9,8 +9,7 @@ import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
-import meetween.backend.user.exception.InvalidTokenException;
-import org.springframework.beans.factory.annotation.Value;
+import meetween.backend.authentication.exception.InvalidTokenException;
 import org.springframework.stereotype.Component;
 
 @Component
