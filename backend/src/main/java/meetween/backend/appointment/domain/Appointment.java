@@ -2,6 +2,7 @@ package meetween.backend.appointment.domain;
 
 import jakarta.persistence.*;
 import meetween.backend.appointment.exception.InvalidAppointmentException;
+import meetween.backend.category.domain.Category;
 import meetween.backend.global.entity.BaseEntity;
 
 import java.math.BigDecimal;
@@ -36,18 +37,20 @@ public class Appointment extends BaseEntity {
     @Column(name = "member_count", nullable = false)
     private Long memberCount;
 
-//    @Column(name = "category_id", nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    private Category category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "category_id", nullable = false)
+    private Category category;
 
     protected Appointment() {}
 
-    public Appointment(final String title, final LocalDateTime appointmentDateTime, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
+    public Appointment(final String title, final LocalDateTime appointmentDateTime, Category category, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
         validateTitleLength(title);
         validateDateTime(appointmentDateTime);
         validateMemberCount(memberCount);
         this.title = title;
         this.appointmentDateTime = appointmentDateTime;
+        this.category = category;
+        this.memberCount = memberCount;
         this.latitude = latitude;
         this.longitude = longitude;
     }
