@@ -1,4 +1,4 @@
-package meetween.backend.user.service;
+package meetween.backend.authentication.service;
 
 import meetween.backend.user.domain.User;
 import meetween.backend.user.domain.UserRepository;

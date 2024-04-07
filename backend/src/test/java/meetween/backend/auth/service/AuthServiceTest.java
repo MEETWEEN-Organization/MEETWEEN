@@ -3,12 +3,12 @@ package meetween.backend.auth.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import meetween.backend.config.TestConfig;
-import meetween.backend.user.dto.TokenResponse;
+import meetween.backend.authentication.dto.TokenResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import meetween.backend.user.service.AuthService;
+import meetween.backend.authentication.service.AuthService;
 
 @SpringBootTest(classes = TestConfig.class)
 public class AuthServiceTest {

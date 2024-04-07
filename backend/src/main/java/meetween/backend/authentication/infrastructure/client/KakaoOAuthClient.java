@@ -1,11 +1,11 @@
-package meetween.backend.user.client;
+package meetween.backend.authentication.infrastructure.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Optional;
-import meetween.backend.user.domain.OAuthAccessToken;
-import meetween.backend.user.dto.OAuthMember;
+import meetween.backend.authentication.domain.OAuthAccessToken;
+import meetween.backend.authentication.dto.OAuthMember;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
