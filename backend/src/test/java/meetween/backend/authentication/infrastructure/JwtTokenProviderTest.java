@@ -1,7 +1,8 @@
 package meetween.backend.authentication.infrastructure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,20 @@ public class JwtTokenProviderTest {
         String actual = jwtTokenProvider.createToken(payload);
 
         // then
-        Assertions.assertThat(actual.split("\\.")).hasSize(3);
+        assertThat(actual.split("\\.")).hasSize(3);
+    }
+
+    @DisplayName("JWT 토큰의 Payload를 가져온다.")
+    @Test
+    void JWT_토큰의_Payload를_가져온다() {
+        // given
+        String expected = "Hello";
+        String token = jwtTokenProvider.createToken(expected);
+
+        // when
+        String actual = jwtTokenProvider.getPayload(token);
+
+        // then
+        assertThat(actual).isEqualTo(expected);
     }
 }
