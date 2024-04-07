@@ -1,4 +1,4 @@
-package meetween.backend.auth.service.client;
+package meetween.backend.authentication.service.client;
 
 import meetween.backend.authentication.infrastructure.client.OAuthClient;
 import meetween.backend.authentication.dto.OAuthMember;

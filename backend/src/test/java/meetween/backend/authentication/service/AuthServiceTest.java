@@ -1,4 +1,4 @@
-package meetween.backend.auth.service;
+package meetween.backend.authentication.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
