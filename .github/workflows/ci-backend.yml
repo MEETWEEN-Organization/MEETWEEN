@@ -1,0 +1,39 @@
+name: Backend CI
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths:
+      - backend/**
+      - .github/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: JDK 17 설정
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Gradlew 권한 설정
+        run: chmod +x gradlew
+
+      - name: 테스트 및 빌드 진행
+        run: ./gradlew build
+
+      - name: 테스트 결과 리포트
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always() # 테스트 실패해도 실행
+        with:
+          files: 'backend/build/test-results/TEST-*.xml'
