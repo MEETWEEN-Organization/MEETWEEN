@@ -19,13 +19,13 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public boolean supportsParameter(MethodParameter methodParameter) {
+    public boolean supportsParameter(final MethodParameter methodParameter) {
         return methodParameter.hasParameterAnnotation(AuthPrincipal.class);
     }
 
     @Override
-    public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
-                                   NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) {
+    public Object resolveArgument(final MethodParameter methodParameter, final ModelAndViewContainer modelAndViewContainer,
+                                   final NativeWebRequest nativeWebRequest, final WebDataBinderFactory webDataBinderFactory) {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
 
         String accessToken = AuthExtractor.extract(request);
