@@ -36,4 +36,4 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always() # 테스트 실패해도 실행
         with:
-          files: '**/build/test-results/TEST-*.xml'
+          files: '**/build/test-results/**/*.xml'
