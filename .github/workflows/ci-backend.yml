@@ -15,6 +15,7 @@ on:
 
 jobs:
   build:
+    permissions: write-all
     runs-on: ubuntu-latest
 
     defaults:
@@ -36,11 +37,8 @@ jobs:
       - name: 테스트 및 빌드 진행
         run: ./gradlew build
 
-      - name: Publish Test Results
+      - name: 테스트 결과 리포트
         uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
+        if: always() # 테스트 실패해도 실행
         with:
-          files: |
-            test-results/**/*.xml
-            test-results/**/*.trx
-            test-results/**/*.json
+          files: '**/build/test-results/**/*.xml'
