@@ -1,6 +1,6 @@
 package meetween.backend.auth.service.client;
 
-import meetween.backend.authentication.client.OAuthClient;
+import meetween.backend.authentication.infrastructure.client.OAuthClient;
 import meetween.backend.authentication.dto.OAuthMember;
 
 public class StubOAuthClient implements OAuthClient {

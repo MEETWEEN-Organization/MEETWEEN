@@ -1,4 +1,4 @@
-package meetween.backend.authentication.properties;
+package meetween.backend.authentication.infrastructure.properties;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;

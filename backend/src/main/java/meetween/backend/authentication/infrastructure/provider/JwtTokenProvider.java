@@ -1,4 +1,4 @@
-package meetween.backend.authentication.provider;
+package meetween.backend.authentication.infrastructure.provider;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

@@ -1,12 +1,12 @@
 package meetween.backend.authentication.service;
 
-import meetween.backend.authentication.client.OAuthClient;
+import meetween.backend.authentication.infrastructure.client.OAuthClient;
 import meetween.backend.user.domain.SocialType;
 import meetween.backend.user.domain.User;
 import meetween.backend.authentication.dto.OAuthMember;
 import meetween.backend.authentication.dto.TokenResponse;
-import meetween.backend.authentication.properties.OAuthProviderProperties;
-import meetween.backend.authentication.provider.JwtTokenProvider;
+import meetween.backend.authentication.infrastructure.properties.OAuthProviderProperties;
+import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

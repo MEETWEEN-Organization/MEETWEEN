@@ -1,4 +1,4 @@
-package meetween.backend.authentication.client;
+package meetween.backend.authentication.infrastructure.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;

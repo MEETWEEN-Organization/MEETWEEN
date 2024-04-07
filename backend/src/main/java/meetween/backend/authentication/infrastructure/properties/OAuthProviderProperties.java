@@ -1,4 +1,4 @@
-package meetween.backend.authentication.properties;
+package meetween.backend.authentication.infrastructure.properties;
 
 
 public interface OAuthProviderProperties {
