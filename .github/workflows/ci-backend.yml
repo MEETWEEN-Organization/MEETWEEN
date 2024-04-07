@@ -9,9 +9,9 @@ on:
       - backend/**
       - .github/**
 
-permissions:
-  checks: write
-  pull-requests: write
+#permissions:
+#  checks: write
+#  pull-requests: write
 
 jobs:
   build:
@@ -36,8 +36,11 @@ jobs:
       - name: 테스트 및 빌드 진행
         run: ./gradlew build
 
-      - name: 테스트 결과 리포트
+      - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always() # 테스트 실패해도 실행
+        if: always()
         with:
-          files: '**/build/test-results/**/*.xml'
+          files: |
+            test-results/**/*.xml
+            test-results/**/*.trx
+            test-results/**/*.json
