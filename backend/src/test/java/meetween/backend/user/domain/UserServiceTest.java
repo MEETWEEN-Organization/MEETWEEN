@@ -2,8 +2,9 @@ package meetween.backend.user.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import meetween.backend.authentication.service.UserService;
+
 import meetween.backend.support.fixture.UserFixtures;
+import meetween.backend.user.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

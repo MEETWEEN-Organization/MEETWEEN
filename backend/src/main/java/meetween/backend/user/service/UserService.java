@@ -22,4 +22,18 @@ public class UserService {
                 .orElseThrow(NoExistUserException::new);
         return new UserResponse(user);
     }
+
+    @Transactional
+    public User save(final User member) {
+        return userRepository.save(member);
+    }
+
+    public User findBySocialLoginId(final String socialLoginId) {
+        return userRepository.findBySocialLoginId(socialLoginId)
+                .orElseThrow(NoExistUserException::new);
+    }
+
+    public boolean existsBySocialLoginId(final String socialLoginId) {
+        return userRepository.existsBySocialLoginId(socialLoginId);
+    }
 }
