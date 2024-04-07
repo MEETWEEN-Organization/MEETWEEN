@@ -45,10 +45,11 @@ public class JwtTokenProviderTest {
     @Test
     void validateToken_메소드는_만료된_토큰을_전달받으면_예외를_발생시킨다() {
         // given
-        String expiredToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtZWV0d2VlbiIsImlhdCI6MTY1NzgwMjg0MiwiZXhwIjoxNjU3ODAyODQyfQ.h27hrHviFT-c5XssRI28tx4_f2Fu3jNP-6vJAbXy77Q";
+        JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, 0);
+        String expiredTokeen = expiredJwtTokenProvider.createToken("payload");
 
         // when, then
-        assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))
+        assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredTokeen))
                 .isInstanceOf(InvalidTokenException.class);
     }
 
