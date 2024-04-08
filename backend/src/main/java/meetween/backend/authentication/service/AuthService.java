@@ -7,6 +7,7 @@ import meetween.backend.authentication.dto.OAuthMember;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.authentication.infrastructure.properties.OAuthProviderProperties;
 import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
+import meetween.backend.user.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

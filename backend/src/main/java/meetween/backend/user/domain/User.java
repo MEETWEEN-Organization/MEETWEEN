@@ -57,4 +57,12 @@ public class User extends BaseEntity {
     public String getSocialLoginId() {
         return socialLoginId;
     }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }
