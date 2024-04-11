@@ -48,3 +48,4 @@
 //     label: "Button",
 //   },
 // };
+export default {};

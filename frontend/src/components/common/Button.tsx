@@ -1,5 +1,6 @@
-import styled from "@emotion/styled";
-import { ReactNode } from "react";
+import styled from '@emotion/styled';
+
+import { ReactNode } from 'react';
 
 const StyledButton = styled.button`
   padding: 8px 16px;
@@ -7,8 +8,8 @@ const StyledButton = styled.button`
 `;
 
 interface IButton {
-  variant: "primary" | "secondary" | "outline" | "default";
-  size: "large" | "medium" | "small";
+  variant: 'primary' | 'secondary' | 'outline' | 'default';
+  size: 'large' | 'medium' | 'small';
   children: ReactNode;
 }
 

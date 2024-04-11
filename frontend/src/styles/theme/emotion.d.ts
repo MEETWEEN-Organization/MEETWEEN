@@ -1,5 +1,4 @@
-import "@emotion/react";
-import { Theme } from "./theme";
+import '@emotion/react';
 
 interface IText {
   [key: string]: {
@@ -8,7 +7,7 @@ interface IText {
   };
 }
 
-declare module "@emotion/react" {
+declare module '@emotion/react' {
   export interface Theme {
     color: { [key: string]: string };
     text: IText;
