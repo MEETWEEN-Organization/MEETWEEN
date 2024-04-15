@@ -12,20 +12,20 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@type/*": ["./src/types/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@constants/*": ["./src/constants/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@api/*": ["./src/api/*"],
-      "@mocks/*": ["./src/mocks/*"],
-      "@stories/*": ["./src/stories/*"],
-      "@router/*": ["./src/router/*"],
-      "@store/*": ["./src/store/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@type/*": ["src/types/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@constants/*": ["src/constants/*"],
+      "@assets/*": ["src/assets/*"],
+      "@api/*": ["src/api/*"],
+      "@mocks/*": ["src/mocks/*"],
+      "@stories/*": ["src/stories/*"],
+      "@router/*": ["src/router/*"],
+      "@store/*": ["src/store/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "jsxImportSource": "@emotion/react",
     "strict": true,
@@ -34,5 +34,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "./src/assets/index.d.ts"]
 }
