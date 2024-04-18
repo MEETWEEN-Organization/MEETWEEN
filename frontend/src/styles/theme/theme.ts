@@ -21,15 +21,9 @@ const color = {
   blue200: '#bfdbfe',
   blue100: '#dbeafe',
 
-  /* color picker */
-  red: '#B33434',
-  orange: '#C47243',
-  yellow: '#DEA12A',
-  green: '#90B04A',
-  skyblue: '#488BBB',
-  purple200: '#5B59B3',
-  purple100: '#9A61D2',
-  pink: '#C161AC',
+  red300: '#c50000',
+  red200: '#ea0000',
+  red100: '#fff2f2',
 } as const;
 
 const text = {
@@ -79,9 +73,10 @@ const heading = {
 } as const;
 
 const borderRadius = {
-  small: '4px',
-  medium: '8px',
+  xLarge: '32px',
   large: '16px',
+  medium: '8px',
+  small: '4px',
 } as const;
 
 const boxShadow = {
@@ -89,7 +84,7 @@ const boxShadow = {
   shadow2: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
   shadow3: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
   shadow4: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-  shadow5: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
+  shadow5: 'rgba(0, 0, 0, 0.45) 0px 25px 20px -20px',
   shadow6: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
   shadow7: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
   shadow8: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
@@ -97,24 +92,24 @@ const boxShadow = {
   shadow10: 'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
 } as const;
 
-const margin = {
-  spacing01: '0',
-  spacing02: '4px',
-  spacing03: '8px',
-  spacing04: '16px',
-  spacing05: '24px',
-  spacing06: '32px',
-  spacing07: '48px',
-  spacing08: '64px',
-  spacing09: '96px',
+const spacing = {
+  spacing1: '0',
+  spacing2: '4px',
+  spacing3: '8px',
+  spacing4: '16px',
+  spacing5: '24px',
+  spacing6: '32px',
+  spacing7: '48px',
+  spacing8: '64px',
+  spacing9: '96px',
   spacing10: '128px',
 } as const;
 
 const zIndex = {
-  overlayTop: 10,
-  overlayHigh: 8,
-  overlayMiddle: 6,
-  overlayBottom: 4,
+  overlayTop: 4,
+  overlayHigh: 3,
+  overlayMiddle: 2,
+  overlayBottom: 1,
 } as const;
 
 export const Theme = {
@@ -123,6 +118,6 @@ export const Theme = {
   heading,
   borderRadius,
   boxShadow,
-  margin,
+  spacing,
   zIndex,
 };
