@@ -12,6 +12,7 @@ const color = {
 
   white: 'white',
 
+  blue900: '#172554',
   blue800: '#1e40af',
   blue700: '#1d4ed8',
   blue600: '#2563eb',
