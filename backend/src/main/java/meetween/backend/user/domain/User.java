@@ -36,7 +36,7 @@ public class User extends BaseEntity {
     protected User() {}
 
     public User(final String socialLoginId, final String profileImageUrl, final String displayName, final SocialType socialType) {
-        validateDisplayName(socialLoginId);
+        validateDisplayName(displayName);
         this.socialLoginId = socialLoginId;
         this.profileImageUrl = profileImageUrl;
         this.displayName = displayName;
@@ -44,9 +44,9 @@ public class User extends BaseEntity {
     }
 
     private void validateDisplayName(final String displayName) {
+        System.out.println("displayName:" + displayName);
         if(displayName.isEmpty() || displayName.length() > MAX_DISPLAY_NAME_LENGTH) {
             throw new InvalidUserException("이름 형식이 올바르지 않습니다.");
-
         }
     }
 
