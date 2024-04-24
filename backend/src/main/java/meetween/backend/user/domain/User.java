@@ -12,7 +12,7 @@ import meetween.backend.global.entity.BaseEntity;
 import meetween.backend.user.exception.InvalidUserException;
 
 @Entity
-@Table(name = "user")
+@Table(name = "member")
 public class User extends BaseEntity {
     private static final int MAX_DISPLAY_NAME_LENGTH = 10;
 
@@ -21,13 +21,13 @@ public class User extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "social_login_id", nullable = false, unique = true)
     private String socialLoginId;
 
     @Column(name = "profile_image_url", nullable = false)
     private String profileImageUrl;
 
-    @Column(nullable = false)
+    @Column(name = "display_name", nullable = false)
     private String displayName;
 
     @Enumerated(value = EnumType.STRING)
