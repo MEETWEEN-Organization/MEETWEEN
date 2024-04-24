@@ -81,16 +81,19 @@ const borderRadius = {
 } as const;
 
 const boxShadow = {
-  shadow1: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-  shadow2: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-  shadow3: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-  shadow4: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-  shadow5: 'rgba(0, 0, 0, 0.45) 0px 25px 20px -20px',
-  shadow6: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
-  shadow7: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
-  shadow8: 'rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px',
-  shadow9: 'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px',
-  shadow10: 'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
+  /* offset-y value exist */
+  shadow1: '0 1px 2px 0 rgb(0, 0, 0, 0.05)',
+  shadow2: '0 1px 3px 0 rgb(0, 0, 0, 0.1), 0 1px 2px -1px rgb(0, 0, 0, 0.1)',
+  shadow3: '0 4px 6px -1px rgb(0, 0, 0, 0.1), 0 2px 4px -2px rgb(0, 0, 0, 0.1)',
+  shadow4: '0 10px 15px -3px rgb(0, 0, 0, 0.1), 0 4px 6px -4px rgb(0, 0, 0, 0.1)',
+  shadow5: '0 20px 25px -5px rgb(0, 0, 0, 0.1), 0 8px 10px -6px rgb(0, 0, 0, 0.1)',
+  shadow6: '0 25px 50px -12px rgb(0, 0, 0, 0.25)',
+  shadow7: 'inset 0 2px 4px 0 rgb(0, 0, 0, 0.05)',
+
+  /* no offset-y value, only blur-radius */
+  blur100: '0px 0px 4px 0px rgba(0, 0, 0, 0.15)',
+  blur200: '0px 0px 8px 0px rgba(0, 0, 0, 0.20)',
+  blur300: '0px 0px 12px 0px rgba(0, 0, 0, 0.20)',
 } as const;
 
 const spacing = {
