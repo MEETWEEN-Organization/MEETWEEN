@@ -54,7 +54,7 @@ public class AuthServiceTest {
 
         // when
         // actual = StubOAuthClient 가 반환하는 socialLoginId
-        boolean actual = userRepository.existsBySocialLoginId("Fake Social Login Id");
+        boolean actual = userRepository.existsBySocialLoginId("fake_social_id");
 
         // then
         assertThat(actual).isTrue();
