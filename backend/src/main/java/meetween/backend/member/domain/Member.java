@@ -1,4 +1,4 @@
-package meetween.backend.user.domain;
+package meetween.backend.member.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,11 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import meetween.backend.global.entity.BaseEntity;
-import meetween.backend.user.exception.InvalidUserException;
+import meetween.backend.member.exception.InvalidMemberException;
 
 @Entity
 @Table(name = "member")
-public class User extends BaseEntity {
+public class Member extends BaseEntity {
     private static final int MAX_DISPLAY_NAME_LENGTH = 10;
 
     @Id
@@ -21,7 +21,7 @@ public class User extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "social_login_id", nullable = false, unique = true)
+    @Column(name = "social_login_id", nullable = false)
     private String socialLoginId;
 
     @Column(name = "profile_image_url", nullable = false)
@@ -33,9 +33,9 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private SocialType socialType;
 
-    protected User() {}
+    protected Member() {}
 
-    public User(final String socialLoginId, final String profileImageUrl, final String displayName, final SocialType socialType) {
+    public Member(final String socialLoginId, final String profileImageUrl, final String displayName, final SocialType socialType) {
         validateDisplayName(displayName);
         this.socialLoginId = socialLoginId;
         this.profileImageUrl = profileImageUrl;
@@ -44,9 +44,8 @@ public class User extends BaseEntity {
     }
 
     private void validateDisplayName(final String displayName) {
-        System.out.println("displayName:" + displayName);
         if(displayName.isEmpty() || displayName.length() > MAX_DISPLAY_NAME_LENGTH) {
-            throw new InvalidUserException("이름 형식이 올바르지 않습니다.");
+            throw new InvalidMemberException("이름 형식이 올바르지 않습니다.");
         }
     }
 

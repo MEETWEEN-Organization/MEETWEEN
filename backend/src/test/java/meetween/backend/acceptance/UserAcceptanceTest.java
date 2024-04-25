@@ -9,7 +9,7 @@ import io.restassured.response.Response;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.config.TestConfig;
-import meetween.backend.user.dto.UserResponse;
+import meetween.backend.member.dto.MemberResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
@@ -30,7 +30,7 @@ public class UserAcceptanceTest extends AcceptenceConfig {
 
         // when
         ExtractableResponse<Response> response = 자신의_정보를_조회한다(tokenResponse);
-        UserResponse userResponse = response.as(UserResponse.class);
+        MemberResponse userResponse = response.as(MemberResponse.class);
 
         // then
         assertAll(() -> {

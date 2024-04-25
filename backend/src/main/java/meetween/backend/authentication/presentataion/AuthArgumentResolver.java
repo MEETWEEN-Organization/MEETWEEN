@@ -1,7 +1,7 @@
 package meetween.backend.authentication.presentataion;
 
 import jakarta.servlet.http.HttpServletRequest;
-import meetween.backend.authentication.dto.LoginUser;
+import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.exception.BadRequestException;
 import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
 import org.springframework.core.MethodParameter;
@@ -40,6 +40,6 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
         String accessToken = bearerTokenExtractor.extractValidAccessToken(request);
         Long id = Long.parseLong(jwtTokenProvider.getPayload(accessToken));
 
-        return new LoginUser(id);
+        return new LoginMember(id);
     }
 }

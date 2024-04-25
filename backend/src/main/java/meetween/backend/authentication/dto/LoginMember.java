@@ -1,11 +1,11 @@
 package meetween.backend.authentication.dto;
 
-public class LoginUser {
+public class LoginMember {
     private Long id;
 
-    private LoginUser() {}
+    private LoginMember() {}
 
-    public LoginUser(final Long id) {
+    public LoginMember(final Long id) {
         this.id = id;
     }
 

@@ -1,10 +1,10 @@
-package meetween.backend.user.domain;
+package meetween.backend.member.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 import meetween.backend.support.fixture.UserFixtures;
-import meetween.backend.user.service.UserService;
+import meetween.backend.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,18 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class UserServiceTest {
+public class MemberServiceTest {
     @Autowired
-    private UserService userService;
+    private MemberService memberService;
 
     @DisplayName("회원을 저장한다.")
     @Test
     void 회원을_저장한다() {
         // given
-        User user = UserFixtures.수현_유저_생성();
+        Member member = UserFixtures.수현_유저_생성();
 
         // when
-        User actual = userService.save(user);
+        Member actual = memberService.save(member);
 
         // then
         assertThat(actual).isNotNull();
@@ -35,14 +35,14 @@ public class UserServiceTest {
     @ParameterizedTest
     void 주어진_소셜_로그인_아이디로_가입된_회원이_있는지_확인한다(String input, boolean expected) {
         // given
-        String socialLoingId = "already-registered@naver.com";
+        String socialLoginId = "already-registered@naver.com";
         String profileImageUrl = "https://avatars.githubusercontent.com/u/88240193?v=4";
         String displayName = "이민성";
-        User user = new User(socialLoingId, profileImageUrl, displayName, SocialType.KAKAO);
-        userService.save(user);
+        Member member = new Member(socialLoginId, profileImageUrl, displayName, SocialType.KAKAO);
+        memberService.save(member);
 
         // when
-        boolean actual = userService.existsBySocialLoginId(input);
+        boolean actual = memberService.existsBySocialLoginId(input);
 
         // then
         assertThat(actual).isEqualTo(expected);

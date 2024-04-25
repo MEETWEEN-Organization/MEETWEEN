@@ -1,13 +1,13 @@
 package meetween.backend.authentication.service;
 
 import meetween.backend.authentication.infrastructure.client.OAuthClient;
-import meetween.backend.user.domain.SocialType;
-import meetween.backend.user.domain.User;
+import meetween.backend.member.domain.SocialType;
+import meetween.backend.member.domain.Member;
 import meetween.backend.authentication.dto.OAuthMember;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.authentication.infrastructure.properties.OAuthProviderProperties;
 import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
-import meetween.backend.user.service.UserService;
+import meetween.backend.member.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
     private final OAuthProviderProperties providerProperties;
     private final OAuthClient oAuthClient;
-    private final UserService userService;
+    private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
 
     public AuthService(final OAuthProviderProperties providerProperties, final OAuthClient oAuthClient,
-                       final UserService userService, final JwtTokenProvider jwtTokenProvider) {
+                       final MemberService memberService, final JwtTokenProvider jwtTokenProvider) {
         this.providerProperties = providerProperties;
         this.oAuthClient = oAuthClient;
-        this.userService = userService;
+        this.memberService = memberService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -34,23 +34,23 @@ public class AuthService {
     @Transactional
     public TokenResponse generateTokenWithCode(final String code) {
         OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
-        User foundUser = findOrCreateUser(oAuthMember);
+        Member foundUser = findOrCreateUser(oAuthMember);
         String accessToken = jwtTokenProvider.createToken(String.valueOf(foundUser.getId()));  // pk 를 payload 로 지정
         return new TokenResponse(accessToken);
     }
 
-    private User findOrCreateUser(OAuthMember oAuthMember) {
+    private Member findOrCreateUser(OAuthMember oAuthMember) {
         String socialLoginId = oAuthMember.getSocialLoginId();
 
-        if (!userService.existsBySocialLoginId(socialLoginId)) {
-            userService.save(generateUserBy(oAuthMember));
+        if (!memberService.existsBySocialLoginId(socialLoginId)) {
+            memberService.save(generateUserBy(oAuthMember));
         }
-        User foundUser = userService.findBySocialLoginId(socialLoginId);
-        return foundUser;
+        Member foundMember = memberService.findBySocialLoginId(socialLoginId);
+        return foundMember;
     }
 
-    private User generateUserBy(final OAuthMember oAuthMember) {
-        return new User(oAuthMember.getSocialLoginId(),
+    private Member generateUserBy(final OAuthMember oAuthMember) {
+        return new Member(oAuthMember.getSocialLoginId(),
                 oAuthMember.getImageUrl(),
                 oAuthMember.getNickname(),
                 SocialType.KAKAO);

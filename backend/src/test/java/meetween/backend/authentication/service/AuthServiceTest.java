@@ -5,13 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import meetween.backend.config.TestConfig;
 import meetween.backend.authentication.dto.TokenResponse;
-import meetween.backend.user.domain.User;
-import meetween.backend.user.domain.UserRepository;
+import meetween.backend.member.domain.Member;
+import meetween.backend.member.domain.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import meetween.backend.authentication.service.AuthService;
 
 @SpringBootTest(classes = TestConfig.class)
 public class AuthServiceTest {
@@ -19,7 +18,7 @@ public class AuthServiceTest {
     private AuthService authService;
 
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository userRepository;
 
     @DisplayName("카카오 소셜 로그인을 위한 링크를 생성한다.")
     @Test
@@ -69,7 +68,7 @@ public class AuthServiceTest {
 
         // when
         authService.generateTokenWithCode(authorizationCode);
-        List<User> actual = userRepository.findAll();
+        List<Member> actual = userRepository.findAll();
 
         // then
         assertThat(actual).hasSize(1);

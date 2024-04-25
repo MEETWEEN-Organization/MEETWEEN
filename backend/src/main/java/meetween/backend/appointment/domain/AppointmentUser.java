@@ -2,7 +2,7 @@ package meetween.backend.appointment.domain;
 
 import jakarta.persistence.*;
 import meetween.backend.global.entity.BaseEntity;
-import meetween.backend.user.domain.User;
+import meetween.backend.member.domain.Member;
 
 @Entity
 @Table(name = "appointment_and_user")
@@ -19,12 +19,12 @@ public class AppointmentUser extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Member member;
 
     protected AppointmentUser() {}
 
-    public AppointmentUser(final Appointment appointment,final User user) {
+    public AppointmentUser(final Appointment appointment,final Member member) {
         this.appointment = appointment;
-        this.user = user;
+        this.member = member;
     }
 }
