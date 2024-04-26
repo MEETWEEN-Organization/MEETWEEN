@@ -33,14 +33,14 @@ public class MemberAcceptanceTest extends AcceptenceConfig {
 
         // when
         ExtractableResponse<Response> response = 자신의_정보를_조회한다(tokenResponse);
-        MemberResponse userResponse = response.as(MemberResponse.class);
+        MemberResponse memberResponse = response.as(MemberResponse.class);
 
         // then
         assertAll(() -> {
             상태코드_200이_반환된다(response);
-            assertThat(userResponse.getSocialLoginId()).isEqualTo(FAKE_SOCIAL_ID);
-            assertThat(userResponse.getDisplayName()).isEqualTo(FAKE_NAME);
-            assertThat(userResponse.getProfileImageUrl()).isEqualTo(FAKE_IMG_URL);
+            assertThat(memberResponse.getSocialLoginId()).isEqualTo(FAKE_SOCIAL_ID);
+            assertThat(memberResponse.getDisplayName()).isEqualTo(FAKE_NAME);
+            assertThat(memberResponse.getProfileImageUrl()).isEqualTo(FAKE_IMG_URL);
         });
     }
 }
