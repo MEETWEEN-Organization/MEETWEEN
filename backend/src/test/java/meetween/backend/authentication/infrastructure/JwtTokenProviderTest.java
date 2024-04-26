@@ -2,7 +2,7 @@ package meetween.backend.authentication.infrastructure;
 
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.JWT_SECRET_KEY;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.JWT_EXPIRE_LENGTH;
-import static meetween.backend.support.fixture.common.AuthenticationFixtures.jwt_payload;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.JWT_PAYLOAD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -19,7 +19,7 @@ public class JwtTokenProviderTest {
     @Test
     void JWT_토큰을_생성한다() {
         // given, when
-        String actual = jwtTokenProvider.createToken(jwt_payload);
+        String actual = jwtTokenProvider.createToken(JWT_PAYLOAD);
 
         // then
         assertThat(actual.split("\\.")).hasSize(3);
@@ -29,7 +29,7 @@ public class JwtTokenProviderTest {
     @Test
     void JWT_토큰의_Payload를_가져온다() {
         // given
-        String expected = jwt_payload;
+        String expected = JWT_PAYLOAD;
         String token = jwtTokenProvider.createToken(expected);
 
         // when
@@ -44,7 +44,7 @@ public class JwtTokenProviderTest {
     void validateToken_메소드는_만료된_토큰을_전달받으면_예외를_발생시킨다() {
         // given
         JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, 0);
-        String expiredToken = expiredJwtTokenProvider.createToken(jwt_payload);
+        String expiredToken = expiredJwtTokenProvider.createToken(JWT_PAYLOAD);
 
         // when, then
         assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))

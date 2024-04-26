@@ -1,8 +1,10 @@
-package meetween.backend.member.domain;
+package meetween.backend.member.service;
 
 import static meetween.backend.support.fixture.common.UserFixtures.수현_유저_생성;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import meetween.backend.member.domain.Member;
+import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

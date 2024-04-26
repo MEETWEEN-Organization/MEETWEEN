@@ -7,7 +7,7 @@ public class AuthenticationFixtures {
     // jwt
     public static final String JWT_SECRET_KEY = "A".repeat(32);
     public static final int JWT_EXPIRE_LENGTH = 3600;
-    public static final String jwt_payload = "payload";
+    public static final String JWT_PAYLOAD = "payload";
 
     // stub oauth client
     public static final String fake_social_id = "fake_social_id";
