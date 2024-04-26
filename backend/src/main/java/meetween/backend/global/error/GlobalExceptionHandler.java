@@ -44,8 +44,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionResponse> handleInvalidRequestBody() {
-        ExceptionResponse errorResponse = new ExceptionResponse("잘못된 형식의 요청 Body 입니다.");
-        return ResponseEntity.badRequest().body(errorResponse);
+        ExceptionResponse exceptionResponse = new ExceptionResponse("잘못된 형식의 요청 Body 입니다.");
+        return ResponseEntity.badRequest().body(exceptionResponse);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ExceptionResponse> handleNotSupportedMethod() {
+        ExceptionResponse exceptionResponse = new ExceptionResponse("지원되지 않고있는 잘못된 HTTP 메소드 요청입니다.");
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(exceptionResponse);
     }
 
     @ExceptionHandler(Exception.class)
