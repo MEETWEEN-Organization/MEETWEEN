@@ -16,4 +16,11 @@ public class GlobalExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(exception.getMessage());
         return ResponseEntity.badRequest().body(exceptionResponse);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponse> handleUnExpectedException(final Exception exception) {
+        log.error(exception.getMessage(), exception);
+        ExceptionResponse exceptionResponse = new ExceptionResponse("서버에 오류가 발생했습니다.");
+        return ResponseEntity.internalServerError().body(exceptionResponse);
+    }
 }
