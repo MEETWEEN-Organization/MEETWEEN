@@ -1,23 +1,23 @@
 package meetween.backend.acceptance;
 
+import static meetween.backend.support.fixture.acceptance.status.StatusFixtures.상태코드_200이_반환된다;
+import static meetween.backend.support.fixture.acceptance.TokenAcceptanceFixture.자체_토큰을_생성한다;
+import static meetween.backend.support.fixture.acceptance.TokenAcceptanceFixture.OAuth_인증_URI를_생성한다;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import meetween.backend.acceptance.config.AcceptenceConfig;
 import meetween.backend.authentication.dto.OAuthUriResponse;
-import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.config.TestConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 
 @Import(TestConfig.class)
-public class TokenAcceptenceTest extends AcceptenceConfig {
+public class TokenAcceptanceTest extends AcceptenceConfig {
     @DisplayName("카카오 authorization uri 를 생성하고 리턴한다.")
     @Test
     void 카카오_authorization_uri_를_생성하고_리턴한다() {
@@ -51,30 +51,5 @@ public class TokenAcceptenceTest extends AcceptenceConfig {
             상태코드_200이_반환된다(response);
             assertThat(tokenResponse.getAccessToken()).isNotEmpty();
         });
-    }
-
-    private ExtractableResponse<Response> 자체_토큰을_생성한다(final String oauthProvider, final String code) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(new TokenRequest(code))
-                .when().post("/auth/{provider}/token", oauthProvider)
-                .then().log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract();
-    }
-
-
-
-    private static void 상태코드_200이_반환된다(final ExtractableResponse<io.restassured.response.Response> response) {
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
-    }
-
-    private ExtractableResponse<Response> OAuth_인증_URI를_생성한다(final String oauthProvider) {
-        return RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when().get("/auth/{provider}/link", oauthProvider)
-                .then().log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract();
     }
 }

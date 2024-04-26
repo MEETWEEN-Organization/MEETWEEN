@@ -1,4 +1,4 @@
-package meetween.backend.acceptance;
+package meetween.backend.acceptance.config;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
