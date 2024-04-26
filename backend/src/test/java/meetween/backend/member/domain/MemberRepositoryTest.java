@@ -2,14 +2,18 @@ package meetween.backend.member.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import meetween.backend.member.service.MemberService;
+import meetween.backend.global.config.JpaAuditConfig;
 import meetween.backend.support.fixture.UserFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
+@Import(JpaAuditConfig.class)
+@ActiveProfiles("test")
 public class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;

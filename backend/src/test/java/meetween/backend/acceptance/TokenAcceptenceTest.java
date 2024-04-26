@@ -45,6 +45,8 @@ public class TokenAcceptenceTest extends AcceptenceConfig {
                 .extract();
     }
 
+
+
     private static void 상태코드_200이_반환된다(final ExtractableResponse<io.restassured.response.Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
     }
