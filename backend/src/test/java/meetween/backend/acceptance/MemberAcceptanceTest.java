@@ -1,7 +1,10 @@
 package meetween.backend.acceptance;
 
-import static meetween.backend.support.fixture.common.AuthenticationFixtures.authorizationCode;
-import static meetween.backend.support.fixture.common.AuthenticationFixtures.kakaoOAuthProvider;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.AUTHORIZATION_CODE;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.KAKAO_OAUTH_PROVIDER;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.FAKE_SOCIAL_ID;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.FAKE_NAME;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.FAKE_IMG_URL;
 import static meetween.backend.support.fixture.acceptance.MemberAcceptanceFixture.자체_토큰을_생성하고_리턴한다;
 import static meetween.backend.support.fixture.acceptance.MemberAcceptanceFixture.자신의_정보를_조회한다;
 import static meetween.backend.support.fixture.acceptance.status.StatusFixtures.상태코드_200이_반환된다;
@@ -26,7 +29,7 @@ public class MemberAcceptanceTest extends AcceptenceConfig {
     @Test
     void 등록된_회원이_회원_정보를_조회하면_상태코드_200을_리턴한다() {
         // given
-        TokenResponse tokenResponse = 자체_토큰을_생성하고_리턴한다(kakaoOAuthProvider, authorizationCode);
+        TokenResponse tokenResponse = 자체_토큰을_생성하고_리턴한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
 
         // when
         ExtractableResponse<Response> response = 자신의_정보를_조회한다(tokenResponse);
@@ -35,9 +38,9 @@ public class MemberAcceptanceTest extends AcceptenceConfig {
         // then
         assertAll(() -> {
             상태코드_200이_반환된다(response);
-            assertThat(userResponse.getSocialLoginId()).isEqualTo("fake_social_id");
-            assertThat(userResponse.getDisplayName()).isEqualTo("fake_name");
-            assertThat(userResponse.getProfileImageUrl()).isEqualTo("fake_img_url");
+            assertThat(userResponse.getSocialLoginId()).isEqualTo(FAKE_SOCIAL_ID);
+            assertThat(userResponse.getDisplayName()).isEqualTo(FAKE_NAME);
+            assertThat(userResponse.getProfileImageUrl()).isEqualTo(FAKE_IMG_URL);
         });
     }
 }

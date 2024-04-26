@@ -1,7 +1,7 @@
 package meetween.backend.acceptance;
 
-import static meetween.backend.support.fixture.common.AuthenticationFixtures.authorizationCode;
-import static meetween.backend.support.fixture.common.AuthenticationFixtures.kakaoOAuthProvider;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.AUTHORIZATION_CODE;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.KAKAO_OAUTH_PROVIDER;
 import static meetween.backend.support.fixture.acceptance.status.StatusFixtures.상태코드_200이_반환된다;
 import static meetween.backend.support.fixture.acceptance.TokenAcceptanceFixture.자체_토큰을_생성한다;
 import static meetween.backend.support.fixture.acceptance.TokenAcceptanceFixture.OAuth_인증_URI를_생성한다;
@@ -24,7 +24,7 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
     @Test
     void 카카오_authorization_uri_를_생성하고_리턴한다() {
         // given, when
-        ExtractableResponse<Response> response = OAuth_인증_URI를_생성한다(kakaoOAuthProvider);
+        ExtractableResponse<Response> response = OAuth_인증_URI를_생성한다(KAKAO_OAUTH_PROVIDER);
         OAuthUriResponse oAuthUriResponse = response.as(OAuthUriResponse.class);
 
         // then
@@ -38,7 +38,7 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
     @Test
     void 최초_사용자거나_기존에_존재하는_회원인_경우_200을_발급한다() {
         // given, when
-        ExtractableResponse<Response> response = 자체_토큰을_생성한다(kakaoOAuthProvider, authorizationCode);
+        ExtractableResponse<Response> response = 자체_토큰을_생성한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
         TokenResponse tokenResponse = response.as(TokenResponse.class);
 
         // then
