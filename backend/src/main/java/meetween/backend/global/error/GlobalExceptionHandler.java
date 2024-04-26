@@ -1,19 +1,42 @@
 package meetween.backend.global.error;
 
+import java.util.Objects;
+import meetween.backend.member.exception.InvalidMemberException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionResponse> handleRuntimeException(final RuntimeException exception) {
+    @ExceptionHandler({InvalidMemberException.class})
+    public ResponseEntity<ExceptionResponse> handleRuntimeException(final InvalidMemberException exception) {
         log.error(exception.getMessage(), exception);
         ExceptionResponse exceptionResponse = new ExceptionResponse(exception.getMessage());
+        return ResponseEntity.badRequest().body(exceptionResponse);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            final MethodArgumentNotValidException exception,
+            final HttpHeaders headers,
+            final HttpStatusCode status,
+            final WebRequest request
+    ) {
+        log.error(exception.getMessage(), exception);
+
+        final String errorMessage = Objects.requireNonNull(exception.getBindingResult().getFieldError()).getDefaultMessage();
+        ExceptionResponse exceptionResponse = new ExceptionResponse(errorMessage);
         return ResponseEntity.badRequest().body(exceptionResponse);
     }
 
