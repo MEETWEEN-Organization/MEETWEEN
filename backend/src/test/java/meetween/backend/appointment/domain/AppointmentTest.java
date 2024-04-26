@@ -2,7 +2,7 @@ package meetween.backend.appointment.domain;
 
 import meetween.backend.appointment.exception.InvalidAppointmentException;
 import meetween.backend.category.domain.Category;
-import meetween.backend.support.fixture.CategoryFixtures;
+import meetween.backend.support.fixture.common.CategoryFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

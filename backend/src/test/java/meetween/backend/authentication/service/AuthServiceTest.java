@@ -1,5 +1,7 @@
 package meetween.backend.authentication.service;
 
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.authorizationCode;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.fake_social_id;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -33,11 +35,8 @@ public class AuthServiceTest {
     @DisplayName("토큰 생성을 하면 OAuth 서버에서 인증 후 토큰을 반환한다.")
     @Test
     void 토큰_생성을_하면_OAuth_서버에서_인증_후_토큰을_반환한다() {
-        // given
-        String code = "authorization code";
-
-        // when
-        TokenResponse tokenResponse = authService.generateTokenWithCode(code);
+        // given, when
+        TokenResponse tokenResponse = authService.generateTokenWithCode(authorizationCode);
 
         // then
         assertThat(tokenResponse.getAccessToken()).isNotEmpty();
@@ -48,12 +47,11 @@ public class AuthServiceTest {
     @Test
     void authorization_code를_받으면_회원이_데이터베이스에_저장된다() {
         // given
-        String authorizationCode = "authorization_code";
         authService.generateTokenWithCode(authorizationCode);
 
         // when
         // actual = StubOAuthClient 가 반환하는 socialLoginId
-        boolean actual = userRepository.existsBySocialLoginId("fake_social_id");
+        boolean actual = userRepository.existsBySocialLoginId(fake_social_id);
 
         // then
         assertThat(actual).isTrue();
@@ -63,11 +61,9 @@ public class AuthServiceTest {
     @Test
     void 이미_가입된_회원에_대한_authorization_code를_전달_받으면_추가로_회원이_데이터베이스에_생성되지_않는다() {
         // given
-        String authorizationCode = "authorization_code";
         authService.generateTokenWithCode(authorizationCode);
 
         // when
-        authService.generateTokenWithCode(authorizationCode);
         List<Member> actual = userRepository.findAll();
 
         // then

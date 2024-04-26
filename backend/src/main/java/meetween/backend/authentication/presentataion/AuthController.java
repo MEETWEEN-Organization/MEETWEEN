@@ -23,8 +23,7 @@ public class AuthController {
     }
 
     @GetMapping("/{provider}/link")
-    public ResponseEntity<OAuthUriResponse> generateUri(@PathVariable final String provider,
-                                                         @RequestParam final String redirectUri) {
+    public ResponseEntity<OAuthUriResponse> generateUri(@PathVariable final String provider) {
         return ResponseEntity.ok(new OAuthUriResponse(authService.getSocialLink()));
     }
 

@@ -1,7 +1,6 @@
-package meetween.backend.support.fixture;
+package meetween.backend.support.fixture.common;
 
 import meetween.backend.appointment.domain.Appointment;
-import meetween.backend.category.domain.Category;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

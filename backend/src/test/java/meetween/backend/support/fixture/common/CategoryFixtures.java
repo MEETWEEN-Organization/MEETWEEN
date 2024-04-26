@@ -1,4 +1,4 @@
-package meetween.backend.support.fixture;
+package meetween.backend.support.fixture.common;
 
 import meetween.backend.category.domain.Category;
 import meetween.backend.category.domain.CategoryColor;
