@@ -1,5 +1,7 @@
 package meetween.backend.acceptance;
 
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.authorizationCode;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.kakaoOAuthProvider;
 import static meetween.backend.support.fixture.acceptance.MemberAcceptanceFixture.자체_토큰을_생성하고_리턴한다;
 import static meetween.backend.support.fixture.acceptance.MemberAcceptanceFixture.자신의_정보를_조회한다;
 import static meetween.backend.support.fixture.acceptance.status.StatusFixtures.상태코드_200이_반환된다;
@@ -24,10 +26,7 @@ public class MemberAcceptanceTest extends AcceptenceConfig {
     @Test
     void 등록된_회원이_회원_정보를_조회하면_상태코드_200을_리턴한다() {
         // given
-        String oauthProvider = "kakao";
-        String authorizationCode = "member authorization code";
-
-        TokenResponse tokenResponse = 자체_토큰을_생성하고_리턴한다(oauthProvider, authorizationCode);
+        TokenResponse tokenResponse = 자체_토큰을_생성하고_리턴한다(kakaoOAuthProvider, authorizationCode);
 
         // when
         ExtractableResponse<Response> response = 자신의_정보를_조회한다(tokenResponse);
