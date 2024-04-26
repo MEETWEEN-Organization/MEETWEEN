@@ -7,6 +7,7 @@ import meetween.backend.global.entity.BaseEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "appointment")
@@ -37,9 +38,11 @@ public class Appointment extends BaseEntity {
     @Column(name = "member_count", nullable = false)
     private Long memberCount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "category_id", nullable = false)
+    @OneToOne(mappedBy = "appointment")
     private Category category;
+
+    @OneToMany(mappedBy = "appointment")
+    private List<AppointmentUser> appointmentUsers;
 
     protected Appointment() {}
 
@@ -74,5 +77,37 @@ public class Appointment extends BaseEntity {
         if (memberCount < 2) {
             throw new InvalidAppointmentException("최소 2명 이상이 약속에 필요합니다.");
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDateTime getAppointmentDateTime() {
+        return appointmentDateTime;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public Long getInviteCode() {
+        return inviteCode;
+    }
+
+    public Long getMemberCount() {
+        return memberCount;
     }
 }
