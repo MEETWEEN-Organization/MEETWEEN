@@ -5,8 +5,6 @@ import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.category.exception.InvalidCategoryException;
 import meetween.backend.global.entity.BaseEntity;
 
-import java.util.List;
-
 @Entity
 @Table(name = "category")
 public class Category extends BaseEntity {
