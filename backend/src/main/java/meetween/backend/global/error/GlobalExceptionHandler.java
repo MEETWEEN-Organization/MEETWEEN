@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    // TODO: RuntimeException 에 대한 애플리케이션 커스텀 클래스 세부 예외처리
     @ExceptionHandler({RuntimeException.class})
     public ResponseEntity<ExceptionResponse> handleRuntimeException(final RuntimeException exception) {
         log.error(exception.getMessage(), exception);
