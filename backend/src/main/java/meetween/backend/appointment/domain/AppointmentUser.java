@@ -27,4 +27,8 @@ public class AppointmentUser extends BaseEntity {
         this.appointment = appointment;
         this.user = user;
     }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
 }
