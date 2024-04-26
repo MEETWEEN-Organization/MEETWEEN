@@ -21,8 +21,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler({InvalidMemberException.class})
-    public ResponseEntity<ExceptionResponse> handleRuntimeException(final InvalidMemberException exception) {
+    @ExceptionHandler({RuntimeException.class})
+    public ResponseEntity<ExceptionResponse> handleRuntimeException(final RuntimeException exception) {
         log.error(exception.getMessage(), exception);
         ExceptionResponse exceptionResponse = new ExceptionResponse(exception.getMessage());
         return ResponseEntity.badRequest().body(exceptionResponse);
@@ -52,6 +52,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleNotSupportedMethod() {
         ExceptionResponse exceptionResponse = new ExceptionResponse("지원되지 않고있는 잘못된 HTTP 메소드 요청입니다.");
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ExceptionResponse> handleTypeMismatch() {
+        ExceptionResponse exceptionResponse = new ExceptionResponse("잘못된 데이터 형식입니다.");
+        return ResponseEntity.badRequest().body(exceptionResponse);
     }
 
     @ExceptionHandler(Exception.class)
