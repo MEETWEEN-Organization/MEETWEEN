@@ -30,13 +30,14 @@ public class AppointmentCreateRequest {
     @NotBlank(message = "공백일 수 없습니다")
     private String categoryColor;
 
-    public AppointmentCreateRequest(final String title, final LocalDateTime appointmentDateTime, final BigDecimal latitude, final BigDecimal longitude, final Long memberCount, final String categoryName) {
+    public AppointmentCreateRequest(final String title, final LocalDateTime appointmentDateTime, final BigDecimal latitude, final BigDecimal longitude, final Long memberCount, final String categoryName, final String categoryColor) {
         this.title = title;
         this.appointmentDateTime = appointmentDateTime;
         this.latitude = latitude;
         this.longitude = longitude;
         this.memberCount = memberCount;
         this.categoryName = categoryName;
+        this.categoryColor = categoryColor;
     }
 
     public Appointment toEntity(Category category) {
