@@ -15,8 +15,8 @@ public class KakaoProviderProperties implements OAuthProviderProperties {
     private final List<String> scopes = List.of("name", "profile_nickname", "profile_image");
 
     public KakaoProviderProperties(@Value("${oauth.kakao.authorize_uri}") final String authorizationUri,
-                                   @Value("${oauth.kakao}") final String clientId,
-                                   @Value("${oauth.kakao}") final String redirectUri){
+                                   @Value("${oauth.kakao.client_id}") final String clientId,
+                                   @Value("${oauth.kakao.redirect_uri}") final String redirectUri){
         this.authorizationUri = authorizationUri;
         this.clientId = clientId;
         this.redirectUri = redirectUri;
