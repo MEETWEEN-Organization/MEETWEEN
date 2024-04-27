@@ -1,25 +1,25 @@
-package meetween.backend.user.dto;
+package meetween.backend.member.dto;
 
 
-import meetween.backend.user.domain.User;
+import meetween.backend.member.domain.Member;
 
-public class UserResponse {
+public class MemberResponse {
     private Long id;
     private String socialLoginId;;
     private String profileImageUrl;
     private String displayName;
 
-    private UserResponse() {}
+    private MemberResponse() {}
 
-    public UserResponse(final Long id, final String socialLoginId, final String profileImageUrl, final String displayName) {
+    public MemberResponse(final Long id, final String socialLoginId, final String profileImageUrl, final String displayName) {
         this.id = id;
         this.socialLoginId = socialLoginId;
         this.profileImageUrl = profileImageUrl;
         this.displayName = displayName;
     }
 
-    public UserResponse(final User user) {
-        this(user.getId(), user.getSocialLoginId(), user.getProfileImageUrl(), user.getDisplayName());
+    public MemberResponse(final Member member) {
+        this(member.getId(), member.getSocialLoginId(), member.getProfileImageUrl(), member.getDisplayName());
     }
 
     public Long getId() {

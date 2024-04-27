@@ -1,12 +1,19 @@
 package meetween.backend.appointment.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import meetween.backend.appointment.exception.InvalidAppointmentException;
 import meetween.backend.category.domain.Category;
 import meetween.backend.global.entity.BaseEntity;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointment")
@@ -38,7 +45,7 @@ public class Appointment extends BaseEntity {
     private Long memberCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     protected Appointment() {}

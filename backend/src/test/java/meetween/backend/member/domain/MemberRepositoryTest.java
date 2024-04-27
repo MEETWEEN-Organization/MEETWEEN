@@ -1,17 +1,22 @@
-package meetween.backend.user.domain;
+package meetween.backend.member.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import meetween.backend.global.config.JpaAuditConfig;
 import meetween.backend.support.fixture.UserFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
-public class UserRepositoryTest {
+@Import(JpaAuditConfig.class)
+@ActiveProfiles("test")
+public class MemberRepositoryTest {
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
     @DisplayName("중복된 로그인 아이디가 존재하는 경우 참을 리턴한다.")
     @Test
@@ -20,11 +25,11 @@ public class UserRepositoryTest {
         String socialLoginId = "msung99";
         String profileImageUrl = "/image.png";
         String displayName = "haon";
-        User member = new User(socialLoginId, profileImageUrl, displayName, SocialType.KAKAO);
-        userRepository.save(member);
+        Member member = new Member(socialLoginId, profileImageUrl, displayName, SocialType.KAKAO);
+        memberRepository.save(member);
 
         // when
-        boolean actual = userRepository.existsBySocialLoginId(socialLoginId);
+        boolean actual = memberRepository.existsBySocialLoginId(socialLoginId);
 
         // then
         assertThat(actual).isTrue();
@@ -34,14 +39,14 @@ public class UserRepositoryTest {
     @Test
     void 소셜_로그인_아이디를_통해_회원을_찾는다() {
         // given
-        User memoryUser = UserFixtures.수현_유저_생성();
-        User savedUser = userRepository.save(memoryUser);
+        Member memoryMember = UserFixtures.수현_유저_생성();
+        Member savedMember = memberRepository.save(memoryMember);
 
         // when
-        String socialLoginId = memoryUser.getSocialLoginId();
-        User foundUser = userRepository.findBySocialLoginId(socialLoginId).get();
+        String socialLoginId = memoryMember.getSocialLoginId();
+        Member foundMember = memberRepository.findBySocialLoginId(socialLoginId).get();
 
         // then
-        assertThat(savedUser.getId()).isEqualTo(foundUser.getId());
+        assertThat(savedMember.getId()).isEqualTo(foundMember.getId());
     }
 }

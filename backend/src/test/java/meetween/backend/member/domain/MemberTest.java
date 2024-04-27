@@ -1,4 +1,4 @@
-package meetween.backend.user.domain;
+package meetween.backend.member.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -7,9 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import meetween.backend.user.exception.InvalidUserException;
+import meetween.backend.member.exception.InvalidMemberException;
 
-public class UserTest {
+public class MemberTest {
     @DisplayName("회원을 생성한다.")
     @Test
     void 회원을_생성한다() {
@@ -20,7 +20,7 @@ public class UserTest {
         SocialType socialType = SocialType.KAKAO;
 
         // when, then
-        assertDoesNotThrow(() -> new User(socialLoginId, profileImageUrl, displayName, socialType));
+        assertDoesNotThrow(() -> new Member(socialLoginId, profileImageUrl, displayName, socialType));
     }
 
     @DisplayName("회원의 이름이 10자 이상인 경우 예외가 발생한다.")
@@ -33,8 +33,8 @@ public class UserTest {
         SocialType socialType = SocialType.KAKAO;
 
         // when & then
-        assertThatThrownBy(() -> new User(socialLoginId, profileImageUrl, displayName, socialType))
-                .isInstanceOf(InvalidUserException.class)
+        assertThatThrownBy(() -> new Member(socialLoginId, profileImageUrl, displayName, socialType))
+                .isInstanceOf(InvalidMemberException.class)
                 .hasMessage("이름 형식이 올바르지 않습니다.");
     }
 }
