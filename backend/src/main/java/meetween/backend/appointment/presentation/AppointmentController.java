@@ -7,9 +7,11 @@ import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.service.AppointmentService;
 import meetween.backend.authentication.dto.LoginUser;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
-import meetween.backend.user.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
@@ -19,7 +21,7 @@ public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
-    public AppointmentController(final AppointmentService appointmentService, final UserService userService) {
+    public AppointmentController(final AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
 
