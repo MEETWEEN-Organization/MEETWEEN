@@ -1,33 +1,34 @@
 package meetween.backend.appointment.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.category.domain.Category;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class AppointmentCreateRequest {
 
-    @NotBlank(message = "공백일 수 없습니다")
+    @NotNull(message = "Null일 수 없습니다.")
     private String title;
 
-    @NotBlank(message = "공백일 수 없습니다")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime appointmentDateTime;
 
-    @NotBlank(message = "공백일 수 없습니다")
+    @NotNull(message = "Null일 수 없습니다.")
     private BigDecimal latitude;
 
-    @NotBlank(message = "공백일 수 없습니다")
+    @NotNull(message = "Null일 수 없습니다.")
     private BigDecimal longitude;
 
-    @NotBlank(message = "공백일 수 없습니다")
+    @NotNull(message = "Null일 수 없습니다.")
     private Long memberCount;
 
-    @NotBlank(message = "공백일 수 없습니다")
+    @NotNull(message = "Null일 수 없습니다.")
     private String categoryName;
 
-    @NotBlank(message = "공백일 수 없습니다")
+    @NotNull(message = "Null일 수 없습니다.")
     private String categoryColor;
 
     public AppointmentCreateRequest(final String title, final LocalDateTime appointmentDateTime, final BigDecimal latitude, final BigDecimal longitude, final Long memberCount, final String categoryName, final String categoryColor) {
@@ -50,5 +51,25 @@ public class AppointmentCreateRequest {
 
     public String getCategoryColor() {
         return categoryColor;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDateTime getAppointmentDateTime() {
+        return appointmentDateTime;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public Long getMemberCount() {
+        return memberCount;
     }
 }
