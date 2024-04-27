@@ -34,7 +34,7 @@ public class UserRepositoryTest {
     @Test
     void 소셜_로그인_아이디를_통해_회원을_찾는다() {
         // given
-        User memoryUser = UserFixtures.수현_유저_생성();
+        User memoryUser = UserFixtures.수현_유저();
         User savedUser = userRepository.save(memoryUser);
 
         // when

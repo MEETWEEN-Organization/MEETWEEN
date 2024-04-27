@@ -21,7 +21,7 @@ public class UserServiceTest {
     @Test
     void 회원을_저장한다() {
         // given
-        User user = UserFixtures.수현_유저_생성();
+        User user = UserFixtures.수현_유저();
 
         // when
         User actual = userService.save(user);
