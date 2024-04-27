@@ -1,7 +1,7 @@
 package meetween.backend.appointment.domain;
 
-import meetween.backend.support.fixture.AppointmentFixtures;
-import meetween.backend.support.fixture.UserFixtures;
+import meetween.backend.support.fixture.common.AppointmentFixtures;
+import meetween.backend.support.fixture.common.UserFixtures;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
