@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.service.AppointmentService;
-import meetween.backend.authentication.dto.LoginUser;
+import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +26,9 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentResponse> save(@AuthPrincipal LoginUser loginUser,
+    public ResponseEntity<AppointmentResponse> save(@AuthPrincipal LoginMember loginMember,
                                                     @Valid @RequestBody final AppointmentCreateRequest request) {
-        AppointmentResponse appointmentResponse = appointmentService.save(loginUser.getId(), request);
+        AppointmentResponse appointmentResponse = appointmentService.save(loginMember.getId(), request);
         return ResponseEntity.created(URI.create("/appointment/" + appointmentResponse.getId())).body(appointmentResponse);
     }
 }
