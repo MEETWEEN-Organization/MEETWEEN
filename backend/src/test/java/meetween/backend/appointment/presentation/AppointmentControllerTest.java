@@ -5,8 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-import static meetween.backend.support.fixture.AppointmentFixtures.수현_약속_요청;
-import static meetween.backend.support.fixture.AppointmentFixtures.수현_약속_응답;
+import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속_요청;
+import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속_응답;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

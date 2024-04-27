@@ -7,7 +7,7 @@ import meetween.backend.appointment.dto.response.AppointmentResponse;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static meetween.backend.support.fixture.CategoryFixtures.*;
+import static meetween.backend.support.fixture.common.CategoryFixtures.*;
 
 public class AppointmentFixtures {
 

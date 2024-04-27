@@ -1,17 +1,16 @@
 package meetween.backend.member.domain;
 
-import static meetween.backend.support.fixture.common.UserFixtures.수현_유저_생성;
-import static meetween.backend.support.fixture.common.UserFixtures.수현_아이디;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import meetween.backend.global.config.JpaAuditConfig;
-import meetween.backend.support.fixture.common.UserFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+
+import static meetween.backend.support.fixture.common.MemberFixtures.수현_아이디;
+import static meetween.backend.support.fixture.common.MemberFixtures.수현_유저;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Import(JpaAuditConfig.class)
@@ -24,7 +23,7 @@ public class MemberRepositoryTest {
     @Test
     void 중복된_이메일이_존재하는_경우_참을_리턴한다() {
         // given
-        Member member = 수현_유저_생성();
+        Member member = 수현_유저();
         memberRepository.save(member);
 
         // when
@@ -38,7 +37,7 @@ public class MemberRepositoryTest {
     @Test
     void 소셜_로그인_아이디를_통해_회원을_찾는다() {
         // given
-        Member 수현_DB = memberRepository.save(수현_유저_생성());
+        Member 수현_DB = memberRepository.save(수현_유저());
 
         // when
         Member foundMember = memberRepository.findBySocialLoginId(수현_아이디).get();

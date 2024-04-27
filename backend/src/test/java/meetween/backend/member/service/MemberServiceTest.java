@@ -1,17 +1,16 @@
 package meetween.backend.member.service;
 
-import static meetween.backend.support.fixture.common.UserFixtures.수현_유저_생성;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.SocialType;
-import meetween.backend.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static meetween.backend.support.fixture.common.MemberFixtures.수현_유저;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class MemberServiceTest {
@@ -22,8 +21,7 @@ public class MemberServiceTest {
     @Test
     void 회원을_저장한다() {
         // given
-        User user = UserFixtures.수현_유저();
-        Member member = 수현_유저_생성();
+        Member member = 수현_유저();
 
         // when
         Member actual = memberService.save(member);
