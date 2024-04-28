@@ -44,7 +44,7 @@ class AppointmentServiceTest {
     private CategoryRepository categoryRepository;
 
     @Mock
-    private MemberRepository userRepository;
+    private MemberRepository memberRepository;
 
     @Mock
     private AppointmentUserRepository appointmentUserRepository;
@@ -61,7 +61,7 @@ class AppointmentServiceTest {
     @Test
     void 약속을_생성한다() {
         // given
-        given(userRepository.getById(anyLong()))
+        given(memberRepository.getById(anyLong()))
                 .willReturn(mockMember);
         given(categoryRepository.save(any(Category.class)))
                 .willReturn(스터디_카테고리());
