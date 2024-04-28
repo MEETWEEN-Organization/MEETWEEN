@@ -1,6 +1,7 @@
 package meetween.backend.category.domain;
 
 import jakarta.persistence.*;
+import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.category.exception.InvalidCategoryException;
 import meetween.backend.global.entity.BaseEntity;
 
@@ -22,6 +23,10 @@ public class Category extends BaseEntity {
     @Column(name = "category_color", nullable = false)
     private CategoryColor categoryColor;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "appointment_id", nullable = false)
+    private Appointment appointment;
+
     protected Category() {}
 
     public Category(final String name, final CategoryColor categoryColor) {
@@ -34,5 +39,9 @@ public class Category extends BaseEntity {
         if (name.length() > MAX_NAME_LENGTH) {
             throw new InvalidCategoryException(String.format("카테고리 이름의 길이는 %d을 초과할 수 없습니다.", MAX_NAME_LENGTH));
         }
+    }
+
+    public Long getId() {
+        return id;
     }
 }

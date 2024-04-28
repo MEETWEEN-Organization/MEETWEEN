@@ -1,19 +1,12 @@
 package meetween.backend.appointment.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import meetween.backend.appointment.exception.InvalidAppointmentException;
 import meetween.backend.category.domain.Category;
 import meetween.backend.global.entity.BaseEntity;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointment")
@@ -44,8 +37,7 @@ public class Appointment extends BaseEntity {
     @Column(name = "member_count", nullable = false)
     private Long memberCount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @OneToOne(mappedBy = "appointment")
     private Category category;
 
     protected Appointment() {}
@@ -81,5 +73,37 @@ public class Appointment extends BaseEntity {
         if (memberCount < 2) {
             throw new InvalidAppointmentException("최소 2명 이상이 약속에 필요합니다.");
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDateTime getAppointmentDateTime() {
+        return appointmentDateTime;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public Long getInviteCode() {
+        return inviteCode;
+    }
+
+    public Long getMemberCount() {
+        return memberCount;
     }
 }

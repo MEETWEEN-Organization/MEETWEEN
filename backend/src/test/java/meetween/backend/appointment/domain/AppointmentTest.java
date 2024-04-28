@@ -20,7 +20,7 @@ public class AppointmentTest {
         // given
         String title = "수현의 약속";
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리_생성();
+        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
@@ -35,7 +35,7 @@ public class AppointmentTest {
         //given
         String title = "수현의 약속의 약속의 약속의 약속의 약속의 약속";
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리_생성();
+        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
@@ -51,7 +51,7 @@ public class AppointmentTest {
         //given
         String title = "수현의 약속";
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리_생성();
+        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
@@ -68,7 +68,7 @@ public class AppointmentTest {
         String title = "수현의 약속";
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
         Long memberCount = 11L;
-        Category category = CategoryFixtures.스터디_카테고리_생성();
+        Category category = CategoryFixtures.스터디_카테고리();
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 

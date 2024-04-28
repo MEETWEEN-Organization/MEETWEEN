@@ -1,5 +1,7 @@
 package meetween.backend.category.domain;
 
+import meetween.backend.category.exception.InvalidCategoryColorException;
+
 public enum CategoryColor {
     _B33434("#B33434"),
     _C47243("#C47243"),
@@ -16,7 +18,12 @@ public enum CategoryColor {
         this.colorCode = colorCode;
     }
 
-    public String getColorCode() {
-        return colorCode;
+    public static CategoryColor getCategoryColor(String colorCode) {
+        for (CategoryColor categoryColor : CategoryColor.values()) {
+            if (categoryColor.colorCode.equals(colorCode)) {
+                return categoryColor;
+            }
+        }
+        throw new InvalidCategoryColorException();
     }
 }

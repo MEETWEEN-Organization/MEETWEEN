@@ -20,7 +20,7 @@ public class AuthServiceTest {
     private AuthService authService;
 
     @Autowired
-    private MemberRepository userRepository;
+    private MemberRepository memberRepository;
 
     @DisplayName("카카오 소셜 로그인을 위한 링크를 생성한다.")
     @Test
@@ -51,7 +51,7 @@ public class AuthServiceTest {
 
         // when
         // actual = StubOAuthClient 가 반환하는 socialLoginId
-        boolean actual = userRepository.existsBySocialLoginId(FAKE_SOCIAL_ID);
+        boolean actual = memberRepository.existsBySocialLoginId(FAKE_SOCIAL_ID);
 
         // then
         assertThat(actual).isTrue();
@@ -64,7 +64,7 @@ public class AuthServiceTest {
         authService.generateTokenWithCode(AUTHORIZATION_CODE);
 
         // when
-        List<Member> actual = userRepository.findAll();
+        List<Member> actual = memberRepository.findAll();
 
         // then
         assertThat(actual).hasSize(1);

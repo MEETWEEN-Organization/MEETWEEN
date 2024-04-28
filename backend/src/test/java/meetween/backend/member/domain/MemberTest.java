@@ -1,8 +1,8 @@
 package meetween.backend.member.domain;
 
-import static meetween.backend.support.fixture.common.UserFixtures.수현_아이디;
-import static meetween.backend.support.fixture.common.UserFixtures.수현_이름;
-import static meetween.backend.support.fixture.common.UserFixtures.수현_프로필_이미지;
+import static meetween.backend.support.fixture.common.MemberFixtures.수현_아이디;
+import static meetween.backend.support.fixture.common.MemberFixtures.수현_이름;
+import static meetween.backend.support.fixture.common.MemberFixtures.수현_프로필_이미지;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
