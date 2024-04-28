@@ -18,7 +18,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // TODO: RuntimeException 에 대한 애플리케이션 커스텀 클래스 세부 예외처리
@@ -26,20 +26,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleRuntimeException(final RuntimeException exception) {
         log.error(exception.getMessage(), exception);
         ExceptionResponse exceptionResponse = new ExceptionResponse(exception.getMessage());
-        return ResponseEntity.badRequest().body(exceptionResponse);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            final MethodArgumentNotValidException exception,
-            final HttpHeaders headers,
-            final HttpStatusCode status,
-            final WebRequest request
-    ) {
-        log.error(exception.getMessage(), exception);
-
-        final String errorMessage = Objects.requireNonNull(exception.getBindingResult().getFieldError()).getDefaultMessage();
-        ExceptionResponse exceptionResponse = new ExceptionResponse(errorMessage);
         return ResponseEntity.badRequest().body(exceptionResponse);
     }
 
