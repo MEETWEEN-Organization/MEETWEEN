@@ -16,7 +16,7 @@ public class AppointmentResponse {
     private final Long inviteCode;
     private final Long memberCount;
 
-    public AppointmentResponse(Appointment appointment) {
+    public AppointmentResponse(final Appointment appointment) {
         this.id = appointment.getId();
         this.categoryId = appointment.getCategory().getId();
         this.title = appointment.getTitle();
