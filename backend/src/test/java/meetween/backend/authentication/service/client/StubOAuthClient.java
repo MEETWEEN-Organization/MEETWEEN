@@ -1,8 +1,7 @@
 package meetween.backend.authentication.service.client;
 
-import meetween.backend.authentication.domain.OAuthMember;
-import meetween.backend.authentication.infrastructure.client.OAuthClient;
-import meetween.backend.authentication.domain.KakaoOAuthMember;
+import meetween.backend.authentication.domain.client.OAuthClient;
+import meetween.backend.authentication.domain.oauthmember.KakaoOAuthMember;
 
 public class StubOAuthClient implements OAuthClient {
     @Override

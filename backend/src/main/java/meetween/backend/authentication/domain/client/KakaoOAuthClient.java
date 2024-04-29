@@ -1,11 +1,11 @@
-package meetween.backend.authentication.infrastructure.client;
+package meetween.backend.authentication.domain.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import meetween.backend.authentication.domain.OAuthAccessToken;
-import meetween.backend.authentication.domain.KakaoOAuthMember;
+import meetween.backend.authentication.domain.token.OAuthAccessToken;
+import meetween.backend.authentication.domain.oauthmember.KakaoOAuthMember;
 import meetween.backend.authentication.exception.InvalidOAuthServiceException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 // 카카오 소설 계정 사용자
 @Component
 public class KakaoOAuthClient implements OAuthClient {
-    private static final String DELIMITER = "\\.";
+    private static final String KAKAO = "kakao";
     private final String grantType = "authorization_code";
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -47,6 +47,11 @@ public class KakaoOAuthClient implements OAuthClient {
         this.clientSecret = clientSecret;
         this.tokenUri = tokenUri;
         this.userUri = userUri;
+    }
+
+    @Override
+    public boolean isSame(String provider) {
+        return KAKAO.equals(provider);
     }
 
     @Override

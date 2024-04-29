@@ -1,10 +1,10 @@
 package meetween.backend.authentication.service;
 
-import meetween.backend.authentication.domain.OAuthMember;
-import meetween.backend.authentication.infrastructure.client.OAuthClient;
+import meetween.backend.authentication.domain.client.OAuthClientProvider;
+import meetween.backend.authentication.domain.oauthmember.OAuthMember;
+import meetween.backend.authentication.domain.client.OAuthClient;
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
-import meetween.backend.authentication.domain.KakaoOAuthMember;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.authentication.infrastructure.uri.OAuthUriProvider;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
@@ -15,20 +15,26 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class AuthService {
+    private final OAuthClientProvider oAuthClientProvider;
     private final OAuthUriProvider oAuthUriProvider;
     private final OAuthClient oAuthClient;
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthService(final OAuthUriProvider oAuthUriProvider, final OAuthClient oAuthClient,
-                       final MemberService memberService, final JwtTokenProvider jwtTokenProvider) {
+    public AuthService(
+            final OAuthClientProvider oAuthClientProvider,
+            final OAuthUriProvider oAuthUriProvider,
+            final OAuthClient oAuthClient,
+            final MemberService memberService,
+            final JwtTokenProvider jwtTokenProvider) {
+        this.oAuthClientProvider = oAuthClientProvider;
         this.oAuthUriProvider = oAuthUriProvider;
         this.oAuthClient = oAuthClient;
         this.memberService = memberService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public String getSocialLink() {
+    public String getSocialLink(String provider) {
         return oAuthUriProvider.generate();
     }
 

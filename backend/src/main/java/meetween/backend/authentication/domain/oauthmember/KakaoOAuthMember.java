@@ -1,4 +1,4 @@
-package meetween.backend.authentication.domain;
+package meetween.backend.authentication.domain.oauthmember;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
