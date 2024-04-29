@@ -34,9 +34,9 @@ public class AuthService {
 
     @Transactional
     public TokenResponse generateTokenWithCode(final String code) {
-        OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
-        Member foundUser = findOrCreateUser(oAuthMember);
-        String accessToken = jwtTokenProvider.createToken(String.valueOf(foundUser.getId()));  // pk 를 payload 로 지정
+        final OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
+        final Member foundUser = findOrCreateUser(oAuthMember);
+        final String accessToken = jwtTokenProvider.createToken(String.valueOf(foundUser.getId()));  // pk 를 payload 로 지정
         return new TokenResponse(accessToken);
     }
 
@@ -46,7 +46,7 @@ public class AuthService {
         if (!memberService.existsBySocialLoginId(socialLoginId)) {
             memberService.save(generateMemberBy(oAuthMember));
         }
-        Member foundMember = memberService.findBySocialLoginId(socialLoginId);
+        final Member foundMember = memberService.findBySocialLoginId(socialLoginId);
         return foundMember;
     }
 
