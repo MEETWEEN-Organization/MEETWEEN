@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 // Resource owner 에게 리다이렉트 URL을 전달한다. (카카오 로그인 시도 창 URI 를 만드는 역할)
 @Component
 public class KakaoUriProvider implements OAuthUriProvider {
+    private static final String KAKAO = "kakao";
     private final String authorizationUri;
     private final String clientId;
     private final String redirectUri; // 인가 코드(authorization code) 를 전달받을 uri
@@ -19,6 +20,11 @@ public class KakaoUriProvider implements OAuthUriProvider {
         this.authorizationUri = authorizationUri;
         this.clientId = clientId;
         this.redirectUri = redirectUri;
+    }
+
+    @Override
+    public boolean isSame(String provider) {
+        return KAKAO.equals(provider);
     }
 
     // generate() 를 통해 Resource owner 에게 리다이렉트 URL을 전달한다.

@@ -8,4 +8,9 @@ public class StubOAuthClient implements OAuthClient {
     public KakaoOAuthMember getOAuthMember(final String code) {
         return new KakaoOAuthMember("fake_social_id", "fake_name", "fake_img_url");
     }
+
+    @Override
+    public boolean isSame(String name) {
+        return true;
+    }
 }

@@ -32,7 +32,7 @@ public class AuthController {
     @PostMapping("/{provider}/token")
     public ResponseEntity<TokenResponse> generateToken(@PathVariable final String provider,
                                                        @RequestBody final TokenRequest tokenRequest) {
-        TokenResponse tokenResponse = authService.generateTokenWithCode(tokenRequest.getCode());
+        TokenResponse tokenResponse = authService.generateTokenWithCode(tokenRequest.getCode(), provider);
         return ResponseEntity.ok(tokenResponse);
     }
 }
