@@ -5,8 +5,8 @@ import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
 import meetween.backend.authentication.dto.OAuthMember;
 import meetween.backend.authentication.dto.TokenResponse;
-import meetween.backend.authentication.infrastructure.properties.OAuthProviderProperties;
-import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
+import meetween.backend.authentication.infrastructure.uri.OAuthUriProvider;
+import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import meetween.backend.member.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,21 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class AuthService {
-    private final OAuthProviderProperties providerProperties;
+    private final OAuthUriProvider oAuthUriProvider;
     private final OAuthClient oAuthClient;
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthService(final OAuthProviderProperties providerProperties, final OAuthClient oAuthClient,
+    public AuthService(final OAuthUriProvider oAuthUriProvider, final OAuthClient oAuthClient,
                        final MemberService memberService, final JwtTokenProvider jwtTokenProvider) {
-        this.providerProperties = providerProperties;
+        this.oAuthUriProvider = oAuthUriProvider;
         this.oAuthClient = oAuthClient;
         this.memberService = memberService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
     public String getSocialLink() {
-        return providerProperties.generate();
+        return oAuthUriProvider.generate();
     }
 
     @Transactional

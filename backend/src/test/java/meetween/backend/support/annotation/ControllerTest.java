@@ -3,7 +3,7 @@ package meetween.backend.support.annotation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import meetween.backend.appointment.presentation.AppointmentController;
 import meetween.backend.appointment.service.AppointmentService;
-import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
+import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import meetween.backend.authentication.presentataion.AuthArgumentResolver;
 import meetween.backend.authentication.presentataion.BearerTokenExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
