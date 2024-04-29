@@ -34,8 +34,11 @@ jobs:
       - name: Gradlew 권한 설정
         run: chmod +x gradlew
 
-      - name: 테스트 및 빌드 진행
-        run: ./gradlew build
+      - name: 빌드 진행
+        run: ./gradlew build -x test
+
+      - name: 테스트 진행
+        run: ./gradlew test
 
       - name: 테스트 결과 리포트
         uses: EnricoMi/publish-unit-test-result-action@v2
