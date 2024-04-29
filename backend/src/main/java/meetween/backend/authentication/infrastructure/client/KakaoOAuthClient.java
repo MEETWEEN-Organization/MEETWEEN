@@ -1,8 +1,6 @@
 package meetween.backend.authentication.infrastructure.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -98,13 +96,5 @@ public class KakaoOAuthClient implements OAuthClient {
         return Optional.ofNullable(accessToken.getBody())
                 .orElseThrow(IllegalArgumentException::new)
                 .getAccessToken();
-    }
-
-    private String getPayloadFrom(final String jwtToken) {
-        return jwtToken.split(DELIMITER)[1];
-    }
-
-    private String getDecodedJwtPayload(String payload) {
-        return new String(Base64.getUrlDecoder().decode(payload), StandardCharsets.UTF_8);
     }
 }
