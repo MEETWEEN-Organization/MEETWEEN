@@ -90,16 +90,6 @@ public class KakaoOAuthClient implements OAuthClient {
                 .getAccessToken();
     }
 
-    private MultiValueMap<String, String> generateRequestParams(final String code) {
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("code", code);
-        params.add("client_id", clientId);
-        params.add("client_secret", clientSecret);
-        params.add("redirect_uri", redirectUri);
-        params.add("grant_type", "authorization_code");
-        return params;
-    }
-
     private String getPayloadFrom(final String jwtToken) {
         return jwtToken.split(DELIMITER)[1];
     }
