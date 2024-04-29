@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import meetween.backend.authentication.domain.OAuthAccessToken;
 import meetween.backend.authentication.dto.OAuthMember;
+import meetween.backend.authentication.exception.InvalidOAuthServiceException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -68,7 +69,10 @@ public class KakaoOAuthClient implements OAuthClient {
                 queryParam
         );
 
-        return oAuthMember.getBody();
+        if(oAuthMember.getStatusCode().is2xxSuccessful()) {
+            return oAuthMember.getBody();
+        }
+        throw new InvalidOAuthServiceException();
     }
 
     private String requestKakaoAccessToken(String code) {
