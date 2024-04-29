@@ -3,6 +3,8 @@ package meetween.backend.authentication.infrastructure.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import meetween.backend.authentication.domain.OAuthAccessToken;
 import meetween.backend.authentication.dto.OAuthMember;
@@ -55,11 +57,15 @@ public class KakaoOAuthClient implements OAuthClient {
         httpHeaders.setBearerAuth(accessToken);
         final HttpEntity<MultiValueMap<String, String>> userInfoRequestEntity = new HttpEntity<>(httpHeaders);
 
+        final Map<String, Boolean> queryParam = new HashMap<>();
+        queryParam.put("secure_resource", Boolean.TRUE);
+
         final ResponseEntity<OAuthMember> oAuthMember = restTemplate.exchange(
                 userUri,
                 HttpMethod.GET,
                 userInfoRequestEntity,
-                OAuthMember.class
+                OAuthMember.class,
+                queryParam
         );
 
         return oAuthMember.getBody();
