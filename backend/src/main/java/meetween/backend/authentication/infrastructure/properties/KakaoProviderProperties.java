@@ -29,8 +29,7 @@ public class KakaoProviderProperties implements OAuthProviderProperties {
         return authorizationUri + "?"
                 + "client_id=" + clientId
                 + "&redirect_uri=" + redirectUri
-                + "&response_type=" + response_type
-                + "&scope=" + generateScope();
+                + "&response_type=" + response_type;
     }
 
     private String generateScope() {
