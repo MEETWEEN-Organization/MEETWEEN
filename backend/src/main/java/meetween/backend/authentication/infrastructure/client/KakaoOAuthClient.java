@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import meetween.backend.authentication.domain.OAuthAccessToken;
-import meetween.backend.authentication.dto.OAuthMember;
+import meetween.backend.authentication.domain.KakaoOAuthMember;
 import meetween.backend.authentication.exception.InvalidOAuthServiceException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -52,7 +52,7 @@ public class KakaoOAuthClient implements OAuthClient {
     }
 
     @Override
-    public OAuthMember getOAuthMember(final String code) {
+    public KakaoOAuthMember getOAuthMember(final String code) {
         final String accessToken = requestKakaoAccessToken(code);
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(accessToken);
@@ -61,11 +61,11 @@ public class KakaoOAuthClient implements OAuthClient {
         final Map<String, Boolean> queryParam = new HashMap<>();
         queryParam.put("secure_resource", Boolean.TRUE);
 
-        final ResponseEntity<OAuthMember> oAuthMember = restTemplate.exchange(
+        final ResponseEntity<KakaoOAuthMember> oAuthMember = restTemplate.exchange(
                 userUri,
                 HttpMethod.GET,
                 userInfoRequestEntity,
-                OAuthMember.class,
+                KakaoOAuthMember.class,
                 queryParam
         );
 

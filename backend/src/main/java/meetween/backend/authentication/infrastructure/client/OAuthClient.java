@@ -1,8 +1,8 @@
 package meetween.backend.authentication.infrastructure.client;
 
-import meetween.backend.authentication.dto.OAuthMember;
+import meetween.backend.authentication.domain.KakaoOAuthMember;
 
 @FunctionalInterface
 public interface OAuthClient {
-    OAuthMember getOAuthMember(final String code);
+    KakaoOAuthMember getOAuthMember(final String code);
 }

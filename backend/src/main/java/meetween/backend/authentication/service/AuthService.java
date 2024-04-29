@@ -1,9 +1,10 @@
 package meetween.backend.authentication.service;
 
+import meetween.backend.authentication.domain.OAuthMember;
 import meetween.backend.authentication.infrastructure.client.OAuthClient;
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
-import meetween.backend.authentication.dto.OAuthMember;
+import meetween.backend.authentication.domain.KakaoOAuthMember;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.authentication.infrastructure.uri.OAuthUriProvider;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
@@ -43,13 +44,13 @@ public class AuthService {
         String socialLoginId = oAuthMember.getSocialLoginId();
 
         if (!memberService.existsBySocialLoginId(socialLoginId)) {
-            memberService.save(generateUserBy(oAuthMember));
+            memberService.save(generateMemberBy(oAuthMember));
         }
         Member foundMember = memberService.findBySocialLoginId(socialLoginId);
         return foundMember;
     }
 
-    private Member generateUserBy(final OAuthMember oAuthMember) {
+    private Member generateMemberBy(final OAuthMember oAuthMember) {
         return new Member(oAuthMember.getSocialLoginId(),
                 oAuthMember.getImageUrl(),
                 oAuthMember.getNickname(),
