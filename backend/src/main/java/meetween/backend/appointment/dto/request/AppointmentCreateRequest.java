@@ -41,8 +41,8 @@ public class AppointmentCreateRequest {
         this.categoryColor = categoryColor;
     }
 
-    public Appointment toEntity(Category category) {
-        return new Appointment(title, appointmentDateTime, category, memberCount, latitude, longitude);
+    public Appointment toEntity(Category category, Long inviteCode) {
+        return new Appointment(title, inviteCode, appointmentDateTime, category, memberCount, latitude, longitude);
     }
 
     public String getCategoryName() {
