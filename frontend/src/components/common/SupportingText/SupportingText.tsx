@@ -2,12 +2,12 @@ import { ComponentPropsWithRef, ReactNode } from 'react';
 
 import { getTextStyle } from './SupportingText.style';
 
-export interface IText extends ComponentPropsWithRef<'span'> {
+export interface TextProps extends ComponentPropsWithRef<'span'> {
   isError?: boolean;
   children: ReactNode;
 }
 
-const SupportingText = ({ isError = false, children, ...props }: IText) => {
+const SupportingText = ({ isError = false, children, ...props }: TextProps) => {
   return (
     <span css={getTextStyle(isError)} {...props}>
       {children}

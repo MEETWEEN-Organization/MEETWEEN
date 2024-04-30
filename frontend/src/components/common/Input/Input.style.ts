@@ -18,7 +18,7 @@ export const variantStyle = {
 export const inputWrapperStyle = (isError: Required<IInput>['isError']) =>
   css({
     display: 'flex',
-    gap: '12px',
+    gap: '16px',
     alignItems: 'center',
 
     paddingTop: 0,

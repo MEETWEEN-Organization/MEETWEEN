@@ -3,13 +3,13 @@ import { ComponentPropsWithoutRef, forwardRef } from 'react';
 import * as Styled from '@components/common/Counter/Counter.style';
 import SupportingText from '@components/common/SupportingText/SupportingText';
 
-export interface ICounter extends ComponentPropsWithoutRef<'div'> {
+export interface CounterProps extends ComponentPropsWithoutRef<'div'> {
   count: number;
   isError?: boolean;
   supportingText?: string;
 }
 
-const Counter = ({ count, isError = false, supportingText, ...props }: ICounter) => {
+const Counter = ({ count, isError = false, supportingText, ...props }: CounterProps) => {
   return (
     <div css={Styled.containerStyle}>
       <div css={Styled.counterStyle(isError)} {...props}>

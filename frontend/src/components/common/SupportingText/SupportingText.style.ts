@@ -2,12 +2,12 @@ import { css } from '@emotion/react';
 
 import { Theme } from '@styles/theme/theme';
 
-import { IText } from './SupportingText';
+import { TextProps } from './SupportingText';
 
-export const getTextStyle = (isError: Required<IText>['isError']) =>
+export const getTextStyle = (isError: Required<TextProps>['isError']) =>
   css({
-    fontSize: Theme.text.medium.fontSize,
-    lineHeight: Theme.text.medium.lineHeight,
+    fontSize: Theme.text.small.fontSize,
+    lineHeight: Theme.text.small.lineHeight,
 
     color: isError ? Theme.color.red300 : Theme.color.gray600,
     fontWeight: 600,

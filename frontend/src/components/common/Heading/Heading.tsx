@@ -4,7 +4,7 @@ import { SizeType } from '@type/size';
 
 import { headingStyle } from './Heading.style';
 
-export interface IHeading extends ComponentPropsWithoutRef<'h3'> {
+export interface HeadingProps extends ComponentPropsWithoutRef<'h3'> {
   size?: SizeType;
 }
 
@@ -18,7 +18,7 @@ const TAG_BY_SIZE = {
   xSmall: 'h6',
 };
 
-const Heading = ({ size = 'large', ...props }: IHeading) => {
+const Heading = ({ size = 'large', ...props }: HeadingProps) => {
   const Tag = TAG_BY_SIZE[size] as JSX.ElementType;
 
   return (

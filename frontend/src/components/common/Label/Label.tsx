@@ -2,11 +2,11 @@ import { ComponentPropsWithRef } from 'react';
 
 import { textStyle } from './Label.style';
 
-export interface ILabel extends ComponentPropsWithRef<'label'> {
+export interface LabelProps extends ComponentPropsWithRef<'label'> {
   id?: string;
 }
 
-const Label = ({ id, ...props }: ILabel) => {
+const Label = ({ id, ...props }: LabelProps) => {
   return (
     <label css={textStyle} htmlFor={id} {...props}>
       {props.children}

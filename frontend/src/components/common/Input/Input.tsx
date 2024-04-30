@@ -7,7 +7,7 @@ import { SizeType } from '@type/size';
 
 import { inputStyle, inputWrapperStyle, sizeStyle, variantStyle } from './Input.style';
 
-export interface IInput extends Omit<ComponentPropsWithRef<'input'>, 'size'> {
+export interface InputProps extends Omit<ComponentPropsWithRef<'input'>, 'size'> {
   label?: string;
   variant?: 'default' | 'text';
   size?: Extract<SizeType, 'large' | 'medium' | 'small'>;
@@ -27,7 +27,7 @@ const Input = (
     supportingText,
     icon,
     ...attributes
-  }: IInput,
+  }: InputProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
   return (

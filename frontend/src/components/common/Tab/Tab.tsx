@@ -2,14 +2,14 @@ import { ComponentPropsWithRef } from 'react';
 
 import { getPanelStyle, getTabStyle } from './Tab.style';
 
-export interface ITab extends ComponentPropsWithRef<'li'> {
+export interface TabProps extends ComponentPropsWithRef<'li'> {
   text: string;
   tabId: string | number;
   selectedId: string | number;
   changeSelect: (tabId: string | number) => void;
 }
 
-const Tab = ({ text, tabId, selectedId, changeSelect, ...props }: ITab) => {
+const Tab = ({ text, tabId, selectedId, changeSelect, ...props }: TabProps) => {
   const handleSelect = () => {
     changeSelect(tabId);
   };
