@@ -1,4 +1,4 @@
-package meetween.backend.authentication.domain;
+package meetween.backend.authentication.domain.token;
 
 import static lombok.AccessLevel.PRIVATE;
 

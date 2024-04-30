@@ -1,5 +1,6 @@
 package meetween.backend.authentication.service;
 
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.KAKAO_OAUTH_PROVIDER;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.AUTHORIZATION_CODE;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.FAKE_SOCIAL_ID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +27,7 @@ public class AuthServiceTest {
     @Test
     void 카카오_소셜_로그인을_위한_링크를_생성한다() {
         // given
-        String kakaoLink = authService.getSocialLink();
+        String kakaoLink = authService.getSocialLink(KAKAO_OAUTH_PROVIDER);
 
         // when, then
         assertThat(kakaoLink).isNotEmpty();
@@ -36,7 +37,7 @@ public class AuthServiceTest {
     @Test
     void 토큰_생성을_하면_OAuth_서버에서_인증_후_토큰을_반환한다() {
         // given, when
-        TokenResponse tokenResponse = authService.generateTokenWithCode(AUTHORIZATION_CODE);
+        TokenResponse tokenResponse = authService.generateTokenWithCode(AUTHORIZATION_CODE, KAKAO_OAUTH_PROVIDER);
 
         // then
         assertThat(tokenResponse.getAccessToken()).isNotEmpty();
@@ -47,7 +48,7 @@ public class AuthServiceTest {
     @Test
     void authorization_code를_받으면_회원이_데이터베이스에_저장된다() {
         // given
-        authService.generateTokenWithCode(AUTHORIZATION_CODE);
+        authService.generateTokenWithCode(AUTHORIZATION_CODE, KAKAO_OAUTH_PROVIDER);
 
         // when
         // actual = StubOAuthClient 가 반환하는 socialLoginId
@@ -61,7 +62,7 @@ public class AuthServiceTest {
     @Test
     void 이미_가입된_회원에_대한_authorization_code를_전달_받으면_추가로_회원이_데이터베이스에_생성되지_않는다() {
         // given
-        authService.generateTokenWithCode(AUTHORIZATION_CODE);
+        authService.generateTokenWithCode(AUTHORIZATION_CODE, KAKAO_OAUTH_PROVIDER);
 
         // when
         List<Member> actual = memberRepository.findAll();

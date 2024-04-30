@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import meetween.backend.authentication.exception.InvalidTokenException;
-import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
+import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

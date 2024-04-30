@@ -1,11 +1,18 @@
 package meetween.backend.authentication.service.client;
 
-import meetween.backend.authentication.infrastructure.client.OAuthClient;
-import meetween.backend.authentication.dto.OAuthMember;
+import meetween.backend.authentication.domain.client.OAuthClient;
+import meetween.backend.authentication.domain.oauthmember.KakaoOAuthMember;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StubOAuthClient implements OAuthClient {
     @Override
-    public OAuthMember getOAuthMember(final String code) {
-        return new OAuthMember("fake_social_id", "fake_name", "fake_img_url");
+    public KakaoOAuthMember getOAuthMember(final String code) {
+        return new KakaoOAuthMember("fake_social_id", "fake_name", "fake_img_url");
+    }
+
+    @Override
+    public boolean isSame(String name) {
+        return true;
     }
 }

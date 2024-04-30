@@ -3,7 +3,7 @@ package meetween.backend.authentication.presentataion;
 import jakarta.servlet.http.HttpServletRequest;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.exception.BadRequestException;
-import meetween.backend.authentication.infrastructure.provider.JwtTokenProvider;
+import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;

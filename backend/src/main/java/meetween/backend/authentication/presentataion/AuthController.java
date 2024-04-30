@@ -24,7 +24,7 @@ public class AuthController {
 
     @GetMapping("/{provider}/link")
     public ResponseEntity<OAuthUriResponse> generateUri(@PathVariable final String provider) {
-        return ResponseEntity.ok(new OAuthUriResponse(authService.getSocialLink()));
+        return ResponseEntity.ok(new OAuthUriResponse(authService.getSocialLink(provider)));
     }
 
     // 로그인 성공 후 발급받은 code 를 백엔드에 전달한다. (즉, 프론트엔드 페이지에서 얻은 인가 code 를 전달받음)
@@ -32,7 +32,7 @@ public class AuthController {
     @PostMapping("/{provider}/token")
     public ResponseEntity<TokenResponse> generateToken(@PathVariable final String provider,
                                                        @RequestBody final TokenRequest tokenRequest) {
-        TokenResponse tokenResponse = authService.generateTokenWithCode(tokenRequest.getCode());
+        TokenResponse tokenResponse = authService.generateTokenWithCode(tokenRequest.getCode(), provider);
         return ResponseEntity.ok(tokenResponse);
     }
 }
