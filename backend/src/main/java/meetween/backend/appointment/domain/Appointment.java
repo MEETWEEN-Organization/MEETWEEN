@@ -32,7 +32,7 @@ public class Appointment extends BaseEntity {
     private BigDecimal longitude;
 
     @Column(name = "invite_code", nullable = false)
-    private final Long inviteCode = (long)(Math.random() * 999999L - 100000L) + 100000L;
+    private Long inviteCode;
 
     @Column(name = "member_count", nullable = false)
     private Long memberCount;
@@ -42,11 +42,12 @@ public class Appointment extends BaseEntity {
 
     protected Appointment() {}
 
-    public Appointment(final String title, final LocalDateTime appointmentDateTime, Category category, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
+    public Appointment(final String title, final Long inviteCode, final LocalDateTime appointmentDateTime, Category category, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
         validateTitleLength(title);
         validateDateTime(appointmentDateTime);
         validateMemberCount(memberCount);
         this.title = title;
+        this.inviteCode = inviteCode;
         this.appointmentDateTime = appointmentDateTime;
         this.category = category;
         this.memberCount = memberCount;
