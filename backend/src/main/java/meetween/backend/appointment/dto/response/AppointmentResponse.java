@@ -31,7 +31,31 @@ public class AppointmentResponse {
         return id;
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public LocalDateTime getAppointmentDateTime() {
+        return appointmentDateTime;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public Long getInviteCode() {
+        return inviteCode;
+    }
+
+    public Long getMemberCount() {
+        return memberCount;
     }
 }
