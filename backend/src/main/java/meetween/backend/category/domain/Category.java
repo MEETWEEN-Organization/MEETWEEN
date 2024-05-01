@@ -29,10 +29,11 @@ public class Category extends BaseEntity {
 
     protected Category() {}
 
-    public Category(final String name, final CategoryColor categoryColor) {
+    public Category(final String name, final CategoryColor categoryColor, final Appointment appointment) {
         validateNameLength(name);
         this.name = name;
         this.categoryColor = categoryColor;
+        this.appointment = appointment;
     }
 
     private void validateNameLength(final String name) {
@@ -43,5 +44,9 @@ public class Category extends BaseEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
     }
 }

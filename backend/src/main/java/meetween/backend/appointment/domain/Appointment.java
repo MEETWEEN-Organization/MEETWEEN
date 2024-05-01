@@ -37,19 +37,18 @@ public class Appointment extends BaseEntity {
     @Column(name = "member_count", nullable = false)
     private Long memberCount;
 
-    @OneToOne(mappedBy = "appointment")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "appointment")
     private Category category;
 
     protected Appointment() {}
 
-    public Appointment(final String title, final Long inviteCode, final LocalDateTime appointmentDateTime, Category category, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
+    public Appointment(final String title, final Long inviteCode, final LocalDateTime appointmentDateTime, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
         validateTitleLength(title);
         validateDateTime(appointmentDateTime);
         validateMemberCount(memberCount);
         this.title = title;
         this.inviteCode = inviteCode;
         this.appointmentDateTime = appointmentDateTime;
-        this.category = category;
         this.memberCount = memberCount;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -74,6 +73,10 @@ public class Appointment extends BaseEntity {
         if (memberCount < 2) {
             throw new InvalidAppointmentException("최소 2명 이상이 약속에 필요합니다.");
         }
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {
