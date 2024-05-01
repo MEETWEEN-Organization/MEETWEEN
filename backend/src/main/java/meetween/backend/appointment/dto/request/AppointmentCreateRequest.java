@@ -10,25 +10,28 @@ import java.time.LocalDateTime;
 public class AppointmentCreateRequest {
 
     @NotNull(message = "Null일 수 없습니다.")
-    private final String title;
+    private String title;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private final LocalDateTime appointmentDateTime;
+    private LocalDateTime appointmentDateTime;
 
     @NotNull(message = "Null일 수 없습니다.")
-    private final BigDecimal latitude;
+    private BigDecimal latitude;
 
     @NotNull(message = "Null일 수 없습니다.")
-    private final BigDecimal longitude;
+    private BigDecimal longitude;
 
     @NotNull(message = "Null일 수 없습니다.")
-    private final Long memberCount;
+    private Long memberCount;
 
     @NotNull(message = "Null일 수 없습니다.")
-    private final String categoryName;
+    private String categoryName;
 
     @NotNull(message = "Null일 수 없습니다.")
-    private final String categoryColor;
+    private String categoryColor;
+
+    private AppointmentCreateRequest() {
+    }
 
     public AppointmentCreateRequest(final String title, final LocalDateTime appointmentDateTime, final BigDecimal latitude, final BigDecimal longitude, final Long memberCount, final String categoryName, final String categoryColor) {
         this.title = title;

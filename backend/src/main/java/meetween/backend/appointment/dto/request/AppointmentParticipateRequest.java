@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotNull;
 public class AppointmentParticipateRequest {
 
     @NotNull(message = "Null일 수 없습니다.")
-    private final Long inviteCode;
+    private Long inviteCode;
+
+    private AppointmentParticipateRequest() {
+    }
 
     public AppointmentParticipateRequest(final Long inviteCode) {
         this.inviteCode = inviteCode;
