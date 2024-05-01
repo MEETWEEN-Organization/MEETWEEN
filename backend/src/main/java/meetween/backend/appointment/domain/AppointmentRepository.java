@@ -15,8 +15,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                 .orElseThrow(NoExistAppointmentException::new);
     }
 
-
-
 //    List<Appointment> findByCategory(Category category);
 //    @Query("SELECT DISTINCT a FROM Appointment a " +
 //            "JOIN a.category c " +

@@ -58,7 +58,6 @@ public class AppointmentService {
     @Transactional
     public AppointmentResponse participate(final Long memberId, final AppointmentParticipateRequest request) {
         Member member = memberRepository.getById(memberId);
-
         Appointment appointment = appointmentRepository.getByInviteCode(request.getInviteCode());
 
         appointmentUserRepository.save(new AppointmentUser(appointment, member));
