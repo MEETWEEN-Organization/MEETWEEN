@@ -2,7 +2,6 @@ package meetween.backend.appointment.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import meetween.backend.appointment.domain.Appointment;
-import meetween.backend.category.domain.Category;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -41,8 +40,8 @@ public class AppointmentCreateRequest {
         this.categoryColor = categoryColor;
     }
 
-    public Appointment toEntity(Category category, Long inviteCode) {
-        return new Appointment(title, inviteCode, appointmentDateTime, category, memberCount, latitude, longitude);
+    public Appointment toEntity(Long inviteCode) {
+        return new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude);
     }
 
     public String getCategoryName() {
