@@ -1,12 +1,12 @@
 package meetween.backend.appointment.presentation;
 
+import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.support.annotation.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속_요청;
-import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속_응답;
+import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -19,7 +19,8 @@ class AppointmentControllerTest extends ControllerTest {
     @Test
     void 약속을_생성하면_상태코드_201을_반환한다() throws Exception {
         // given
-        given(appointmentService.save(any(), any())).willReturn(수현_약속_응답);
+        AppointmentResponse response = new AppointmentResponse(수현_약속());
+        given(appointmentService.save(any(), any())).willReturn(response);
         given(authArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(1L);
 
         // when
