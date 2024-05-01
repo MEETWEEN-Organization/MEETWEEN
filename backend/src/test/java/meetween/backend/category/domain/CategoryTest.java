@@ -1,9 +1,11 @@
 package meetween.backend.category.domain;
 
+import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.category.exception.InvalidCategoryException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,9 +17,10 @@ class CategoryTest {
         //given
         String name = "미트윈 약속";
         CategoryColor categoryColor = CategoryColor._9A61D2;
+        Appointment appointment = 수현_약속();
 
         //when, then
-        assertDoesNotThrow(() -> new Category(name, categoryColor));
+        assertDoesNotThrow(() -> new Category(name, categoryColor, appointment));
     }
 
     @DisplayName("카테고리의 이름이 10글자를 초과하는 경우 예외를 발생시킨다.")
@@ -26,9 +29,10 @@ class CategoryTest {
         //given
         String name = "미트윈미트윈미트윈미트윈";
         CategoryColor categoryColor = CategoryColor._5B59B3;
+        Appointment appointment = 수현_약속();
 
         //when, then
-        assertThatThrownBy(() -> new Category(name, categoryColor))
+        assertThatThrownBy(() -> new Category(name, categoryColor, appointment))
                 .isInstanceOf(InvalidCategoryException.class);
     }
 }
