@@ -21,13 +21,12 @@ public class AppointmentTest {
         String title = "수현의 약속";
         Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         // when, then
-        assertDoesNotThrow(() -> new Appointment(title, inviteCode, appointmentDateTime, category, memberCount, latitude, longitude));
+        assertDoesNotThrow(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude));
     }
 
     @DisplayName("약속 제목의 길이가 20을 초과하는 경우 예외가 발생한다.")
@@ -37,13 +36,12 @@ public class AppointmentTest {
         String title = "수현의 약속의 약속의 약속의 약속의 약속의 약속";
         Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, category, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 
@@ -54,13 +52,12 @@ public class AppointmentTest {
         String title = "수현의 약속";
         Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, category, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 
@@ -72,12 +69,11 @@ public class AppointmentTest {
         Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
         Long memberCount = 11L;
-        Category category = CategoryFixtures.스터디_카테고리();
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, category, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 }
