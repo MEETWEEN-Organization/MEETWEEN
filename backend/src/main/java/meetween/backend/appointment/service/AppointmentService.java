@@ -34,10 +34,11 @@ public class AppointmentService {
     @Transactional
     public AppointmentResponse save(final Long memberId, final AppointmentCreateRequest request) {
         Member member = memberRepository.getById(memberId);
-        Category category = categoryRepository.save(new Category(request.getCategoryName(), CategoryColor.getCategoryColor(request.getCategoryColor())));
         Long inviteCode = createInviteCode();
 
-        Appointment appointment = appointmentRepository.save(request.toEntity(category,inviteCode));
+        Appointment appointment = appointmentRepository.save(request.toEntity(inviteCode));
+        Category category = categoryRepository.save(new Category(request.getCategoryName(), CategoryColor.getCategoryColor(request.getCategoryColor()),appointment));
+        appointment.setCategory(category);
 
         appointmentUserRepository.save(new AppointmentUser(appointment, member));
 
