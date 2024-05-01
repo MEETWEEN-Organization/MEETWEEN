@@ -33,7 +33,7 @@ public class AppointmentController {
         return ResponseEntity.created(URI.create("/appointment/" + response.getId())).body(response);
     }
 
-    @PostMapping
+    @PostMapping("participate")
     public ResponseEntity<AppointmentResponse> participate(@AuthPrincipal LoginMember loginMember,
                                                            @Valid @RequestBody final AppointmentParticipateRequest request) {
         AppointmentResponse response = appointmentService.participate(loginMember.getId(), request);
