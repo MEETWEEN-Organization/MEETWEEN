@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
 
-    public MemberController(final MemberService userService) {
-        this.memberService = userService;
+    public MemberController(final MemberService memberService) {
+        this.memberService = memberService;
     }
 
     @GetMapping("/about")
