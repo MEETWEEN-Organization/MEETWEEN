@@ -2,6 +2,7 @@ package meetween.backend.member.service;
 
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.SocialType;
+import meetween.backend.support.annotation.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static meetween.backend.support.fixture.common.MemberFixtures.수현_유저;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-public class MemberServiceTest {
+
+public class MemberServiceTest extends ServiceTest {
     @Autowired
     private MemberService memberService;
 
