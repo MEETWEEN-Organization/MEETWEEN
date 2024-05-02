@@ -23,7 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속_요청;
 import static meetween.backend.support.fixture.common.AppointmentUserFixtures.일반_약속_유저_생성;
-import static meetween.backend.support.fixture.common.CategoryFixtures.스터디_카테고리;
+import static meetween.backend.support.fixture.common.CategoryFixtures.수현_약속_스터디_카테고리;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -64,7 +64,7 @@ class AppointmentServiceTest {
         given(memberRepository.getById(anyLong()))
                 .willReturn(mockMember);
         given(categoryRepository.save(any(Category.class)))
-                .willReturn(스터디_카테고리());
+                .willReturn(수현_약속_스터디_카테고리());
         given(appointmentRepository.save(any(Appointment.class)))
                 .willReturn(수현_약속());
         given(appointmentUserRepository.save(any(AppointmentUser.class)))

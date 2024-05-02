@@ -3,6 +3,7 @@ package meetween.backend.appointment.presentation;
 
 import jakarta.validation.Valid;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
+import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.service.AppointmentService;
 import meetween.backend.authentication.dto.LoginMember;
@@ -28,7 +29,14 @@ public class AppointmentController {
     @PostMapping
     public ResponseEntity<AppointmentResponse> save(@AuthPrincipal LoginMember loginMember,
                                                     @Valid @RequestBody final AppointmentCreateRequest request) {
-        AppointmentResponse appointmentResponse = appointmentService.save(loginMember.getId(), request);
-        return ResponseEntity.created(URI.create("/appointment/" + appointmentResponse.getId())).body(appointmentResponse);
+        AppointmentResponse response = appointmentService.save(loginMember.getId(), request);
+        return ResponseEntity.created(URI.create("/appointment/" + response.getId())).body(response);
+    }
+
+    @PostMapping("participate")
+    public ResponseEntity<AppointmentResponse> participate(@AuthPrincipal LoginMember loginMember,
+                                                           @Valid @RequestBody final AppointmentParticipateRequest request) {
+        AppointmentResponse response = appointmentService.participate(loginMember.getId(), request);
+        return ResponseEntity.ok().body(response);
     }
 }

@@ -19,14 +19,14 @@ public class AppointmentTest {
     void 약속을_생성한다() {
         // given
         String title = "수현의 약속";
+        Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         // when, then
-        assertDoesNotThrow(() -> new Appointment(title, appointmentDateTime, category, memberCount, latitude, longitude));
+        assertDoesNotThrow(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude));
     }
 
     @DisplayName("약속 제목의 길이가 20을 초과하는 경우 예외가 발생한다.")
@@ -34,14 +34,14 @@ public class AppointmentTest {
     void 약속_제목의_길이가_20을_초과하는_경우_예외가_발생한다() {
         //given
         String title = "수현의 약속의 약속의 약속의 약속의 약속의 약속";
+        Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, appointmentDateTime, category, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 
@@ -50,14 +50,14 @@ public class AppointmentTest {
     void 약속_시간이_현재_시간보다_이전일_때_예외가_발생한다() {
         //given
         String title = "수현의 약속";
+        Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
-        Category category = CategoryFixtures.스터디_카테고리();
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, appointmentDateTime, category, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 
@@ -66,14 +66,14 @@ public class AppointmentTest {
     void 약속_인원_수가_10명을_초과하는_경우_예외가_발생한다() {
         //given
         String title = "수현의 약속";
+        Long inviteCode = 123456L;
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
         Long memberCount = 11L;
-        Category category = CategoryFixtures.스터디_카테고리();
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, appointmentDateTime, category, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 }
