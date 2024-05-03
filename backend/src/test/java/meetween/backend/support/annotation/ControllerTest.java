@@ -3,8 +3,11 @@ package meetween.backend.support.annotation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import meetween.backend.appointment.presentation.AppointmentController;
 import meetween.backend.appointment.service.AppointmentService;
+import meetween.backend.authentication.controller.AuthControllerTest;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
+import meetween.backend.authentication.infrastructure.uri.OAuthUriProvider;
 import meetween.backend.authentication.presentataion.AuthArgumentResolver;
+import meetween.backend.authentication.presentataion.AuthController;
 import meetween.backend.authentication.presentataion.BearerTokenExtractor;
 import meetween.backend.authentication.service.AuthService;
 import meetween.backend.member.presentation.MemberController;
@@ -19,7 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureRestDocs
 @WebMvcTest({
         MemberController.class,
-        AppointmentController.class
+        AppointmentController.class,
+        AuthController.class
 })
 @ActiveProfiles("test")
 public abstract class ControllerTest {
@@ -47,4 +51,7 @@ public abstract class ControllerTest {
 
     @MockBean
     protected AuthService authService;
+
+    @MockBean
+    protected OAuthUriProvider oAuthUriProvider;
 }
