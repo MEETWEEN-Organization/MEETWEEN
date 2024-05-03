@@ -1,6 +1,7 @@
 package meetween.backend.authentication.infrastructure.jwt;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -40,7 +41,7 @@ public class JwtTokenProvider {
         Date validity = new Date(System.currentTimeMillis() + validityInMilliseconds);
 
         return Jwts.builder()
-                .setHeaderParam("type", "jwt")
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setSubject(payload) // subject 는 payload 로 저장된다.
                 .setIssuedAt(now)
                 .setExpiration(validity)
