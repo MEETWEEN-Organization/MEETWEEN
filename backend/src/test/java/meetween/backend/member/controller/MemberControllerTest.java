@@ -5,7 +5,6 @@ import static meetween.backend.support.fixture.common.MemberFixtures.수현_응�
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
@@ -15,6 +14,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.ArgumentMatchers.any;
 
 import meetween.backend.member.exception.NoExistMemberException;
 import meetween.backend.support.annotation.ControllerTest;
@@ -25,11 +25,12 @@ import org.springframework.http.MediaType;
 
 public class MemberControllerTest extends ControllerTest {
 
-    @DisplayName("본인의 회원 정보를 조회한다.")
+    @DisplayName("사용자 본인의 회원 정보를 조회한다.")
     @Test
     void 본인의_회원_정보를_조회한다() throws Exception {
         // given
         given(memberService.findById(수현_유저().getId())).willReturn(수현_응답());
+        given(authArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(1L);
 
         // when, then
         mockMvc.perform(get("/user/about")
