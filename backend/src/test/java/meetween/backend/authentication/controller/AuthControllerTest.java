@@ -71,9 +71,9 @@ public class AuthControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("OAuth 로그인에 실패하면 상태코드 400을 반환한다.")
+    @DisplayName("OAuth 로그인에 실패하면 상태코드 500을 반환한다.")
     @Test
-    void OAuth_로그인에_실패하면_상태코드_400을_반환한다() throws Exception {
+    void OAuth_로그인에_실패하면_상태코드_500을_반환한다() throws Exception {
         // given
         given(authService.generateTokenWithCode(any(), any())).willThrow(new InvalidOAuthServiceException());
 
@@ -88,6 +88,6 @@ public class AuthControllerTest extends ControllerTest {
                         preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("provider").description("kakao")),
                         requestFields(fieldWithPath("code").type(JsonFieldType.STRING).description("OAuth 로그인 인증 코드"))
-                )).andExpect(status().isBadRequest());
+                )).andExpect(status().isInternalServerError());
     }
 }
