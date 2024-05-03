@@ -5,6 +5,7 @@ import meetween.backend.authentication.domain.oauthmember.OAuthMember;
 import meetween.backend.authentication.domain.client.OAuthClient;
 import meetween.backend.authentication.domain.token.InMemoryRefreshTokenRepository;
 import meetween.backend.authentication.domain.token.MemberToken;
+import meetween.backend.authentication.domain.token.RefreshTokenRepository;
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
 import meetween.backend.authentication.dto.TokenResponse;
@@ -20,15 +21,17 @@ public class AuthService {
     private final OAuthProvider oAuthProvider;
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final InMemoryRefreshTokenRepository refreshTokenRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public AuthService(
             final OAuthProvider oAuthProvider,
             final MemberService memberService,
-            final JwtTokenProvider jwtTokenProvider) {
+            final JwtTokenProvider jwtTokenProvider,
+            final RefreshTokenRepository refreshTokenRepository) {
         this.oAuthProvider = oAuthProvider;
         this.memberService = memberService;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
     public String getSocialLink(String provider) {
