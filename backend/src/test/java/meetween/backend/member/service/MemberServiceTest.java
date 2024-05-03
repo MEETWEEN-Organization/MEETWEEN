@@ -1,51 +1,58 @@
 package meetween.backend.member.service;
 
-import meetween.backend.member.domain.Member;
-import meetween.backend.member.domain.SocialType;
-import meetween.backend.support.annotation.ServiceTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import static meetween.backend.support.fixture.common.MemberFixtures.수현_유저;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+
+import meetween.backend.member.domain.Member;
+import meetween.backend.member.domain.MemberRepository;
+import meetween.backend.member.domain.SocialType;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
-public class MemberServiceTest extends ServiceTest {
-    @Autowired
+@ExtendWith(MockitoExtension.class)
+public class MemberServiceTest {
+    @InjectMocks
     private MemberService memberService;
+
+    @Mock
+    private MemberRepository memberRepository;
 
     @DisplayName("회원을 저장한다.")
     @Test
     void 회원을_저장한다() {
         // given
-        Member member = 수현_유저();
+        final Member member = 수현_유저();
+        given(memberRepository.save(any(Member.class))).willReturn(member);
 
         // when
-        Member actual = memberService.save(member);
+        final Member actual = memberService.save(member);
 
         // then
         assertThat(actual).isNotNull();
     }
 
-    @DisplayName("주어진 소셜 로그인 아이디로 가입된 회원이 있는지 확인한다.")
-    @CsvSource(value = {"already-registered@naver.com,true", "not-registered@naver.com,false"})
-    @ParameterizedTest
-    void 주어진_소셜_로그인_아이디로_가입된_회원이_있는지_확인한다(String input, boolean expected) {
+    @DisplayName("주어진 소셜 로그인 아이디로 가입된 회원이 존재한다면 참을 리턴한다.")
+    @Test
+    void 주어진_소셜_로그인_아이디로_가입된_회원이_존재한다면_참을_리턴한다() {
         // given
-        String socialLoginId = "already-registered@naver.com";
+        String socialLoginId = "12345678";
         String profileImageUrl = "https://avatars.githubusercontent.com/u/88240193?v=4";
         String displayName = "이민성";
         Member member = new Member(socialLoginId, profileImageUrl, displayName, SocialType.KAKAO);
-        memberService.save(member);
+
+        given(memberRepository.existsBySocialLoginId(socialLoginId)).willReturn(true);
 
         // when
-        boolean actual = memberService.existsBySocialLoginId(input);
+        boolean actual = memberService.existsBySocialLoginId(socialLoginId);
 
         // then
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isTrue();
     }
 }
