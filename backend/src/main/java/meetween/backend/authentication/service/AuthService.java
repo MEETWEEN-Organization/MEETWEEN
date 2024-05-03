@@ -3,6 +3,7 @@ package meetween.backend.authentication.service;
 import meetween.backend.authentication.domain.OAuthProvider;
 import meetween.backend.authentication.domain.oauthmember.OAuthMember;
 import meetween.backend.authentication.domain.client.OAuthClient;
+import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
 import meetween.backend.authentication.dto.TokenResponse;
@@ -34,12 +35,12 @@ public class AuthService {
     }
 
     @Transactional
-    public TokenResponse generateTokenWithCode(final String code, final String provider) {
+    public MemberToken generateTokenWithCode(final String code, final String provider) {
         final OAuthClient oAuthClient = oAuthProvider.getOauthClient(provider);
         final OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
         final Member foundUser = findOrCreateUser(oAuthMember);
-        final String accessToken = jwtTokenProvider.createToken(String.valueOf(foundUser.getId()));  // pk 를 payload 로 지정
-        return new TokenResponse(accessToken);
+        final MemberToken memberToken = jwtTokenProvider.generateMemberToken(String.valueOf(foundUser.getId()));
+        return memberToken;
     }
 
     private Member findOrCreateUser(OAuthMember oAuthMember) {

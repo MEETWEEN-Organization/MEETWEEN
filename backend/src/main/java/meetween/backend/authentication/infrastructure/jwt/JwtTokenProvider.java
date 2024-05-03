@@ -9,6 +9,7 @@ import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
+import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.authentication.exception.InvalidTokenException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,12 @@ public class JwtTokenProvider {
                             @Value("${jwt.token.expire-length}") final long expireLength) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         this.expireLength = expireLength;
+    }
+
+    public MemberToken generateMemberToken(String payload) {
+        String accessToken = createToken(payload);
+        String refreshToken = createToken(payload);
+        return new MemberToken(accessToken, refreshToken);
     }
 
     public String createToken(String payload) {
