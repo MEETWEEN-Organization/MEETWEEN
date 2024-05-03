@@ -73,7 +73,7 @@ public class AuthControllerTest extends ControllerTest {
 
     @DisplayName("OAuth 로그인에 실패하면 상태코드 400을 반환한다.")
     @Test
-    void OAuth_로그인에_실패하면_상태코드_500을_반환한다() throws Exception {
+    void OAuth_로그인에_실패하면_상태코드_400을_반환한다() throws Exception {
         // given
         given(authService.generateTokenWithCode(any(), any())).willThrow(new InvalidOAuthServiceException());
 
