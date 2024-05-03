@@ -3,6 +3,7 @@ package meetween.backend.authentication.service;
 import meetween.backend.authentication.domain.OAuthProvider;
 import meetween.backend.authentication.domain.oauthmember.OAuthMember;
 import meetween.backend.authentication.domain.client.OAuthClient;
+import meetween.backend.authentication.domain.token.InMemoryRefreshTokenRepository;
 import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
@@ -19,6 +20,7 @@ public class AuthService {
     private final OAuthProvider oAuthProvider;
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final InMemoryRefreshTokenRepository refreshTokenRepository;
 
     public AuthService(
             final OAuthProvider oAuthProvider,
@@ -40,6 +42,7 @@ public class AuthService {
         final OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
         final Member foundUser = findOrCreateUser(oAuthMember);
         final MemberToken memberToken = jwtTokenProvider.generateMemberToken(String.valueOf(foundUser.getId()));
+        refreshTokenRepository.save(foundUser.getId(), memberToken.getRefreshToken());
         return memberToken;
     }
 
