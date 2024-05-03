@@ -22,6 +22,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 
 
 import meetween.backend.authentication.dto.TokenRequest;
+import meetween.backend.authentication.exception.InvalidOAuthServiceException;
 import meetween.backend.support.annotation.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,7 +61,7 @@ public class AuthControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(토큰_생성_요청())))
                 .andDo(print())
-                .andDo(document("auth/generate/token",
+                .andDo(document("auth/generate/token/success",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("provider").description("kakao")),
@@ -68,5 +69,25 @@ public class AuthControllerTest extends ControllerTest {
                         responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token"))
                 ))
                 .andExpect(status().isOk());
+    }
+
+    @DisplayName("OAuth 로그인에 실패하면 상태코드 400을 반환한다.")
+    @Test
+    void OAuth_로그인에_실패하면_상태코드_500을_반환한다() throws Exception {
+        // given
+        given(authService.generateTokenWithCode(any(), any())).willThrow(new InvalidOAuthServiceException());
+
+        // when, then
+        mockMvc.perform(post("/auth/{provider}/token", "kakao")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(토큰_생성_요청())))
+                .andDo(print())
+                .andDo(document("auth/generatoe/token/fail",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(parameterWithName("provider").description("kakao")),
+                        requestFields(fieldWithPath("code").type(JsonFieldType.STRING).description("OAuth 로그인 인증 코드"))
+                )).andExpect(status().isBadRequest());
     }
 }
