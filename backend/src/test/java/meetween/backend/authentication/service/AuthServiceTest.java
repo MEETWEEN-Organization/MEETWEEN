@@ -6,6 +6,7 @@ import static meetween.backend.support.fixture.common.AuthenticationFixtures.FAK
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.config.TestConfig;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.member.domain.Member;
@@ -36,10 +37,10 @@ public class AuthServiceTest extends ServiceTest {
     @Test
     void 토큰_생성을_하면_OAuth_서버에서_인증_후_토큰을_반환한다() {
         // given, when
-        TokenResponse tokenResponse = authService.generateTokenWithCode(AUTHORIZATION_CODE, KAKAO_OAUTH_PROVIDER);
+        MemberToken memberToken = authService.generateTokenWithCode(AUTHORIZATION_CODE, KAKAO_OAUTH_PROVIDER);
 
         // then
-        assertThat(tokenResponse.getAccessToken()).isNotEmpty();
+        assertThat(memberToken.getAccessToken()).isNotEmpty();
     }
 
 

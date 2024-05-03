@@ -9,5 +9,4 @@ class MeetweenApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
