@@ -2,6 +2,7 @@ package meetween.backend.support.fixture.common;
 
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
+import meetween.backend.member.dto.MemberResponse;
 
 public class MemberFixtures {
     // 수현
@@ -12,8 +13,17 @@ public class MemberFixtures {
         return new Member(
                 "soozzang",
                 "https://avatars.githubusercontent.com/u/88240193?v=4",
-                "수현",
+                "한수현",
                 SocialType.KAKAO
+        );
+    }
+
+    public static MemberResponse 수현_응답() {
+        return new MemberResponse(
+                1L,
+                "soozzang",
+                "https://avatars.githubusercontent.com/u/88240193?v=4",
+                "한수현"
         );
     }
 }
