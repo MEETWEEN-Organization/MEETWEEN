@@ -1,5 +1,7 @@
 package meetween.backend.authentication.controller;
 
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_응답;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_생성_요청;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,11 +18,14 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 
 
+import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.support.annotation.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 
 public class AuthControllerTest extends ControllerTest {
@@ -39,6 +44,28 @@ public class AuthControllerTest extends ControllerTest {
                         preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("provider").description("kakao")),
                         responseFields(fieldWithPath("oAuthUri").type(JsonFieldType.STRING).description("OAuth 소셜 로그인 링크"))
+                ))
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("OAuth 로그인을 하면 token과 상태코드 200을 반환한다.")
+    @Test
+    void OAuth_로그인을_하면_token과_상태코드_200을_반환한다() throws Exception {
+        // given
+        given(authService.generateTokenWithCode(any(), any())).willReturn(토큰_응답());
+
+        // when & then
+        mockMvc.perform(post("/auth/{provider}/token", "kakao")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(토큰_생성_요청())))
+                .andDo(print())
+                .andDo(document("auth/generate/token",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(parameterWithName("provider").description("kakao")),
+                        requestFields(fieldWithPath("code").type(TokenRequest.class).description("OAuth 로그인 인증 코드")),
+                        responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token"))
                 ))
                 .andExpect(status().isOk());
     }

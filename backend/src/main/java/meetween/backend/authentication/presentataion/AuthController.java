@@ -36,3 +36,4 @@ public class AuthController {
         return ResponseEntity.ok(tokenResponse);
     }
 }
+
