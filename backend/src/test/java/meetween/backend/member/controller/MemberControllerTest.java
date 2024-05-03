@@ -36,6 +36,20 @@ public class MemberControllerTest extends ControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
+                .andDo(print())
+                .andDo(document("member/me",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("JWT Acess Token")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("회원 ID"),
+                                fieldWithPath("socialLoginId").description("카카오 소셜 로그인 ID"),
+                                fieldWithPath("profileImageUrl").description("회원 프로필 이미지 URL"),
+                                fieldWithPath("displayName").description("회원 이름")
+                        )
+                ))
                 .andExpect(status().isOk());
     }
 }
