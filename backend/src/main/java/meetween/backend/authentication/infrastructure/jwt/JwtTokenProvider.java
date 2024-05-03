@@ -18,23 +18,26 @@ import org.springframework.stereotype.Component;
 public class JwtTokenProvider {
 
     private final SecretKey key;
-    private final long expireLength;
+    private final long accessTokenExpireLength;
+    private final long refreshTokenExpireLength;
 
     public JwtTokenProvider(@Value("${jwt.token.secret-key}") final String secretKey,
-                            @Value("${jwt.token.expire-length}") final long expireLength) {
+                            @Value("${jwt.access-token.expire-length}") final long accessTokenExpireLength,
+                            @Value("${jwt.token.expire-length}") final long refreshTokenExpireLength) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
-        this.expireLength = expireLength;
+        this.accessTokenExpireLength = accessTokenExpireLength;
+        this.refreshTokenExpireLength = refreshTokenExpireLength;
     }
 
     public MemberToken generateMemberToken(String payload) {
-        String accessToken = createToken(payload);
-        String refreshToken = createToken(payload);
+        String accessToken = createToken(payload, accessTokenExpireLength);
+        String refreshToken = createToken(payload, refreshTokenExpireLength);
         return new MemberToken(accessToken, refreshToken);
     }
 
-    public String createToken(String payload) {
+    public String createToken(String payload, final long validityInMilliseconds) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + expireLength);
+        Date validity = new Date(System.currentTimeMillis() + validityInMilliseconds);
 
         return Jwts.builder()
                 .setHeaderParam("type", "jwt")
