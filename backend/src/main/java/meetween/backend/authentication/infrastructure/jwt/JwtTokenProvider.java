@@ -31,9 +31,17 @@ public class JwtTokenProvider {
     }
 
     public MemberToken generateMemberToken(String payload) {
-        String accessToken = createToken(payload, accessTokenExpireLength);
-        String refreshToken = createToken(payload, refreshTokenExpireLength);
+        String accessToken = createAccessToken(payload);
+        String refreshToken = createRefreshToken(payload);
         return new MemberToken(accessToken, refreshToken);
+    }
+
+    public String createAccessToken(String payload) {
+        return createToken(payload, accessTokenExpireLength);
+    }
+
+    public String createRefreshToken(String payload) {
+        return createToken(payload, refreshTokenExpireLength);
     }
 
     public String createToken(String payload, final long validityInMilliseconds) {
