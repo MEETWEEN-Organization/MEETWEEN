@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { Theme } from '@styles/theme/theme';
 
-import { ICounter } from './Counter';
+import { CounterProps } from './Counter';
 
 export const containerStyle = css({
   display: 'flex',
@@ -11,7 +11,7 @@ export const containerStyle = css({
   gap: Theme.spacing.spacing4,
 });
 
-export const counterStyle = (isError: Required<ICounter>['isError']) =>
+export const counterStyle = (isError: Required<CounterProps>['isError']) =>
   css({
     display: 'flex',
     justifyContent: 'center',

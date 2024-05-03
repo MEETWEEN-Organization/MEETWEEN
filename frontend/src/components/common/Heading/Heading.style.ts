@@ -2,9 +2,9 @@ import { css } from '@emotion/react';
 
 import { Theme } from '@styles/theme/theme';
 
-import { IHeading } from './Heading';
+import { HeadingProps } from './Heading';
 
-export const headingStyle = (size: Required<IHeading>['size']) => {
+export const headingStyle = (size: Required<HeadingProps>['size']) => {
   const heading = {
     xxLarge: css({
       fontSize: Theme.heading.xxLarge.fontSize,

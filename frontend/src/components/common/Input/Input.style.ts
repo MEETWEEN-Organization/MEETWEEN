@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { Theme } from '@styles/theme/theme';
 
-import { IInput } from './Input';
+import { InputProps } from './Input';
 
 export const variantStyle = {
   default: css({
@@ -15,7 +15,7 @@ export const variantStyle = {
   }),
 };
 
-export const inputWrapperStyle = (isError: Required<IInput>['isError']) =>
+export const inputWrapperStyle = (isError: Required<InputProps>['isError']) =>
   css({
     display: 'flex',
     gap: '16px',

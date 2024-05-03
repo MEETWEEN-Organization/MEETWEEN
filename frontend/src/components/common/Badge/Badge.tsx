@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react';
 
 import { SizeType } from '@type/size';
 
-import { COLOR } from '@constants/color';
+import { COLOR } from '@constants/common';
 
 import { badgeStyle, sizeStyle } from './Badge.style';
 

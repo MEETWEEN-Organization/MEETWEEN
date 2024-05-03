@@ -1,12 +1,12 @@
 import { css } from '@emotion/react';
 
-import { COLOR } from '@constants/color';
+import { COLOR } from '@constants/common';
 
 import { Theme } from '@styles/theme/theme';
 
-import { IBadge } from './Badge';
+import { BadgeProps } from './Badge';
 
-export const badgeStyle = (color: IBadge['color']) =>
+export const badgeStyle = (color: BadgeProps['color']) =>
   css({
     color: Theme.color.white,
     backgroundColor: color ? COLOR[color] : Theme.color.gray200,
