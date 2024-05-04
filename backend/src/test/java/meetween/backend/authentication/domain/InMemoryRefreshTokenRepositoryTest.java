@@ -42,6 +42,16 @@ public class InMemoryRefreshTokenRepositoryTest {
         assertThat(actual).isEqualTo(refreshToken);
     }
 
+    @DisplayName("존재하지 않는 리프레시 토큰을 조회하면 거짓을 리턴한다.")
+    @Test
+    void 존재하지_않는_토큰을_조회하면_거짓을_리턴한다() {
+        // given
+        long memberId = -1L;
+
+        //when, then
+        assertThat(refreshTokenRepository.existsById(memberId)).isFalse();
+    }
+
     @DisplayName("존재하는 리프레시 토큰을 조회하면 참을 리턴한다.")
     @Test
     void 존재하는_토큰을_조회하면_참을_리턴한다() {
@@ -55,16 +65,5 @@ public class InMemoryRefreshTokenRepositoryTest {
 
         // then
         assertThat(actual).isTrue();
-    }
-
-
-    @DisplayName("존재하지 않는 리프레시 토큰을 조회하면 거짓을 리턴한다.")
-    @Test
-    void 존재하지_않는_토큰을_조회하면_거짓을_리턴한다() {
-        // given
-        long memberId = -1L;
-
-        //when, then
-        assertThat(refreshTokenRepository.existsById(memberId)).isFalse();
     }
 }
