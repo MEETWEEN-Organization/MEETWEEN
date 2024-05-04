@@ -45,6 +45,7 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
         assertAll(() -> {
             상태코드_200이_반환된다(response);
             assertThat(tokenResponse.getAccessToken()).isNotEmpty();
+            assertThat(tokenResponse.getRefreshToken()).isNotEmpty();
         });
     }
 }
