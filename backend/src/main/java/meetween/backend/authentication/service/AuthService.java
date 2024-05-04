@@ -21,17 +21,14 @@ public class AuthService {
     private final OAuthProvider oAuthProvider;
     private final MemberService memberService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
 
     public AuthService(
             final OAuthProvider oAuthProvider,
             final MemberService memberService,
-            final JwtTokenProvider jwtTokenProvider,
-            final RefreshTokenRepository refreshTokenRepository) {
+            final JwtTokenProvider jwtTokenProvider) {
         this.oAuthProvider = oAuthProvider;
         this.memberService = memberService;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.refreshTokenRepository = refreshTokenRepository;
     }
 
     public String getSocialLink(String provider) {
@@ -44,8 +41,7 @@ public class AuthService {
         final OAuthClient oAuthClient = oAuthProvider.getOauthClient(provider);
         final OAuthMember oAuthMember = oAuthClient.getOAuthMember(code);
         final Member foundUser = findOrCreateUser(oAuthMember);
-        final MemberToken memberToken = jwtTokenProvider.generateMemberToken(String.valueOf(foundUser.getId()));
-        refreshTokenRepository.save(foundUser.getId(), memberToken.getRefreshToken());
+        final MemberToken memberToken = jwtTokenProvider.generateMemberToken(foundUser.getId());
         return memberToken;
     }
 

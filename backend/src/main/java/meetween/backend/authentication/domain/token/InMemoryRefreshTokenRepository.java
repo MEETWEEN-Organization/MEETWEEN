@@ -16,10 +16,11 @@ public class InMemoryRefreshTokenRepository implements RefreshTokenRepository {
 
     @Override
     public String findById(long memberId) {
-        String refreshToken = storage.get(memberId);
-        if(refreshToken == null) {
-            throw new NoSuchRefreshTokenException();
-        }
-        return  refreshToken;
+        return storage.get(memberId);
+    }
+
+    @Override
+    public boolean existsById(long memberId) {
+        return storage.containsKey(memberId);
     }
 }

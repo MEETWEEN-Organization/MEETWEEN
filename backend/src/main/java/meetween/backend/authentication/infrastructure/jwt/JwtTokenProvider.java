@@ -11,37 +11,45 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import meetween.backend.authentication.domain.token.MemberToken;
+import meetween.backend.authentication.domain.token.RefreshTokenRepository;
 import meetween.backend.authentication.exception.InvalidTokenException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenProvider {
-
+    private final RefreshTokenRepository refreshTokenRepository;
     private final SecretKey key;
     private final long accessTokenExpireLength;
     private final long refreshTokenExpireLength;
 
     public JwtTokenProvider(@Value("${jwt.token.secret-key}") final String secretKey,
                             @Value("${jwt.access-token.expire-length}") final long accessTokenExpireLength,
-                            @Value("${jwt.refresh-token.expire-length}") final long refreshTokenExpireLength) {
+                            @Value("${jwt.refresh-token.expire-length}") final long refreshTokenExpireLength,
+                            final RefreshTokenRepository refreshTokenRepository) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         this.accessTokenExpireLength = accessTokenExpireLength;
         this.refreshTokenExpireLength = refreshTokenExpireLength;
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
-    public MemberToken generateMemberToken(String payload) {
-        String accessToken = createAccessToken(payload);
-        String refreshToken = createRefreshToken(payload);
+    public MemberToken generateMemberToken(long memberId) {
+        String accessToken = createAccessToken(memberId);
+        String refreshToken = createRefreshToken(memberId);
         return new MemberToken(accessToken, refreshToken);
     }
 
-    public String createAccessToken(String payload) {
-        return createToken(payload, accessTokenExpireLength);
+    public String createAccessToken(long memberId) {
+        return createToken(String.valueOf(memberId), refreshTokenExpireLength);
     }
 
-    public String createRefreshToken(String payload) {
-        return createToken(payload, refreshTokenExpireLength);
+    public String createRefreshToken(long memberId) {
+        if(!refreshTokenRepository.existsById(memberId)) {
+            String newRefreshToken = createToken(String.valueOf(memberId), accessTokenExpireLength);
+            refreshTokenRepository.save(memberId, newRefreshToken);
+            return newRefreshToken;
+        }
+        return refreshTokenRepository.findById(memberId);
     }
 
     public String createToken(String payload, final long validityInMilliseconds) {
