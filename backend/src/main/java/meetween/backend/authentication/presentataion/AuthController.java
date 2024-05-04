@@ -34,7 +34,7 @@ public class AuthController {
     public ResponseEntity<TokenResponse> generateToken(@PathVariable final String provider,
                                                        @RequestBody final TokenRequest tokenRequest) {
         final MemberToken memberToken = authService.generateTokenWithCode(tokenRequest.getCode(), provider);
-        final TokenResponse tokenResponse = new TokenResponse(memberToken.getAccessToken());
+        final TokenResponse tokenResponse = new TokenResponse(memberToken.getAccessToken(), memberToken.getRefreshToken());
         return ResponseEntity.ok(tokenResponse);
     }
 }
