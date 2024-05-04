@@ -1,12 +1,7 @@
 package meetween.backend.authentication.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import meetween.backend.appointment.domain.Appointment;
-import meetween.backend.appointment.exception.InvalidAppointmentException;
 import meetween.backend.authentication.domain.token.InMemoryRefreshTokenRepository;
-import meetween.backend.authentication.exception.NoSuchRefreshTokenException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

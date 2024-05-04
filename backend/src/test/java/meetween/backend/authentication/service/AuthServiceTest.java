@@ -7,9 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import meetween.backend.authentication.domain.token.MemberToken;
-import meetween.backend.authentication.dto.TokenRequest;
-import meetween.backend.config.TestConfig;
-import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.support.annotation.ServiceTest;
