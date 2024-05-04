@@ -1,5 +1,6 @@
 package meetween.backend.authentication.presentataion;
 
+import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.authentication.dto.OAuthUriResponse;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
@@ -32,7 +33,8 @@ public class AuthController {
     @PostMapping("/{provider}/token")
     public ResponseEntity<TokenResponse> generateToken(@PathVariable final String provider,
                                                        @RequestBody final TokenRequest tokenRequest) {
-        TokenResponse tokenResponse = authService.generateTokenWithCode(tokenRequest.getCode(), provider);
+        final MemberToken memberToken = authService.generateTokenWithCode(tokenRequest.getCode(), provider);
+        final TokenResponse tokenResponse = new TokenResponse(memberToken.getAccessToken(), memberToken.getRefreshToken());
         return ResponseEntity.ok(tokenResponse);
     }
 }

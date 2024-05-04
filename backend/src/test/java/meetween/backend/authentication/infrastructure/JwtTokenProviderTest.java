@@ -1,11 +1,14 @@
 package meetween.backend.authentication.infrastructure;
 
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.JWT_SECRET_KEY;
-import static meetween.backend.support.fixture.common.AuthenticationFixtures.JWT_EXPIRE_LENGTH;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.EXPIRED_TOKEN_LENGTH;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.ACCESS_TOKEN_EXPIRE_LEGNTH;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.REFRESH_TOKEN_EXPIRE_LENGTH;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.JWT_PAYLOAD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import meetween.backend.authentication.domain.token.InMemoryRefreshTokenRepository;
 import meetween.backend.authentication.exception.InvalidTokenException;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
@@ -13,13 +16,13 @@ import org.junit.jupiter.api.Test;
 
 public class JwtTokenProviderTest {
 
-    private final JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, JWT_EXPIRE_LENGTH);
+    private final JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, ACCESS_TOKEN_EXPIRE_LEGNTH, REFRESH_TOKEN_EXPIRE_LENGTH, new InMemoryRefreshTokenRepository());
 
     @DisplayName("JWT 토큰을 생성한다.")
     @Test
     void JWT_토큰을_생성한다() {
         // given, when
-        String actual = jwtTokenProvider.createToken(JWT_PAYLOAD);
+        String actual = jwtTokenProvider.createToken(JWT_PAYLOAD, ACCESS_TOKEN_EXPIRE_LEGNTH);
 
         // then
         assertThat(actual.split("\\.")).hasSize(3);
@@ -30,10 +33,10 @@ public class JwtTokenProviderTest {
     void JWT_토큰의_Payload를_가져온다() {
         // given
         String expected = JWT_PAYLOAD;
-        String token = jwtTokenProvider.createToken(expected);
+        String accessToken = jwtTokenProvider.createToken(expected, ACCESS_TOKEN_EXPIRE_LEGNTH);
 
         // when
-        String actual = jwtTokenProvider.getPayload(token);
+        String actual = jwtTokenProvider.getPayload(accessToken);
 
         // then
         assertThat(actual).isEqualTo(expected);
@@ -43,8 +46,8 @@ public class JwtTokenProviderTest {
     @Test
     void validateToken_메소드는_만료된_토큰을_전달받으면_예외를_발생시킨다() {
         // given
-        JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, 0);
-        String expiredToken = expiredJwtTokenProvider.createToken(JWT_PAYLOAD);
+        JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, EXPIRED_TOKEN_LENGTH, EXPIRED_TOKEN_LENGTH, new InMemoryRefreshTokenRepository());
+        String expiredToken = expiredJwtTokenProvider.createToken(JWT_PAYLOAD, EXPIRED_TOKEN_LENGTH);
 
         // when, then
         assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))

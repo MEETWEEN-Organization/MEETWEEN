@@ -20,7 +20,6 @@ import meetween.backend.member.exception.NoExistMemberException;
 import meetween.backend.support.annotation.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 
 public class MemberControllerTest extends ControllerTest {

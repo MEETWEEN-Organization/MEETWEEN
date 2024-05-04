@@ -6,8 +6,7 @@ import static meetween.backend.support.fixture.common.AuthenticationFixtures.FAK
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import meetween.backend.config.TestConfig;
-import meetween.backend.authentication.dto.TokenResponse;
+import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.support.annotation.ServiceTest;
@@ -36,10 +35,10 @@ public class AuthServiceTest extends ServiceTest {
     @Test
     void 토큰_생성을_하면_OAuth_서버에서_인증_후_토큰을_반환한다() {
         // given, when
-        TokenResponse tokenResponse = authService.generateTokenWithCode(AUTHORIZATION_CODE, KAKAO_OAUTH_PROVIDER);
+        MemberToken memberToken = authService.generateTokenWithCode(AUTHORIZATION_CODE, KAKAO_OAUTH_PROVIDER);
 
         // then
-        assertThat(tokenResponse.getAccessToken()).isNotEmpty();
+        assertThat(memberToken.getAccessToken()).isNotEmpty();
     }
 
 
@@ -68,5 +67,21 @@ public class AuthServiceTest extends ServiceTest {
 
         // then
         assertThat(actual).hasSize(1);
+    }
+
+
+    @DisplayName("이미 저장된 리프레시 토큰이 스토리지에 존재한다면 저장된 리프레시 토큰을 리턴한다.")
+    @Test
+    void 이미_저장된_리프레시_토큰이_스토리지에_존재한다면_저장된_리프레시_토큰을_리턴한다() {
+        // given
+        String code = "code";
+        String provider = "kakao";
+        MemberToken memberToken = authService.generateTokenWithCode(code, provider);
+
+        // when
+        MemberToken actual = authService.generateTokenWithCode(code, provider);
+
+        // then
+        assertThat(actual.getRefreshToken()).isEqualTo(memberToken.getRefreshToken());
     }
 }
