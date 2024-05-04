@@ -85,6 +85,6 @@ public class AuthServiceTest extends ServiceTest {
         MemberToken actual = authService.generateTokenWithCode(code, provider);
 
         // then
-        assertThat(actual.getRefreshToken()).isEqualTo(memberToken.getAccessToken());
+        assertThat(actual.getRefreshToken()).isEqualTo(memberToken.getRefreshToken());
     }
 }
