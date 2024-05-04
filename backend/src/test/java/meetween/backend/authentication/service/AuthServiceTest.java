@@ -10,13 +10,12 @@ import meetween.backend.config.TestConfig;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
+import meetween.backend.support.annotation.ServiceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = TestConfig.class)
-public class AuthServiceTest {
+public class AuthServiceTest extends ServiceTest {
     @Autowired
     private AuthService authService;
 

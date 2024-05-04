@@ -5,7 +5,7 @@ import meetween.backend.member.domain.Member;
 
 public class MemberResponse {
     private Long id;
-    private String socialLoginId;;
+    private String socialLoginId;
     private String profileImageUrl;
     private String displayName;
 

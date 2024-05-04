@@ -1,5 +1,6 @@
 package meetween.backend.global.error;
 
+import meetween.backend.authentication.exception.InvalidOAuthServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +23,13 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // TODO: RuntimeException 에 대한 애플리케이션 커스텀 클래스 세부 예외처리
+    @ExceptionHandler({InvalidOAuthServiceException.class})
+    public ResponseEntity<ExceptionResponse> handleOAuthServiceException(final RuntimeException exception) {
+        log.error(exception.getMessage(), exception);
+        ExceptionResponse exceptionResponse = new ExceptionResponse(exception.getMessage());
+        return ResponseEntity.internalServerError().body(exceptionResponse);
+    }
+
     @ExceptionHandler({RuntimeException.class})
     public ResponseEntity<ExceptionResponse> handleRuntimeException(final RuntimeException exception) {
         log.error(exception.getMessage(), exception);
