@@ -125,4 +125,18 @@ public class AuthServiceTest extends ServiceTest {
         assertThatThrownBy(() -> authService.generateRenewalAccessToken(renewalAccessTokenRequest))
                 .isInstanceOf(InvalidTokenException.class);
     }
+
+    @DisplayName("DB에 존재하지 않는 리프레시 토큰으로 엑세스 토큰을 갱신할시 예외가 발생한다.")
+    @Test
+    void 존재하지_않는_리프레시_토큰으로_엑세스_토큰을_갱신할시_예외가_발생한다() {
+        // given
+        long memberId = -1L;
+        String notExistToken = jwtTokenProvider.createToken(String.valueOf(memberId), 100000);
+        RenewalAccessTokenRequest renewalAccessTokenRequest
+                = new RenewalAccessTokenRequest(notExistToken);
+
+        // when, then
+        assertThatThrownBy(() -> authService.generateRenewalAccessToken(renewalAccessTokenRequest))
+                .isInstanceOf(InvalidTokenException.class);
+    }
 }

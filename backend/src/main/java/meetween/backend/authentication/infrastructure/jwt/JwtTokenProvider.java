@@ -94,7 +94,11 @@ public class JwtTokenProvider {
     public String generateRenewalAccessToken(String refreshToken) {
         validateToken(refreshToken);
         Long memberId = Long.valueOf(getPayload(refreshToken));
-        String refreshTokenInMemory = refreshTokenRepository.findById(memberId);
+
+        if(!refreshTokenRepository.existsById(memberId)) {
+            throw new InvalidTokenException();
+        }
+
         return createAccessToken(memberId);
     }
 }
