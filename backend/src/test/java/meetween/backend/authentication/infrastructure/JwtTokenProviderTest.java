@@ -18,11 +18,21 @@ public class JwtTokenProviderTest {
 
     private final JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, ACCESS_TOKEN_EXPIRE_LEGNTH, REFRESH_TOKEN_EXPIRE_LENGTH, new InMemoryRefreshTokenRepository());
 
-    @DisplayName("JWT 토큰을 생성한다.")
+    @DisplayName("엑세스 토큰을 생성한다.")
     @Test
-    void JWT_토큰을_생성한다() {
+    void 엑세스_토큰을_생성한다() {
         // given, when
-        String actual = jwtTokenProvider.createToken(JWT_PAYLOAD, ACCESS_TOKEN_EXPIRE_LEGNTH);
+        String actual = jwtTokenProvider.createAccessToken(1L);
+
+        // then
+        assertThat(actual.split("\\.")).hasSize(3);
+    }
+
+    @DisplayName("리프레시 토큰을 생성한다.")
+    @Test
+    void 리프레시_토큰을_생성한다() {
+        // given, when
+        String actual = jwtTokenProvider.createRefreshToken(1L);
 
         // then
         assertThat(actual.split("\\.")).hasSize(3);
