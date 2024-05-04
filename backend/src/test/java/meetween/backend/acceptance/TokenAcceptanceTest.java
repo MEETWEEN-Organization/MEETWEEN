@@ -80,4 +80,6 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
             assertThat(tokenResponse.getRefreshToken()).isNotEmpty();
         });
     }
+
+
 }
