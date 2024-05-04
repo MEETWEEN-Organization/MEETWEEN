@@ -20,6 +20,6 @@ public class InMemoryRefreshTokenRepositoryTest {
         refreshTokenRepository.save(memberId, refreshToken);
 
         // then
-        assertThat(refreshTokenRepository.findById(memberId)).isEqualTo(refreshToken);
+        assertThat(refreshTokenRepository.findById(1L)).isEqualTo(refreshToken);
     }
 }

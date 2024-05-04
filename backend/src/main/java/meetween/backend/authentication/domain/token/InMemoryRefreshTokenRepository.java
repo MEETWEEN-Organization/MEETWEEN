@@ -2,6 +2,7 @@ package meetween.backend.authentication.domain.token;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import meetween.backend.authentication.exception.NoSuchRefreshTokenException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,10 @@ public class InMemoryRefreshTokenRepository implements RefreshTokenRepository {
 
     @Override
     public String findById(long memberId) {
-        return storage.get(memberId);
+        String refreshToken = storage.get(memberId);
+        if(refreshToken == null) {
+            throw new NoSuchRefreshTokenException();
+        }
+        return  refreshToken;
     }
 }
