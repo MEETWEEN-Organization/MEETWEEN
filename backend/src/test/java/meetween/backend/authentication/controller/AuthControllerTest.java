@@ -1,5 +1,7 @@
 package meetween.backend.authentication.controller;
 
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_갱신_요청;
+import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_갱신_응답;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_응답;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_생성_요청;
 import static org.mockito.ArgumentMatchers.any;
@@ -82,11 +84,38 @@ public class AuthControllerTest extends ControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(토큰_생성_요청())))
                 .andDo(print())
-                .andDo(document("auth/generatoe/token/fail",
+                .andDo(document("auth/generate/token/fail",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("provider").description("kakao")),
                         requestFields(fieldWithPath("code").type(JsonFieldType.STRING).description("OAuth 로그인 인증 코드"))
                 )).andExpect(status().isInternalServerError());
+    }
+
+    @DisplayName("리프레시 토큰을 통해 새로운 엑세스 토큰을 발급하면 상태코드 200을 리턴한다.")
+    @Test
+    void 리프레시_토큰을_통해_새로운_엑세스_토큰을_발급하면_상태코드_200을_리턴한다() throws Exception {
+        // given
+        given(authService.generateRenewalAccessToken(any())).willReturn(토큰_갱신_응답());
+
+        // when, then
+        mockMvc.perform(post("/auth/token/renewal")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(토큰_갱신_요청())))
+                .andDo(print())
+                .andDo(document("auth/generateRenewalToken",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(
+                                fieldWithPath("refreshToken").type(JsonFieldType.STRING)
+                                        .description("프론트엔드에게 예전에 발급했던 리프레시 토큰")
+                        ),
+                        responseFields(
+                                fieldWithPath("accessToken").type(JsonFieldType.STRING)
+                                        .description("새롭게 재발급 받은(갱신한) 엑세스 토큰")
+                        )
+                ))
+                .andExpect(status().isOk());
     }
 }

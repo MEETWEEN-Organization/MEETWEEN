@@ -3,7 +3,8 @@ package meetween.backend.authentication.dto;
 public class RenewalAccessTokenResponse {
     private String accessToken;
 
-    private RenewalAccessTokenResponse(){}
+    private RenewalAccessTokenResponse(){
+    }
 
     public RenewalAccessTokenResponse(final String accessToken) {
         this.accessToken = accessToken;
