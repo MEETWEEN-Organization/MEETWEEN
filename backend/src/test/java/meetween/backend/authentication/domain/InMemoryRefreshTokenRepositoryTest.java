@@ -27,9 +27,9 @@ public class InMemoryRefreshTokenRepositoryTest {
         assertThat(refreshTokenRepository.findById(1L)).isEqualTo(refreshToken);
     }
 
-    @DisplayName("토큰을 가져온다")
+    @DisplayName("리프레시 토큰을 가져온다")
     @Test
-    void 토큰을_가져온다() {
+    void 리프레시_토큰을_가져온다() {
         // given
         long memberId = 1L;
         String refreshToken = "refresh token";
@@ -42,15 +42,29 @@ public class InMemoryRefreshTokenRepositoryTest {
         assertThat(actual).isEqualTo(refreshToken);
     }
 
-
-    @DisplayName("존재하지 않는 토큰을 조회하면 예외가 발생한다.")
+    @DisplayName("존재하는 리프레시 토큰을 조회하면 참을 리턴한다.")
     @Test
-    void 존재하지_않는_토큰을_조회하면_예외가_발생한다() {
+    void 존재하는_토큰을_조회하면_참을_리턴한다() {
         // given
         long memberId = 1L;
+        String refreshToken = "refresh token";
+        refreshTokenRepository.save(memberId, refreshToken);
+
+        // when
+        boolean actual = refreshTokenRepository.existsById(memberId);
+
+        // then
+        assertThat(actual).isTrue();
+    }
+
+
+    @DisplayName("존재하지 않는 리프레시 토큰을 조회하면 거짓을 리턴한다.")
+    @Test
+    void 존재하지_않는_토큰을_조회하면_거짓을_리턴한다() {
+        // given
+        long memberId = -1L;
 
         //when, then
-        assertThatThrownBy(() -> refreshTokenRepository.findById(memberId))
-                .isInstanceOf(NoSuchRefreshTokenException.class);
+        assertThat(refreshTokenRepository.existsById(memberId)).isFalse();
     }
 }
