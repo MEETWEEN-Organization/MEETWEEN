@@ -34,9 +34,9 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
         });
     }
 
-    @DisplayName("최초 사용자거나 기존에 존재하는 회원인 경우 200을 발급한다.")
+    @DisplayName("최초 사용자거나 기존에 존재하는 회원이 다시 로그인하는 경우 토큰들을 발급하고 상태코드 200을 반환한다.")
     @Test
-    void 최초_사용자거나_기존에_존재하는_회원인_경우_200을_발급한다() {
+    void 최초_사용자거나_기존에_존재하는_회원이_다시_로그인하는_경우_토큰들을_발급하고_상태코드_200을_반환한다() {
         // given, when
         ExtractableResponse<Response> response = 자체_토큰을_생성한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
         TokenResponse tokenResponse = response.as(TokenResponse.class);
