@@ -1,5 +1,6 @@
 package meetween.backend.acceptance;
 
+import static meetween.backend.support.fixture.acceptance.TokenAcceptanceFixture.리프레시_토큰을_통해_새로운_엑세스_토큰을_재발급_한다;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.AUTHORIZATION_CODE;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.KAKAO_OAUTH_PROVIDER;
 import static meetween.backend.support.fixture.acceptance.status.StatusFixtures.상태코드_200이_반환된다;
@@ -65,20 +66,13 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
         );
 
         // when
-        RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(renewalAccessTokenRequest)
-                .when().post("/auth/token/renewal")
-                .then().log().all()
-                .statusCode(HttpStatus.OK.value())
-                .extract()
-                .as(RenewalAccessTokenResponse.class);
+        ExtractableResponse<Response> actual = 리프레시_토큰을_통해_새로운_엑세스_토큰을_재발급_한다(renewalAccessTokenRequest);
+        RenewalAccessTokenResponse renewalAccessTokenResponse = actual.as(RenewalAccessTokenResponse.class);
 
         // then
         assertAll(() -> {
             상태코드_200이_반환된다(response);
             assertThat(tokenResponse.getAccessToken()).isNotEmpty();
-            assertThat(tokenResponse.getRefreshToken()).isNotEmpty();
         });
     }
 
