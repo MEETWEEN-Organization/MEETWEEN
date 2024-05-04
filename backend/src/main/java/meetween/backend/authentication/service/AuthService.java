@@ -61,4 +61,9 @@ public class AuthService {
                 oAuthMember.getNickname(),
                 SocialType.KAKAO);
     }
+
+
+    public void generateRenewalAccessToken() {
+
+    }
 }
