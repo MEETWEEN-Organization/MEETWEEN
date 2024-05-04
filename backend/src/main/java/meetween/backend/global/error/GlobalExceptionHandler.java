@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleUnExpectedException(final Exception exception) {
-        log.error(exception.getMessage(), exception);
+        log.warn(exception.getMessage(), exception);
         ExceptionResponse exceptionResponse = new ExceptionResponse("서버에 오류가 발생했습니다.");
         return ResponseEntity.internalServerError().body(exceptionResponse);
     }
