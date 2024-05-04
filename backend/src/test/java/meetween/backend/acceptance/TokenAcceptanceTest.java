@@ -8,15 +8,20 @@ import static meetween.backend.support.fixture.acceptance.TokenAcceptanceFixture
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import meetween.backend.acceptance.config.AcceptenceConfig;
 import meetween.backend.authentication.dto.OAuthUriResponse;
+import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
+import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.config.TestConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 
 @Import(TestConfig.class)
 public class TokenAcceptanceTest extends AcceptenceConfig {
@@ -40,6 +45,33 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
         // given, when
         ExtractableResponse<Response> response = 자체_토큰을_생성한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
         TokenResponse tokenResponse = response.as(TokenResponse.class);
+
+        // then
+        assertAll(() -> {
+            상태코드_200이_반환된다(response);
+            assertThat(tokenResponse.getAccessToken()).isNotEmpty();
+            assertThat(tokenResponse.getRefreshToken()).isNotEmpty();
+        });
+    }
+
+    @DisplayName("리프레스 토큰을 통해 새로운 엑세스 토큰을 발급받고 200을 리턴한다")
+    @Test
+    void 리프레스_토큰을_통해_새로운_엑세스_토큰을_발급받고_200을_리턴한다() {
+        // given
+        ExtractableResponse<Response> response = 자체_토큰을_생성한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
+        TokenResponse tokenResponse = response.as(TokenResponse.class);
+        RenewalAccessTokenRequest renewalAccessTokenRequest = new RenewalAccessTokenRequest
+                (tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
+
+        // when
+        RestAssured.given().log().all()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(renewalAccessTokenRequest)
+                .when().post("/auth/token/renewal")
+                .then().log().all()
+                .statusCode(HttpStatus.OK.value())
+                .extract()
+                .as(RenewalAccessTokenResponse.class);
 
         // then
         assertAll(() -> {

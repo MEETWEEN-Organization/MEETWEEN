@@ -44,7 +44,7 @@ public class AuthController {
     public ResponseEntity<RenewalAccessTokenResponse> extendLogin(
             @RequestBody final RenewalAccessTokenRequest renewalAccessTokenRequest) {
         authService.generateRenewalAccessToken();
-        return null;
+        return ResponseEntity.ok(new RenewalAccessTokenResponse("access-token"));
     }
 }
 
