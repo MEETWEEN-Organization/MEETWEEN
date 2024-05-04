@@ -43,8 +43,9 @@ public class AuthController {
     @PostMapping("/token/renewal")
     public ResponseEntity<RenewalAccessTokenResponse> extendLogin(
             @RequestBody final RenewalAccessTokenRequest renewalAccessTokenRequest) {
-        authService.generateRenewalAccessToken();
-        return ResponseEntity.ok(new RenewalAccessTokenResponse("access-token"));
+        final RenewalAccessTokenResponse renewalAccessTokenResponse =
+                authService.generateRenewalAccessToken(renewalAccessTokenRequest);
+        return ResponseEntity.ok(renewalAccessTokenResponse);
     }
 }
 

@@ -6,6 +6,9 @@ import meetween.backend.authentication.domain.client.OAuthClient;
 import meetween.backend.authentication.domain.token.InMemoryRefreshTokenRepository;
 import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.authentication.domain.token.RefreshTokenRepository;
+import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
+import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
+import meetween.backend.authentication.exception.InvalidTokenException;
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
 import meetween.backend.authentication.dto.TokenResponse;
@@ -63,7 +66,9 @@ public class AuthService {
     }
 
 
-    public void generateRenewalAccessToken() {
-
+    public RenewalAccessTokenResponse generateRenewalAccessToken(final RenewalAccessTokenRequest renewalAccessTokenRequest) {
+        String refreshToken = renewalAccessTokenRequest.getRefreshToken();
+        String renewalAccessToken = jwtTokenProvider.generateRenewalAccessToken(refreshToken);
+        return new RenewalAccessTokenResponse(renewalAccessToken);
     }
 }

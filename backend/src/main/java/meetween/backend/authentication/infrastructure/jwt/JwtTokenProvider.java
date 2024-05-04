@@ -90,4 +90,15 @@ public class JwtTokenProvider {
             throw new InvalidTokenException();
         }
     }
+
+    public String generateRenewalAccessToken(String refreshToken) {
+        validateToken(refreshToken);
+        Long memberId = Long.valueOf(getPayload(refreshToken));
+        String refreshTokenInMemory = refreshTokenRepository.findById(memberId);
+
+        if(!refreshTokenInMemory.equals(refreshToken)) {
+            throw new InvalidTokenException();
+        }
+       return createAccessToken(memberId);
+    }
 }

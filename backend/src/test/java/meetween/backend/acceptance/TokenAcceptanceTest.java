@@ -60,8 +60,9 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
         // given
         ExtractableResponse<Response> response = 자체_토큰을_생성한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
         TokenResponse tokenResponse = response.as(TokenResponse.class);
-        RenewalAccessTokenRequest renewalAccessTokenRequest = new RenewalAccessTokenRequest
-                (tokenResponse.getAccessToken(), tokenResponse.getRefreshToken());
+        RenewalAccessTokenRequest renewalAccessTokenRequest = new RenewalAccessTokenRequest(
+                tokenResponse.getRefreshToken()
+        );
 
         // when
         RestAssured.given().log().all()
