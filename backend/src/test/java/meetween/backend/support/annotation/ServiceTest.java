@@ -9,5 +9,4 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(classes = TestConfig.class)
 @ActiveProfiles("test")
 public abstract class ServiceTest {
-
 }

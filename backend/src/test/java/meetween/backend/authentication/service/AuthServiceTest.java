@@ -4,9 +4,20 @@ import static meetween.backend.support.fixture.common.AuthenticationFixtures.KAK
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.AUTHORIZATION_CODE;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.FAKE_SOCIAL_ID;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import io.jsonwebtoken.Header;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import meetween.backend.authentication.domain.token.MemberToken;
+import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
+import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
+import meetween.backend.authentication.exception.InvalidTokenException;
+import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.support.annotation.ServiceTest;
@@ -20,6 +31,9 @@ public class AuthServiceTest extends ServiceTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @DisplayName("카카오 소셜 로그인을 위한 링크를 생성한다.")
     @Test
@@ -83,5 +97,20 @@ public class AuthServiceTest extends ServiceTest {
 
         // then
         assertThat(actual.getRefreshToken()).isEqualTo(memberToken.getRefreshToken());
+    }
+
+    @DisplayName("리프레시 토큰으로 새로운 엑세스 토큰을 갱신한다.")
+    @Test
+    void 리프레시_토큰으로_새로운_엑세스_토큰을_갱신한다() {
+        // given
+        String testRefreshToken = jwtTokenProvider.createRefreshToken(1L);
+
+        RenewalAccessTokenRequest renewalAccessTokenRequest
+                = new RenewalAccessTokenRequest(testRefreshToken);
+        RenewalAccessTokenResponse renewalAccessTokenResponse
+                = authService.generateRenewalAccessToken(renewalAccessTokenRequest);
+
+        // when, then
+        assertThat(renewalAccessTokenResponse.getAccessToken()).isNotEmpty();
     }
 }
