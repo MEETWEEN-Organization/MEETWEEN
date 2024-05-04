@@ -27,6 +27,21 @@ public class InMemoryRefreshTokenRepositoryTest {
         assertThat(refreshTokenRepository.findById(1L)).isEqualTo(refreshToken);
     }
 
+    @DisplayName("토큰을 가져온다")
+    @Test
+    void 토큰을_가져온다() {
+        // given
+        long memberId = 1L;
+        String refreshToken = "refresh token";
+        refreshTokenRepository.save(memberId, refreshToken);
+
+        // when
+        String actual = refreshTokenRepository.findById(memberId);
+
+        // then
+        assertThat(actual).isEqualTo(refreshToken);
+    }
+
 
     @DisplayName("존재하지 않는 토큰을 조회하면 예외가 발생한다.")
     @Test
