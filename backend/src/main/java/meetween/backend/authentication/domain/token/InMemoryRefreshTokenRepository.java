@@ -12,4 +12,9 @@ public class InMemoryRefreshTokenRepository implements RefreshTokenRepository {
     public void save(final long memberId, final String refreshToken) {
         storage.put(memberId, refreshToken);
     }
+
+    @Override
+    public String findById(long memberId) {
+        return storage.get(memberId);
+    }
 }
