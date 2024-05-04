@@ -23,6 +23,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.exception.InvalidOAuthServiceException;
+import meetween.backend.authentication.exception.InvalidTokenException;
 import meetween.backend.support.annotation.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -117,5 +118,28 @@ public class AuthControllerTest extends ControllerTest {
                         )
                 ))
                 .andExpect(status().isOk());
+    }
+
+    @DisplayName("만료되었거나 잘못 변형된 리프레시 토큰으로 새로운 엑세스 토큰을 재발급하려 하면 상태코드 400을 리턴한다.")
+    @Test
+    void 만료되었거나_잘못_변형된_리프레시_토큰으로_새로운_엑세스_토큰을_발급하려_하면_상태코드_401을_리턴한다() throws Exception {
+        // given
+        given(authService.generateRenewalAccessToken(any())).willThrow(new InvalidTokenException());
+
+        // when & then
+        mockMvc.perform(post("/auth/token/renewal")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(토큰_갱신_요청())))
+                .andDo(print())
+                .andDo(document("auth/generateRenewalToken/invalidTokenError",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(
+                                fieldWithPath("refreshToken").type(JsonFieldType.STRING)
+                                        .description("OAuth 리프레시 토큰 인증 코드")
+                        )
+                ))
+                .andExpect(status().isBadRequest());
     }
 }
