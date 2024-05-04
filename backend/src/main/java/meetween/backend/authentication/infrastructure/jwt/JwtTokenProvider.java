@@ -66,6 +66,8 @@ public class JwtTokenProvider {
     }
 
     public String getPayload(String token) {
+        validateToken(token);
+
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
