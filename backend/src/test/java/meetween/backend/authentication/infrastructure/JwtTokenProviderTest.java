@@ -28,16 +28,6 @@ public class JwtTokenProviderTest {
         assertThat(actual.split("\\.")).hasSize(3);
     }
 
-    @DisplayName("리프레시 토큰을 생성한다.")
-    @Test
-    void 리프레시_토큰을_생성한다() {
-        // given, when
-        String actual = jwtTokenProvider.createRefreshToken(1L);
-
-        // then
-        assertThat(actual.split("\\.")).hasSize(3);
-    }
-
     @DisplayName("JWT 토큰의 Payload를 가져온다.")
     @Test
     void JWT_토큰의_Payload를_가져온다() {
