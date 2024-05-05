@@ -5,14 +5,12 @@ import jakarta.validation.Valid;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
+import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.appointment.service.AppointmentService;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -37,6 +35,12 @@ public class AppointmentController {
     public ResponseEntity<AppointmentResponse> participate(@AuthPrincipal LoginMember loginMember,
                                                            @Valid @RequestBody final AppointmentParticipateRequest request) {
         AppointmentResponse response = appointmentService.participate(loginMember.getId(), request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("my")
+    public ResponseEntity<IntegratedAppointmentResponses> findMyAllAppointments(@AuthPrincipal LoginMember loginMember) {
+        IntegratedAppointmentResponses response = appointmentService.findAll(loginMember.getId());
         return ResponseEntity.ok().body(response);
     }
 }
