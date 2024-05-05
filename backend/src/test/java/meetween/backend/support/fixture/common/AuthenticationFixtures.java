@@ -1,6 +1,8 @@
 package meetween.backend.support.fixture.common;
 
 import meetween.backend.authentication.domain.token.MemberToken;
+import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
+import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
 
@@ -27,5 +29,13 @@ public class AuthenticationFixtures {
 
     public static TokenRequest 토큰_생성_요청() {
         return new TokenRequest("authorization-code");
+    }
+
+    public static RenewalAccessTokenRequest 토큰_갱신_요청() {
+        return new RenewalAccessTokenRequest("refresh-token");
+    }
+
+    public static RenewalAccessTokenResponse 토큰_갱신_응답() {
+        return new RenewalAccessTokenResponse("access-token");
     }
 }

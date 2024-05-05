@@ -37,9 +37,9 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
             throw new BadRequestException();
         }
 
-        String accessToken = bearerTokenExtractor.extractValidAccessToken(request);
-        Long id = Long.parseLong(jwtTokenProvider.getPayload(accessToken));
+        final String accessToken = bearerTokenExtractor.extractValidAccessToken(request);
+        final Long memberId = Long.parseLong(jwtTokenProvider.getPayload(accessToken));
 
-        return new LoginMember(id);
+        return new LoginMember(memberId);
     }
 }

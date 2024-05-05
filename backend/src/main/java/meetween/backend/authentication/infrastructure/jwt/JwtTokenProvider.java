@@ -66,6 +66,8 @@ public class JwtTokenProvider {
     }
 
     public String getPayload(String token) {
+        validateToken(token);
+
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -87,5 +89,16 @@ public class JwtTokenProvider {
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidTokenException();
         }
+    }
+
+    public String generateRenewalAccessToken(String refreshToken) {
+        validateToken(refreshToken);
+        Long memberId = Long.valueOf(getPayload(refreshToken));
+
+        if(!refreshTokenRepository.existsById(memberId)) {
+            throw new InvalidTokenException();
+        }
+
+        return createAccessToken(memberId);
     }
 }
