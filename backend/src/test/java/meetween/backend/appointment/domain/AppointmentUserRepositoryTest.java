@@ -3,6 +3,7 @@ package meetween.backend.appointment.domain;
 import meetween.backend.global.config.JpaAuditConfig;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
+import meetween.backend.member.domain.SocialType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ class AppointmentUserRepositoryTest {
     @Test
     void 특정_유저가_속한_모든_약속_유저를_찾는다() {
         //given
-        Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, 카카오_소셜타입);
+        Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
         Appointment appointment1 = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L, 수현_약속_위도, 수현_약속_경도);
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member);
 
