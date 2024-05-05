@@ -7,6 +7,7 @@ import meetween.backend.appointment.domain.AppointmentUserRepository;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
+import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.category.domain.Category;
 import meetween.backend.category.domain.CategoryColor;
 import meetween.backend.category.domain.CategoryRepository;
@@ -14,6 +15,8 @@ import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @Service
@@ -64,4 +67,13 @@ public class AppointmentService {
 
         return new AppointmentResponse(appointment);
     }
+
+    public IntegratedAppointmentResponses findAll(final Long memberId) {
+        return new IntegratedAppointmentResponses(
+                appointmentUserRepository.findAllByMember(memberRepository.getById(memberId)).stream()
+                        .map(appointmentUser -> new AppointmentResponse(appointmentUser.getAppointment()))
+                        .collect(Collectors.toList())
+        );
+    }
+
 }
