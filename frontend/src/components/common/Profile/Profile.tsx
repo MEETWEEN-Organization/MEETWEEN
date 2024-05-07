@@ -7,7 +7,7 @@ interface ProfileProps extends ComponentPropsWithoutRef<'img'> {
 }
 
 const Profile = ({ imgUrl, ...props }: ProfileProps) => {
-  return <img css={profileStyle} src={imgUrl} {...props} />;
+  return <img alt="프로필" css={profileStyle} src={imgUrl} {...props} />;
 };
 
 export default Profile;

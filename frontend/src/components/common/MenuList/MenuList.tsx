@@ -13,7 +13,7 @@ const MenuList = (
 ) => {
   return (
     isOpen && (
-      <ul css={listStyle(position)} ref={ref} {...props}>
+      <ul role="tablist" css={listStyle(position)} ref={ref} {...props}>
         {children}
       </ul>
     )

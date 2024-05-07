@@ -55,5 +55,8 @@ export const closeBtnStyle = css({
   width: '18px',
   height: '18px',
 
+  border: 'none',
+  backgroundColor: 'transparent',
+
   cursor: 'pointer',
 });

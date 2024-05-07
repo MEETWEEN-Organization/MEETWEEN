@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import CloseBtn from '@assets/svg/close.svg?react';
@@ -19,6 +19,9 @@ export interface ModalProps extends ComponentPropsWithoutRef<'dialog'> {
   close: () => void;
 }
 
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 const Modal = ({
   isOpen,
   close,
@@ -28,20 +31,45 @@ const Modal = ({
   ...props
 }: ModalProps) => {
   const parentElement = document.body;
-  const modal = createPortal(
-    <dialog css={dialogStyle} {...props}>
-      {hasCloseBtn && <CloseBtn onClick={close} css={closeBtnStyle} strokeWidth={2} />}
-      {children}
-    </dialog>,
-    parentElement,
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      const { key } = e;
+
+      if (key === 'Escape') {
+        close();
+      }
+    },
+    [close],
   );
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflowY = 'hidden';
+      window.addEventListener('keypress', handleKeyDown);
+    }
+
+    return () => {
+      document.body.style.overflowY = 'auto';
+      window.removeEventListener('keypress', handleKeyDown);
+    };
+  }, [isOpen, handleKeyDown]);
+
   return (
-    isOpen && (
+    isOpen &&
+    createPortal(
       <>
         <div onClick={isClosableByBackdrop ? close : () => {}} css={backgroundStyle} />
-        {modal}
-      </>
+        <dialog aria-modal={isOpen} css={dialogStyle} {...props}>
+          {hasCloseBtn && (
+            <button aria-label="모달 닫기 버튼" css={closeBtnStyle} onClick={close}>
+              <CloseBtn strokeWidth={2} />
+            </button>
+          )}
+          {children}
+        </dialog>
+      </>,
+      parentElement,
     )
   );
 };
