@@ -47,7 +47,7 @@ public class AuthController {
                 .path("/")
                 .build();
         response.addHeader("refresh-token", responseCookie.toString());
-        final TokenResponse tokenResponse = new TokenResponse(memberToken.getAccessToken(), memberToken.getRefreshToken());
+        final TokenResponse tokenResponse = new TokenResponse(memberToken.getAccessToken());
         return ResponseEntity.ok(tokenResponse);
     }
 
