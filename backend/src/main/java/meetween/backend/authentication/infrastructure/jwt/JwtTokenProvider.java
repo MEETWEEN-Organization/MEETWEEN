@@ -13,6 +13,7 @@ import javax.crypto.SecretKey;
 import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.authentication.domain.token.RefreshTokenRepository;
 import meetween.backend.authentication.exception.InvalidTokenException;
+import meetween.backend.authentication.exception.NoSuchRefreshTokenException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -103,6 +104,9 @@ public class JwtTokenProvider {
     }
 
     public void removeRefreshTokenByMemberId(final long memberId) {
+        if(!refreshTokenRepository.existsById(memberId)) {
+            throw new NoSuchRefreshTokenException();
+        }
         refreshTokenRepository.existsById(memberId);
     }
 }
