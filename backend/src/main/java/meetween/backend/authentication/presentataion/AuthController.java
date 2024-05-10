@@ -1,6 +1,7 @@
 package meetween.backend.authentication.presentataion;
 
 import jakarta.servlet.http.HttpServletResponse;
+import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.dto.OAuthUriResponse;
@@ -62,7 +63,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@AuthPrincipal final LoginMember loginMember) {
+    public ResponseEntity<Void> logout(@AuthPrincipal LoginMember loginMember) {
         authService.removeRefreshToken(loginMember.getId());
         return ResponseEntity.noContent().build();
     }

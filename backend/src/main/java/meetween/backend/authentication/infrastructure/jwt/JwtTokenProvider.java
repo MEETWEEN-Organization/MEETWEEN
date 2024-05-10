@@ -103,7 +103,7 @@ public class JwtTokenProvider {
         return createAccessToken(memberId);
     }
 
-    public void removeRefreshTokenByMemberId(final long memberId) {
-        refreshTokenRepository.deleteById(memberId);
+    public long removeRefreshTokenByMemberId(final long memberId) {
+        return refreshTokenRepository.deleteById(memberId);
     }
 }

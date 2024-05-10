@@ -72,7 +72,7 @@ public class AuthService {
         return new RenewalAccessTokenResponse(renewalAccessToken);
     }
 
-    public void removeRefreshToken(final long memberId) {
-        jwtTokenProvider.removeRefreshTokenByMemberId(memberId);
+    public long removeRefreshToken(final long memberId) {
+       return jwtTokenProvider.removeRefreshTokenByMemberId(memberId);
     }
 }

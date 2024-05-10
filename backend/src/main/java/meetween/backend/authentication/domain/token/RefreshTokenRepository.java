@@ -7,5 +7,5 @@ public interface RefreshTokenRepository {
 
     boolean existsById(long memberId);
 
-    void deleteById(long memberId);
+    long deleteById(long memberId);
 }
