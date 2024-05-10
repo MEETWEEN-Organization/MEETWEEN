@@ -103,7 +103,7 @@ public class AuthServiceTest extends ServiceTest {
     @Test
     void 리프레시_토큰으로_새로운_엑세스_토큰을_갱신한다() {
         // given
-        String testRefreshToken = jwtTokenProvider.createRefreshToken(1L);
+        String testRefreshToken = jwtTokenProvider.createRefreshToken(10L);
 
         RenewalAccessTokenRequest renewalAccessTokenRequest
                 = new RenewalAccessTokenRequest(testRefreshToken);
