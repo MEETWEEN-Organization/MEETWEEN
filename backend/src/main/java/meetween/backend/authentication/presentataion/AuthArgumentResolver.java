@@ -18,12 +18,10 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @Component
 public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
     private final JwtTokenProvider jwtTokenProvider;
-    private final BearerTokenExtractor bearerTokenExtractor;
     private static final String BEARER_TYPE = "Bearer ";
 
-    public AuthArgumentResolver(final JwtTokenProvider jwtTokenProvider, final BearerTokenExtractor bearerTokenExtractor) {
+    public AuthArgumentResolver(final JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
-        this.bearerTokenExtractor = bearerTokenExtractor;
     }
 
     @Override
@@ -42,30 +40,9 @@ public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
             throw new BadRequestException();
         }
 
-        final String accessToken = extractValidAccessToken(request);
+        final String accessToken = BearerTokenExtractor.extractValidAccessToken(request);
         final Long memberId = Long.valueOf(jwtTokenProvider.getMemberId(accessToken));
 
         return new LoginMember(memberId);
-    }
-
-    public String extractValidAccessToken(final HttpServletRequest httpServletRequest) {
-        String authorizationHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
-
-        validateEmptyHeader(authorizationHeader);
-        validateAuthorizationFormat(authorizationHeader);
-
-        return authorizationHeader.substring(BEARER_TYPE.length()).trim();
-    }
-
-    private void validateAuthorizationFormat(final String authorizationHeader) {
-        if(!authorizationHeader.toLowerCase().startsWith(BEARER_TYPE.toLowerCase())) {
-            throw new InvalidTokenException();
-        }
-    }
-
-    private void validateEmptyHeader(String authorizationHeader) {
-        if(Objects.isNull(authorizationHeader)) {
-            throw new EmptyAuthHeaderException();
-        }
     }
 }

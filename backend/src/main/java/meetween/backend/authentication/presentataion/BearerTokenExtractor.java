@@ -7,15 +7,12 @@ import meetween.backend.authentication.exception.InvalidTokenException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class BearerTokenExtractor {
     private static final String BEARER_TYPE = "Bearer ";
 
-    public String extractValidAccessToken(final HttpServletRequest httpServletRequest) {
-        System.out.println("===========================123");
+    public static String extractValidAccessToken(final HttpServletRequest httpServletRequest) {
         String authorizationHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
-        System.out.println("===========================456");
-        System.out.println("auth:" + authorizationHeader);
 
         validateEmptyHeader(authorizationHeader);
         validateAuthorizationFormat(authorizationHeader);
@@ -23,13 +20,13 @@ public class BearerTokenExtractor {
         return authorizationHeader.substring(BEARER_TYPE.length()).trim();
     }
 
-    private void validateAuthorizationFormat(final String authorizationHeader) {
+    private static void validateAuthorizationFormat(final String authorizationHeader) {
         if(!authorizationHeader.toLowerCase().startsWith(BEARER_TYPE.toLowerCase())) {
             throw new InvalidTokenException();
         }
     }
 
-    private void validateEmptyHeader(String authorizationHeader) {
+    private static void validateEmptyHeader(String authorizationHeader) {
         if(Objects.isNull(authorizationHeader)) {
             throw new EmptyAuthHeaderException();
         }
