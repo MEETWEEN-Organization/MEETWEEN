@@ -156,7 +156,7 @@ public class AuthServiceTest extends ServiceTest {
 
     @DisplayName("데이터베이스에 존재하지 않는 리프레시 토큰을 삭제시 예외가 발생한다.")
     @Test
-    void 데이터베이스에_존재하지_않는_라프레시_토큰을_삭제시_예외가_발생하는지_테스트() {
+    void 데이터베이스에_존재하지_않는_라프레시_토큰을_삭제시_예외가_발생한다() {
         // given
         long memberId = -1L;
 
