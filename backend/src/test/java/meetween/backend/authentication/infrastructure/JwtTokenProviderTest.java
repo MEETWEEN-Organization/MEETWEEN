@@ -32,7 +32,7 @@ public class JwtTokenProviderTest {
     @Test
     void 리프레시_토큰을_생성한다() {
         // given, when
-        String actual = jwtTokenProvider.createRefreshToken(1L);
+        String actual = jwtTokenProvider.createRefreshToken(100L);
 
         // then
         assertThat(actual.split("\\.")).hasSize(3);
