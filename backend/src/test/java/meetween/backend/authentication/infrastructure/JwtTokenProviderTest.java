@@ -64,13 +64,24 @@ public class JwtTokenProviderTest {
                 .isInstanceOf(InvalidTokenException.class);
     }
 
-
     @DisplayName("만료된 리프레시 토큰을 전달받으면 예외를 발생시킨다.")
     @Test
     void 만료된_리프레시_토큰을_전달받으면_예외를_발생시킨다() {
         // given
         JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, EXPIRED_TOKEN_LENGTH, EXPIRED_TOKEN_LENGTH, new InMemoryRefreshTokenRepository());
         String expiredToken = expiredJwtTokenProvider.createRefreshToken(1L);
+
+        // when, then
+        assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))
+                .isInstanceOf(InvalidTokenException.class);
+    }
+
+    @DisplayName("만료된 엑세스 토큰을 전달받으면 예외를 발생시킨다.")
+    @Test
+    void 만료된_엑세스_토큰을_전달받으면_예외를_발생시킨다() {
+        // given
+        JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, EXPIRED_TOKEN_LENGTH, EXPIRED_TOKEN_LENGTH, new InMemoryRefreshTokenRepository());
+        String expiredToken = expiredJwtTokenProvider.createAccessToken(1L);
 
         // when, then
         assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))
