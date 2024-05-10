@@ -46,7 +46,7 @@ public class AuthController {
                 .httpOnly(true)
                 .path("/")
                 .build();
-        response.addHeader("refresh-token", responseCookie.toString());
+        response.addHeader("Set-Cookie", responseCookie.toString());
         final TokenResponse tokenResponse = new TokenResponse(memberToken.getAccessToken());
         return ResponseEntity.ok(tokenResponse);
     }

@@ -51,7 +51,6 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
         assertAll(() -> {
             상태코드_200이_반환된다(response);
             assertThat(tokenResponse.getAccessToken()).isNotEmpty();
-            assertThat(tokenResponse.getRefreshToken()).isNotEmpty();
         });
     }
 
@@ -60,9 +59,9 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
     void 리프레스_토큰을_통해_새로운_엑세스_토큰을_발급받고_200을_리턴한다() {
         // given
         ExtractableResponse<Response> response = 자체_토큰을_생성한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
-        TokenResponse tokenResponse = response.as(TokenResponse.class);
+        String refreshToken = response.response().getCookie("refresh-token");
         RenewalAccessTokenRequest renewalAccessTokenRequest = new RenewalAccessTokenRequest(
-                tokenResponse.getRefreshToken()
+                refreshToken
         );
 
         // when
@@ -72,7 +71,7 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
         // then
         assertAll(() -> {
             상태코드_200이_반환된다(response);
-            assertThat(tokenResponse.getAccessToken()).isNotEmpty();
+            assertThat(refreshToken).isNotEmpty();
         });
     }
 

@@ -67,8 +67,7 @@ public class AuthControllerTest extends ControllerTest {
                         preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("provider").description("kakao")),
                         requestFields(fieldWithPath("code").type(TokenRequest.class).description("OAuth 로그인 인증 코드")),
-                        responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token"),
-                                fieldWithPath("refreshToken").type(JsonFieldType.STRING).description("refresh token"))
+                        responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token"))
                 ))
                 .andExpect(status().isOk());
     }
