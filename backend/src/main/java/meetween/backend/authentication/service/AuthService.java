@@ -71,4 +71,8 @@ public class AuthService {
         String renewalAccessToken = jwtTokenProvider.generateRenewalAccessToken(refreshToken);
         return new RenewalAccessTokenResponse(renewalAccessToken);
     }
+
+    public void removeRefreshToken(final long memberId) {
+        jwtTokenProvider.removeRefreshTokenByMemberId(memberId);
+    }
 }

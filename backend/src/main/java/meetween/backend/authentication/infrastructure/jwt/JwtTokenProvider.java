@@ -101,4 +101,8 @@ public class JwtTokenProvider {
 
         return createAccessToken(memberId);
     }
+
+    public void removeRefreshTokenByMemberId(final long memberId) {
+        refreshTokenRepository.existsById(memberId);
+    }
 }

@@ -23,4 +23,9 @@ public class InMemoryRefreshTokenRepository implements RefreshTokenRepository {
     public boolean existsById(long memberId) {
         return storage.containsKey(memberId);
     }
+
+    @Override
+    public void deleteById(long memberId) {
+        storage.remove(memberId);
+    }
 }

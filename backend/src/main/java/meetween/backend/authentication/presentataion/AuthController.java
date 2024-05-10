@@ -63,6 +63,7 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@AuthPrincipal final LoginMember loginMember) {
+        authService.removeRefreshToken(loginMember.getId());
         return ResponseEntity.noContent().build();
     }
 }
