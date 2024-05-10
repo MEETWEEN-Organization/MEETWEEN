@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import jakarta.servlet.http.Cookie;
 
 @Import(TestConfig.class)
 public class TokenAcceptanceTest extends AcceptenceConfig {
@@ -59,13 +60,10 @@ public class TokenAcceptanceTest extends AcceptenceConfig {
     void 리프레스_토큰을_통해_새로운_엑세스_토큰을_발급받고_200을_리턴한다() {
         // given
         ExtractableResponse<Response> response = 자체_토큰을_생성한다(KAKAO_OAUTH_PROVIDER, AUTHORIZATION_CODE);
-        String refreshToken = response.response().getCookie("refresh-token");
-        RenewalAccessTokenRequest renewalAccessTokenRequest = new RenewalAccessTokenRequest(
-                refreshToken
-        );
+        final String refreshToken = response.headers().getValue("Set-Cookie");
 
         // when
-        ExtractableResponse<Response> actual = 리프레시_토큰을_통해_새로운_엑세스_토큰을_재발급_한다(renewalAccessTokenRequest);
+        ExtractableResponse<Response> actual = 리프레시_토큰을_통해_새로운_엑세스_토큰을_재발급_한다(refreshToken);
         RenewalAccessTokenResponse renewalAccessTokenResponse = actual.as(RenewalAccessTokenResponse.class);
 
         // then
