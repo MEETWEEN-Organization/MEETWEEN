@@ -107,6 +107,6 @@ public class JwtTokenProvider {
         if(!refreshTokenRepository.existsById(memberId)) {
             throw new NoSuchRefreshTokenException();
         }
-        refreshTokenRepository.existsById(memberId);
+        refreshTokenRepository.deleteById(memberId);
     }
 }
