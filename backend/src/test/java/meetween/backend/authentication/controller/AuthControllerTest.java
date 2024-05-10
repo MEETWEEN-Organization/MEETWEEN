@@ -6,6 +6,7 @@ import static meetween.backend.support.fixture.common.AuthenticationFixtures.토
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_생성_요청;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.cookies.CookieDocumentation.responseCookies;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -72,7 +73,11 @@ public class AuthControllerTest extends ControllerTest {
                         preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("provider").description("kakao")),
                         requestFields(fieldWithPath("code").type(TokenRequest.class).description("OAuth 로그인 인증 코드")),
-                        responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token"))
+                        responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token")),
+                        responseCookies(
+                                cookieWithName("refreshToken")
+                                        .description("프론트엔드에게 예전에 발급했던 리프레시 토큰")
+                        )
                 ))
                 .andExpect(status().isOk());
     }
