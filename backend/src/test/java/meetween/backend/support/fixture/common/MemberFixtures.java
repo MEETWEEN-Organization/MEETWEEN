@@ -11,9 +11,22 @@ public class MemberFixtures {
     public static final String 수현_이름 = "수현";
     public static Member 수현_유저() {
         return new Member(
-                "soozzang",
-                "https://avatars.githubusercontent.com/u/88240193?v=4",
-                "한수현",
+                수현_아이디,
+                수현_프로필_이미지,
+                수현_이름,
+                SocialType.KAKAO
+        );
+    }
+
+    // 민성
+    public static final String 민성_아이디 = "msung99";
+    public static final String 민성_프로필_이미지 = "https://avatars.githubusercontent.com/u/88240193?v=5";
+    public static final String 민성_이름 = "민성";
+    public static Member 민성_유저() {
+        return new Member(
+                민성_아이디,
+                민성_프로필_이미지,
+                민성_이름,
                 SocialType.KAKAO
         );
     }

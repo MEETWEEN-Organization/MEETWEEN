@@ -5,6 +5,7 @@ import meetween.backend.category.domain.Category;
 import meetween.backend.category.domain.CategoryColor;
 import meetween.backend.category.domain.CategoryRepository;
 import meetween.backend.global.config.JpaAuditConfig;
+import meetween.backend.member.domain.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,9 @@ class AppointmentRepositoryTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @DisplayName("초대코드를 통해 약속을 찾는다")
     @Test
@@ -69,7 +73,7 @@ class AppointmentRepositoryTest {
 
         appointmentRepository.save(appointment);
 
-        //when & then
+        //when, then
         Assertions.assertThat(appointmentRepository.existsByInviteCode(appointment.getInviteCode())).isEqualTo(true);
     }
 }
