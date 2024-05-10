@@ -5,6 +5,7 @@ import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
 import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
+import jakarta.servlet.http.Cookie;
 
 public class AuthenticationFixtures {
     public static final String KAKAO_OAUTH_PROVIDER = "kakao";
@@ -31,8 +32,8 @@ public class AuthenticationFixtures {
         return new TokenRequest("authorization-code");
     }
 
-    public static RenewalAccessTokenRequest 토큰_갱신_요청() {
-        return new RenewalAccessTokenRequest("refresh-token");
+    public static Cookie 토큰_갱신_요청() {
+        return new Cookie("refreshToken", "token-value");
     }
 
     public static RenewalAccessTokenResponse 토큰_갱신_응답() {

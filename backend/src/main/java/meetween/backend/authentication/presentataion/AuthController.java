@@ -10,6 +10,7 @@ import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.authentication.service.AuthService;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +40,7 @@ public class AuthController {
                                                @RequestBody final TokenRequest tokenRequest,
                                                final HttpServletResponse response) {
         final MemberToken memberToken = authService.generateTokenWithCode(tokenRequest.getCode(), provider);
-        final ResponseCookie responseCookie = ResponseCookie.from("refresh-token", memberToken.getRefreshToken())
+        final ResponseCookie responseCookie = ResponseCookie.from("refreshToken", memberToken.getRefreshToken())
                 .maxAge(604800)
                 .sameSite("None")
                 .secure(true)
@@ -53,9 +54,9 @@ public class AuthController {
 
     @PostMapping("/token/renewal")
     public ResponseEntity<RenewalAccessTokenResponse> extendLogin(
-            @RequestBody final RenewalAccessTokenRequest renewalAccessTokenRequest) {
+            @CookieValue("refreshToken") final String refreshToken) {
         final RenewalAccessTokenResponse renewalAccessTokenResponse =
-                authService.generateRenewalAccessToken(renewalAccessTokenRequest);
+                authService.generateRenewalAccessToken(new RenewalAccessTokenRequest(refreshToken));
         return ResponseEntity.ok(renewalAccessTokenResponse);
     }
 }
