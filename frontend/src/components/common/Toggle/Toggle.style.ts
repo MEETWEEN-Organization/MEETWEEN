@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { Theme } from '@styles/theme/theme';
+import { Theme } from '@/styles/theme/theme';
 
 export const toggleStyle = css({
   appearance: 'none',

@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef, ReactNode } from 'react';
 
-import { wrapperStyle } from './Tabs.style';
+import { wrapperStyle } from '@/components/common/Tabs/Tabs.style';
 
 export interface TabsProps extends ComponentPropsWithRef<'ul'> {
   children: ReactNode;

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-import { Theme } from '@styles/theme/theme';
+import { CounterProps } from '@/components/common/Counter/Counter';
 
-import { CounterProps } from './Counter';
+import { Theme } from '@/styles/theme/theme';
 
 export const containerStyle = css({
   display: 'flex',

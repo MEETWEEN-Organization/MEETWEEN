@@ -1,8 +1,8 @@
 import { ComponentPropsWithRef, ReactElement, ReactNode } from 'react';
 
-import { buttonStyle, sizeStyle, variantStyle } from '@components/common/Button/Button.style';
+import { buttonStyle, sizeStyle, variantStyle } from '@/components/common/Button/Button.style';
 
-import { SizeType } from '@type/size';
+import { SizeType } from '@/type/size';
 
 export interface ButtonProps extends ComponentPropsWithRef<'button'> {
   variant?: 'primary' | 'secondary' | 'outline' | 'default';

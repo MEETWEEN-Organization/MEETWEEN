@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef } from 'react';
 
-import { getPanelStyle, getTabStyle } from './Tab.style';
+import { getPanelStyle, getTabStyle } from '@/components/common/Tab/Tab.style';
 
 export interface TabProps extends ComponentPropsWithRef<'li'> {
   text: string;

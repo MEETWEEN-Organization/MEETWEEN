@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import CloseBtn from '@assets/svg/close.svg?react';
+import { backgroundStyle, closeBtnStyle, dialogStyle } from '@/components/common/Modal/Modal.style';
 
-import { backgroundStyle, closeBtnStyle, dialogStyle } from './Modal.style';
+import CloseBtn from '@/assets/svg/close.svg?react';
 
 export interface ModalProps extends ComponentPropsWithoutRef<'dialog'> {
   /* 모달이 열려있는지에 대한 여부 */

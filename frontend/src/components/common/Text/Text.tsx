@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { SizeType } from '@type/size';
+import { textStyle } from '@/components/common/Text/Text.style';
 
-import { textStyle } from './Text.style';
+import { SizeType } from '@/type/size';
 
 export interface TextProps extends ComponentPropsWithoutRef<'p'> {
   size: Extract<SizeType, 'large' | 'medium' | 'small' | 'xSmall'>;

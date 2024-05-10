@@ -1,13 +1,16 @@
-import { Theme } from '@/styles/theme/theme';
 import { css } from '@emotion/react';
 
 import React, { ComponentPropsWithoutRef } from 'react';
 
-import Text from '@components/common/Text/Text';
+import {
+  currentColorDisplayStyle,
+  inputWrapperStyle,
+} from '@/components/common/ColorPicker/ColorPicker.style';
+import Text from '@/components/common/Text/Text';
 
-import DropdownArrow from '@assets/svg/select-arrow.svg?react';
+import DropdownArrow from '@/assets/svg/select-arrow.svg?react';
 
-import { currentColorDisplayStyle, inputWrapperStyle } from './ColorPicker.style';
+import { Theme } from '@/styles/theme/theme';
 
 interface ColorSelectorProps extends ComponentPropsWithoutRef<'div'> {
   currentColor: string;

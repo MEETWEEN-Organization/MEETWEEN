@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType } from 'react';
 
-import { IFlexStyle, getFlexStyle } from './Flex.style';
+import { IFlexStyle, getFlexStyle } from '@/components/common/Flex/Flex.style';
 
 interface FlexProps extends ComponentPropsWithoutRef<'div'> {
   tag?: ElementType;

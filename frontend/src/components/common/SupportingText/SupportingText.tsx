@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef, ReactNode } from 'react';
 
-import { getTextStyle } from './SupportingText.style';
+import { getTextStyle } from '@/components/common/SupportingText/SupportingText.style';
 
 export interface TextProps extends ComponentPropsWithRef<'span'> {
   isError?: boolean;

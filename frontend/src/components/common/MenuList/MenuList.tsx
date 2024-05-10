@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef, ForwardedRef, forwardRef } from 'react';
 
-import { listStyle } from './MenuList.style';
+import { listStyle } from '@/components/common/MenuList/MenuList.style';
 
 export interface MenuListProps extends ComponentPropsWithRef<'ul'> {
   isOpen?: boolean;
@@ -13,7 +13,7 @@ const MenuList = (
 ) => {
   return (
     isOpen && (
-      <ul role="tablist" css={listStyle(position)} ref={ref} {...props}>
+      <ul aria-label={'메뉴 리스트'} css={listStyle(position)} ref={ref} {...props}>
         {children}
       </ul>
     )

@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 
-import { fadeIn, fadeOut, moveUp } from '@styles/animation';
-import { Theme } from '@styles/theme/theme';
+import { ToastProps } from '@/components/common/Toast/Toast';
 
-import { ToastProps } from './Toast';
+import { fadeIn, fadeOut, moveUp } from '@/styles/animation';
+import { Theme } from '@/styles/theme/theme';
 
 export const variantStyle = (variant: Required<ToastProps>['variant']) => {
   const style = {

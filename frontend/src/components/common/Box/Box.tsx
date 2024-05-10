@@ -1,15 +1,19 @@
 import { ComponentPropsWithoutRef, ElementType } from 'react';
 
-import { IBoxStyle, getBoxStyle } from './Box.style';
+import { BoxStyleProps, getBoxStyle } from '@/components/common/Box/Box.style';
 
 interface BoxProps extends ComponentPropsWithoutRef<'div'> {
   tag?: ElementType;
-  styles?: IBoxStyle;
+  styles?: BoxStyleProps;
 }
 
-const Box = ({ tag = 'div', styles = {}, children }: BoxProps) => {
+const Box = ({ tag = 'div', styles = {}, children, ...props }: BoxProps) => {
   const Tag = tag;
-  return <Tag css={getBoxStyle(styles)}>{children}</Tag>;
+  return (
+    <Tag css={getBoxStyle(styles)} {...props}>
+      {children}
+    </Tag>
+  );
 };
 
 export default Box;

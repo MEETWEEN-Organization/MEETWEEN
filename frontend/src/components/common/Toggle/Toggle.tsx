@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef } from 'react';
 
-import { toggleStyle } from './Toggle.style';
+import { toggleStyle } from '@/components/common/Toggle/Toggle.style';
 
 interface ToggleProps extends ComponentPropsWithRef<'input'> {
   onToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;

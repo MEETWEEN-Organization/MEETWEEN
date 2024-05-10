@@ -1,15 +1,14 @@
 import { css } from '@emotion/react';
 
-import Box from '@components/common/Box/Box';
+import Box from '@/components/common/Box/Box';
+import ColorSelector from '@/components/common/ColorPicker/ColorInput';
+import Dropdown from '@/components/common/Dropdown/Dropdown';
 
-import { useOverlay } from '@hooks/common';
+import { useOverlay } from '@/hooks/common';
 
-import { COLOR_PALLETE } from '@constants/common';
+import { COLOR_PALLETE } from '@/constants/common';
 
-import { Theme } from '@styles/theme/theme';
-
-import Dropdown from '../Dropdown/Dropdown';
-import ColorSelector from './ColorInput';
+import { Theme } from '@/styles/theme/theme';
 
 interface ColorPickerProps {
   color: string;

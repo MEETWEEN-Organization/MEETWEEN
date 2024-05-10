@@ -1,5 +1,6 @@
-import { Theme } from '@/styles/theme/theme';
 import { css } from '@emotion/react';
+
+import { Theme } from '@/styles/theme/theme';
 
 export const progressBarStyle = css({
   appearance: 'none',

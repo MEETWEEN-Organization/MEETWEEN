@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef, useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import CloseBtn from '@assets/svg/close.svg?react';
+import { textStyle, toastStyle, variantStyle } from '@/components/common/Toast/Toast.style';
 
-import { textStyle, toastStyle, variantStyle } from './Toast.style';
+import CloseBtn from '@/assets/svg/close.svg?react';
 
 export interface ToastProps extends ComponentPropsWithoutRef<'div'> {
   /* Toast 종류 */

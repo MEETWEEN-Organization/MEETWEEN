@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, useCallback } from 'react';
 
-import { itemStyle } from './MenuItem.style';
+import { itemStyle } from '@/components/common/MenuItem/MenuItem.style';
 
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 

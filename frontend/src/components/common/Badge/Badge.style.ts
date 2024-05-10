@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-import { COLOR } from '@constants/common';
+import { COLOR } from '@/constants/common';
 
-import { Theme } from '@styles/theme/theme';
+import { Theme } from '@/styles/theme/theme';
 
 import { BadgeProps } from './Badge';
 

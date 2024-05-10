@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-import { useOutsideClick } from '@hooks/common';
+import { menuStyle } from '@/components/common/Menu/Menu.style';
 
-import { menuStyle } from './Menu.style';
+import { useOutsideClick } from '@/hooks/common';
 
 export interface MenuProps extends ComponentPropsWithoutRef<'div'> {
   onCloseMenu?: () => void;

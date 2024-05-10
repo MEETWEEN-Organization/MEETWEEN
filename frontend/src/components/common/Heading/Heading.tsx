@@ -1,8 +1,8 @@
-import { ComponentPropsWithoutRef } from 'react';
-
 import { SizeType } from '@type/size';
 
-import { headingStyle } from './Heading.style';
+import { ComponentPropsWithoutRef } from 'react';
+
+import { headingStyle } from '@/components/common/Heading/Heading.style';
 
 export interface HeadingProps extends ComponentPropsWithoutRef<'h3'> {
   size?: SizeType;

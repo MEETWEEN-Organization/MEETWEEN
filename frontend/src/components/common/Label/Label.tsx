@@ -1,6 +1,6 @@
 import { ComponentPropsWithRef } from 'react';
 
-import { textStyle } from './Label.style';
+import { textStyle } from '@/components/common/Label/Label.style';
 
 export interface LabelProps extends ComponentPropsWithRef<'label'> {
   id?: string;

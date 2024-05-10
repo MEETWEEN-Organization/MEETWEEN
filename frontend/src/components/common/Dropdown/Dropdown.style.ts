@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { Theme } from '@styles/theme/theme';
+import { Theme } from '@/styles/theme/theme';
 
 export const wrapperStyle = css({
   position: 'relative',
@@ -8,6 +8,7 @@ export const wrapperStyle = css({
 
 export const listStyle = css({
   position: 'absolute',
+
   width: '100%',
 
   zIndex: Theme.zIndex.overlayMiddle,

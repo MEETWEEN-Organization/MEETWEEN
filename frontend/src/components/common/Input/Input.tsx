@@ -1,11 +1,15 @@
-import { ComponentPropsWithRef, ForwardedRef, ReactElement, forwardRef } from 'react';
-
 import Label from '@components/common/Label/Label';
 import SupportingText from '@components/common/SupportingText/SupportingText';
-
 import { SizeType } from '@type/size';
 
-import { inputStyle, inputWrapperStyle, sizeStyle, variantStyle } from './Input.style';
+import { ComponentPropsWithRef, ForwardedRef, ReactElement, forwardRef } from 'react';
+
+import {
+  inputStyle,
+  inputWrapperStyle,
+  sizeStyle,
+  variantStyle,
+} from '@/components/common/Input/Input.style';
 
 export interface InputProps extends Omit<ComponentPropsWithRef<'input'>, 'size'> {
   label?: string;

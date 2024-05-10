@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
-import * as Styled from '@components/common/Counter/Counter.style';
-import SupportingText from '@components/common/SupportingText/SupportingText';
+import * as Styled from '@/components/common/Counter/Counter.style';
+import SupportingText from '@/components/common/SupportingText/SupportingText';
 
 export interface CounterProps extends ComponentPropsWithoutRef<'div'> {
   count: number;

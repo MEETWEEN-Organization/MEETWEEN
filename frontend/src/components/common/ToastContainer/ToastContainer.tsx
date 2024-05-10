@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { containerStyle } from './ToastContainer.style';
+import { containerStyle } from '@/components/common/ToastContainer/ToastContainer.style';
 
 const ToastContainer = ({ children }: { children: ReactNode }) => {
   return (

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export interface IBoxStyle {
+export interface BoxStyleProps {
   position?: 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky' | 'inherit';
   width?: string;
   height?: string;
@@ -42,7 +42,7 @@ export const getBoxStyle = ({
   boxShadow = '',
   backgroundColor = '',
   color = '',
-}: IBoxStyle) =>
+}: BoxStyleProps) =>
   css({
     position,
     width,

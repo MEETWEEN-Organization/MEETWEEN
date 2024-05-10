@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-import { Theme } from '@styles/theme/theme';
+import { InputProps } from '@/components/common/Input/Input';
 
-import { InputProps } from './Input';
+import { Theme } from '@/styles/theme/theme';
 
 export const variantStyle = {
   default: css({

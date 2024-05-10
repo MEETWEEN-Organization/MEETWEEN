@@ -1,10 +1,10 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-import { SizeType } from '@type/size';
+import { badgeStyle, sizeStyle } from '@/components/common/Badge/Badge.style';
 
-import { COLOR } from '@constants/common';
+import { SizeType } from '@/type/size';
 
-import { badgeStyle, sizeStyle } from './Badge.style';
+import { COLOR } from '@/constants/common';
 
 export interface BadgeProps extends Omit<ComponentPropsWithoutRef<'span'>, 'color'> {
   text: string;

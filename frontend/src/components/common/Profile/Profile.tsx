@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-import { profileStyle } from './Profile.style';
+import { profileStyle } from '@/components/common/Profile/Profile.style';
 
 interface ProfileProps extends ComponentPropsWithoutRef<'img'> {
   imgUrl: string;
