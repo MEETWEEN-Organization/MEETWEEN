@@ -1,5 +1,6 @@
 package meetween.backend.authentication.presentataion;
 
+import jakarta.servlet.http.HttpServletResponse;
 import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.authentication.dto.OAuthUriResponse;
 import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
@@ -7,6 +8,7 @@ import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.authentication.service.AuthService;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +36,17 @@ public class AuthController {
     // 이 전달된 code 를 전달받고 로그인에 필요한 토큰을 프론트엔드에게 받급해준다. (프론트엔드는 이 리턴해준 토큰을 로컬 스토리지에 저장)
     @PostMapping("/{provider}/token")
     public ResponseEntity<TokenResponse> login(@PathVariable final String provider,
-                                                       @RequestBody final TokenRequest tokenRequest) {
+                                               @RequestBody final TokenRequest tokenRequest,
+                                               final HttpServletResponse response) {
         final MemberToken memberToken = authService.generateTokenWithCode(tokenRequest.getCode(), provider);
+        final ResponseCookie responseCookie = ResponseCookie.from("refresh-token", memberToken.getRefreshToken())
+                .maxAge(604800)
+                .sameSite("None")
+                .secure(true)
+                .httpOnly(true)
+                .path("/")
+                .build();
+        response.addHeader("refresh-token", responseCookie.toString());
         final TokenResponse tokenResponse = new TokenResponse(memberToken.getAccessToken(), memberToken.getRefreshToken());
         return ResponseEntity.ok(tokenResponse);
     }
