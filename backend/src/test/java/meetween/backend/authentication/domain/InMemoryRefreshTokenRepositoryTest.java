@@ -64,4 +64,15 @@ public class InMemoryRefreshTokenRepositoryTest {
         // then
         assertThat(actual).isTrue();
     }
+
+    @DisplayName("memberId 에 해당하는 토큰이 존재하지 않으면 예외가 발생한다.")
+    @Test
+    void memberId에_해당하는_토큰이_존재하지_않으면_예외가_발생한다() {
+        // given
+        long memberId = -100L;
+
+        // when, then
+        assertThatThrownBy(() -> refreshTokenRepository.findById(memberId))
+                .isInstanceOf(NoSuchRefreshTokenException.class);
+    }
 }
