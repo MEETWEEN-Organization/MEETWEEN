@@ -17,6 +17,7 @@ import meetween.backend.authentication.domain.token.MemberToken;
 import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
 import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
 import meetween.backend.authentication.exception.InvalidTokenException;
+import meetween.backend.authentication.exception.NoSuchRefreshTokenException;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
@@ -127,7 +128,7 @@ public class AuthServiceTest extends ServiceTest {
                 .isInstanceOf(InvalidTokenException.class);
     }
 
-    @DisplayName("DB에 존재하지 않는 리프레시 토큰으로 엑세스 토큰을 갱신할시 예외가 발생한다.")
+    @DisplayName("데이터베이스에 존재하지 않는 리프레시 토큰으로 엑세스 토큰을 갱신할시 예외가 발생한다.")
     @Test
     void 존재하지_않는_리프레시_토큰으로_엑세스_토큰을_갱신할시_예외가_발생한다() {
         // given
@@ -142,7 +143,7 @@ public class AuthServiceTest extends ServiceTest {
     }
 
 
-    @DisplayName("로로그아웃을 시도하면 리프레시 토큰을 삭제한다.")
+    @DisplayName("로그아웃을 시도하면 리프레시 토큰을 삭제한다.")
     @Test
     void 로그아웃을_시도하면_리프레시_토큰을_삭제한다() {
         // given
@@ -151,5 +152,16 @@ public class AuthServiceTest extends ServiceTest {
 
         // when, then
         Assertions.assertDoesNotThrow(() -> authService.removeRefreshToken(memberId));
+    }
+
+    @DisplayName("데이터베이스에 존재하지 않는 리프레시 토큰을 삭제시 예외가 발생한다.")
+    @Test
+    void 데이터베이스에_존재하지_않는_라프레시_토큰을_삭제시_예외가_발생하는지_테스트() {
+        // given
+        long memberId = -1L;
+
+        // whem then
+        assertThatThrownBy(() -> authService.removeRefreshToken(memberId))
+                .isInstanceOf(NoSuchRefreshTokenException.class);
     }
 }
