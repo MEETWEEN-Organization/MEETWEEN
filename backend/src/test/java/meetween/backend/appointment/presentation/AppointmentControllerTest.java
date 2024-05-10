@@ -14,6 +14,7 @@ import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
 import static meetween.backend.support.fixture.common.CategoryFixtures.스터디_카테고리_제목;
 import static meetween.backend.support.fixture.common.CategoryFixtures.스터디_카테고리_컬러_문자;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,8 +29,8 @@ class AppointmentControllerTest extends ControllerTest {
         // given
         AppointmentCreateRequest request = new AppointmentCreateRequest(수현_약속_제목, 하루_뒤_시간, 수현_약속_위도, 수현_약속_경도, 3L, 스터디_카테고리_제목, 스터디_카테고리_컬러_문자);
         AppointmentResponse response = new AppointmentResponse(수현_약속());
+        given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
         given(appointmentService.save(any(), any())).willReturn(response);
-        given(authArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(1L);
 
         // when & then
         mockMvc.perform(post("/appointment")
@@ -50,7 +51,7 @@ class AppointmentControllerTest extends ControllerTest {
         AppointmentResponse response = new AppointmentResponse(수현_약속());
 
         given(appointmentService.participate(any(), any())).willReturn(response);
-        given(authArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(1L);
+        given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
 
         // when, then
         mockMvc.perform(post("/appointment/participate")
@@ -71,7 +72,7 @@ class AppointmentControllerTest extends ControllerTest {
         IntegratedAppointmentResponses response = new IntegratedAppointmentResponses(asList(new AppointmentResponse(수현_약속()), new AppointmentResponse(민성_약속())));
 
         given(appointmentService.findAll(any())).willReturn(response);
-        given(authArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(1L);
+        given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
 
         // when, then
         mockMvc.perform(get("/appointment/my")

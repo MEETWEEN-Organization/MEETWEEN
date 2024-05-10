@@ -12,7 +12,10 @@ public class BearerTokenExtractor {
     private static final String BEARER_TYPE = "Bearer ";
 
     public String extractValidAccessToken(final HttpServletRequest httpServletRequest) {
+        System.out.println("===========================123");
         String authorizationHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
+        System.out.println("===========================456");
+        System.out.println("auth:" + authorizationHeader);
 
         validateEmptyHeader(authorizationHeader);
         validateAuthorizationFormat(authorizationHeader);

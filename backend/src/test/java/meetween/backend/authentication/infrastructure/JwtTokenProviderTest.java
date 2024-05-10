@@ -46,7 +46,7 @@ public class JwtTokenProviderTest {
         String accessToken = jwtTokenProvider.createToken(expected, ACCESS_TOKEN_EXPIRE_LEGNTH);
 
         // when
-        String actual = jwtTokenProvider.getPayload(accessToken);
+        String actual = jwtTokenProvider.getMemberId(accessToken);
 
         // then
         assertThat(actual).isEqualTo(expected);

@@ -66,7 +66,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String getPayload(String token) {
+    public String getMemberId(String token) {
         validateToken(token);
 
         return Jwts.parserBuilder()
@@ -94,7 +94,7 @@ public class JwtTokenProvider {
 
     public String generateRenewalAccessToken(String refreshToken) {
         validateToken(refreshToken);
-        Long memberId = Long.valueOf(getPayload(refreshToken));
+        Long memberId = Long.valueOf(getMemberId(refreshToken));
 
         if(!refreshTokenRepository.existsById(memberId)) {
             throw new InvalidTokenException();

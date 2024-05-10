@@ -43,7 +43,7 @@ public abstract class ControllerTest {
     @MockBean
     protected BearerTokenExtractor bearerTokenExtractor;
 
-    @MockBean
+    @Autowired
     protected AuthArgumentResolver authArgumentResolver;
 
     @MockBean
