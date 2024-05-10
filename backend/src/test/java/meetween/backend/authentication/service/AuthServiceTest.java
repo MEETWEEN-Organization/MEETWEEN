@@ -21,6 +21,7 @@ import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.support.annotation.ServiceTest;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,5 +139,17 @@ public class AuthServiceTest extends ServiceTest {
         // when, then
         assertThatThrownBy(() -> authService.generateRenewalAccessToken(renewalAccessTokenRequest))
                 .isInstanceOf(InvalidTokenException.class);
+    }
+
+
+    @DisplayName("로로그아웃을 시도하면 리프레시 토큰을 삭제한다.")
+    @Test
+    void 로그아웃을_시도하면_리프레시_토큰을_삭제한다() {
+        // given
+        long memberId = 11L;
+        String testRefreshToken = jwtTokenProvider.createRefreshToken(memberId);
+
+        // when, then
+        Assertions.assertDoesNotThrow(() -> authService.removeRefreshToken(memberId));
     }
 }
