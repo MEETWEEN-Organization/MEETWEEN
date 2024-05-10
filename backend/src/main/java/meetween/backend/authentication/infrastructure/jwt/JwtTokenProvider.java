@@ -104,9 +104,6 @@ public class JwtTokenProvider {
     }
 
     public void removeRefreshTokenByMemberId(final long memberId) {
-        if(!refreshTokenRepository.existsById(memberId)) {
-            throw new NoSuchRefreshTokenException();
-        }
         refreshTokenRepository.deleteById(memberId);
     }
 }

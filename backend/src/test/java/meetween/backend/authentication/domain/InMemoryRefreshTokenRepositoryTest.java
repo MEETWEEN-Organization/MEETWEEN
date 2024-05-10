@@ -75,4 +75,15 @@ public class InMemoryRefreshTokenRepositoryTest {
         assertThatThrownBy(() -> refreshTokenRepository.findById(memberId))
                 .isInstanceOf(NoSuchRefreshTokenException.class);
     }
+
+    @DisplayName("memberId 에 해당하는 제거할 토큰이 존재하지 않으면 예외가 발생한다.")
+    @Test
+    void memberId에_해당하는_제거할_토큰이_존재하지_않으면_예외가_발생한다() {
+        // given
+        long memberId = -100L;
+
+        // when, then
+        assertThatThrownBy(() -> refreshTokenRepository.deleteById(memberId))
+                .isInstanceOf(NoSuchRefreshTokenException.class);
+    }
 }

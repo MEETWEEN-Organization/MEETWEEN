@@ -28,6 +28,9 @@ public class InMemoryRefreshTokenRepository implements RefreshTokenRepository {
 
     @Override
     public void deleteById(long memberId) {
+        if(!existsById(memberId)) {
+            throw new NoSuchRefreshTokenException();
+        }
         storage.remove(memberId);
     }
 }
