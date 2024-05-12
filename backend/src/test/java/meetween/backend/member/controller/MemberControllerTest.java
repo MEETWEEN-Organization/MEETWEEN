@@ -2,6 +2,8 @@ package meetween.backend.member.controller;
 
 import static meetween.backend.support.fixture.common.MemberFixtures.수현_유저;
 import static meetween.backend.support.fixture.common.MemberFixtures.수현_응답;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,12 +30,12 @@ public class MemberControllerTest extends ControllerTest {
     @Test
     void 본인의_회원_정보를_조회한다() throws Exception {
         // given
-        given(memberService.findById(수현_유저().getId())).willReturn(수현_응답());
-        given(authArgumentResolver.resolveArgument(any(), any(), any(), any())).willReturn(1L);
+        given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
+        given(memberService.findById(수현_응답().getId())).willReturn(수현_응답());
 
         // when, then
         mockMvc.perform(get("/user/about")
-                        .header("Authorization", "Bearer DUMMY_TOKEN")
+                        .header("Authorization", "Bearer aaaaaa.bbbbbb.cccccc")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -54,12 +56,12 @@ public class MemberControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @DisplayName("존재하지 않는 회원 정보 조회를 시도하면 예외를 발생시킨다.")
+    @DisplayName("존재하지 않는 회원 정보 조회를 시도하면 상태코드 500을 반환한다.")
     @Test
-    void 존재하지_않는_회원_정보_조회를_시도하면_예외를_발생시킨다() throws Exception {
+    void 존재하지_않는_회원_정보_조회를_시도하면_상태코드_500을_반환한다() throws Exception {
         // given
+        given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(-1L));
         given(memberService.findById(-1L)).willThrow(new NoExistMemberException());
-
 
         // when, then
         mockMvc.perform(get("/user/about")
@@ -75,6 +77,6 @@ public class MemberControllerTest extends ControllerTest {
                                 headerWithName("Authorization").description("JWT Access Token")
                         )
                 ))
-                .andExpect(status().isOk());
+                .andExpect(status().isBadRequest());
     }
 }

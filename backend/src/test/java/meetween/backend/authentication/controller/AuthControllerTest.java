@@ -1,10 +1,12 @@
 package meetween.backend.authentication.controller;
 
+import static meetween.backend.support.fixture.common.MemberFixtures.수현_응답;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_갱신_요청;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_갱신_응답;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_응답;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_생성_요청;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.cookies.CookieDocumentation.responseCookies;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -27,6 +29,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 
 
 import jakarta.servlet.http.Cookie;
+import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.exception.InvalidOAuthServiceException;
 import meetween.backend.authentication.exception.InvalidTokenException;
@@ -35,6 +38,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+import static org.mockito.Mockito.doNothing;
 
 public class AuthControllerTest extends ControllerTest {
 
@@ -152,5 +156,19 @@ public class AuthControllerTest extends ControllerTest {
                         )
                 ))
                 .andExpect(status().isBadRequest());
+    }
+
+    @DisplayName("로그아웃을 히면 리프레시 토큰을 삭제하고 HTTP 상태코드 값 200을 리턴한다.")
+    @Test
+    void 로그아웃을_히면_리프레시_토큰을_삭제하고_HTTP_상태코드_값_200을_리턴한다() throws Exception {
+        // given
+        given(authService.removeRefreshToken(수현_응답().getId())).willReturn(1L);
+
+        // when, then
+        mockMvc.perform(post("/auth/logout")
+                        .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
     }
 }

@@ -6,4 +6,6 @@ public interface RefreshTokenRepository {
     String findById(long memberId);
 
     boolean existsById(long memberId);
+
+    long deleteById(long memberId);
 }

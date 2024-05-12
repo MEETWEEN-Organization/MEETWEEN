@@ -28,6 +28,16 @@ public class JwtTokenProviderTest {
         assertThat(actual.split("\\.")).hasSize(3);
     }
 
+    @DisplayName("리프레시 토큰을 생성한다.")
+    @Test
+    void 리프레시_토큰을_생성한다() {
+        // given, when
+        String actual = jwtTokenProvider.createRefreshToken(100L);
+
+        // then
+        assertThat(actual.split("\\.")).hasSize(3);
+    }
+
     @DisplayName("JWT 토큰의 Payload를 가져온다.")
     @Test
     void JWT_토큰의_Payload를_가져온다() {
@@ -36,7 +46,7 @@ public class JwtTokenProviderTest {
         String accessToken = jwtTokenProvider.createToken(expected, ACCESS_TOKEN_EXPIRE_LEGNTH);
 
         // when
-        String actual = jwtTokenProvider.getPayload(accessToken);
+        String actual = jwtTokenProvider.getMemberId(accessToken);
 
         // then
         assertThat(actual).isEqualTo(expected);
@@ -48,6 +58,30 @@ public class JwtTokenProviderTest {
         // given
         JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, EXPIRED_TOKEN_LENGTH, EXPIRED_TOKEN_LENGTH, new InMemoryRefreshTokenRepository());
         String expiredToken = expiredJwtTokenProvider.createToken(JWT_PAYLOAD, EXPIRED_TOKEN_LENGTH);
+
+        // when, then
+        assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))
+                .isInstanceOf(InvalidTokenException.class);
+    }
+
+    @DisplayName("만료된 리프레시 토큰을 전달받으면 예외를 발생시킨다.")
+    @Test
+    void 만료된_리프레시_토큰을_전달받으면_예외를_발생시킨다() {
+        // given
+        JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, EXPIRED_TOKEN_LENGTH, EXPIRED_TOKEN_LENGTH, new InMemoryRefreshTokenRepository());
+        String expiredToken = expiredJwtTokenProvider.createRefreshToken(1L);
+
+        // when, then
+        assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))
+                .isInstanceOf(InvalidTokenException.class);
+    }
+
+    @DisplayName("만료된 엑세스 토큰을 전달받으면 예외를 발생시킨다.")
+    @Test
+    void 만료된_엑세스_토큰을_전달받으면_예외를_발생시킨다() {
+        // given
+        JwtTokenProvider expiredJwtTokenProvider = new JwtTokenProvider(JWT_SECRET_KEY, EXPIRED_TOKEN_LENGTH, EXPIRED_TOKEN_LENGTH, new InMemoryRefreshTokenRepository());
+        String expiredToken = expiredJwtTokenProvider.createAccessToken(1L);
 
         // when, then
         assertThatThrownBy(() -> jwtTokenProvider.validateToken(expiredToken))

@@ -1,7 +1,9 @@
 package meetween.backend.authentication.presentataion;
 
 import jakarta.servlet.http.HttpServletResponse;
+import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.authentication.domain.token.MemberToken;
+import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.dto.OAuthUriResponse;
 import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
 import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
@@ -58,6 +60,12 @@ public class AuthController {
         final RenewalAccessTokenResponse renewalAccessTokenResponse =
                 authService.generateRenewalAccessToken(new RenewalAccessTokenRequest(refreshToken));
         return ResponseEntity.ok(renewalAccessTokenResponse);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@AuthPrincipal LoginMember loginMember) {
+        authService.removeRefreshToken(loginMember.getId());
+        return ResponseEntity.noContent().build();
     }
 }
 
