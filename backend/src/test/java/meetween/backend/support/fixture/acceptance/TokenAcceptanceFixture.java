@@ -3,6 +3,7 @@ package meetween.backend.support.fixture.acceptance;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import jakarta.servlet.http.Cookie;
 import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
@@ -44,10 +45,10 @@ public class TokenAcceptanceFixture {
     }
 
     public static ExtractableResponse<Response> 리프레시_토큰을_통해_새로운_엑세스_토큰을_재발급_한다(
-            final RenewalAccessTokenRequest renewalAccessTokenRequest) {
+            final String refreshToken) {
         return RestAssured.given().log().all()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(renewalAccessTokenRequest)
+                .cookie(refreshToken)
                 .when().post("/auth/token/renewal")
                 .then().log().all()
                 .extract();

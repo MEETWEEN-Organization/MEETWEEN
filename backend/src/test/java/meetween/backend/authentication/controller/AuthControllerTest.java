@@ -6,6 +6,7 @@ import static meetween.backend.support.fixture.common.AuthenticationFixtures.토
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.토큰_생성_요청;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.cookies.CookieDocumentation.responseCookies;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -19,8 +20,13 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.cookies.CookieDocumentation.cookieWithName;
+import static org.springframework.restdocs.cookies.CookieDocumentation.requestCookies;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 
 
+import jakarta.servlet.http.Cookie;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.exception.InvalidOAuthServiceException;
 import meetween.backend.authentication.exception.InvalidTokenException;
@@ -67,8 +73,11 @@ public class AuthControllerTest extends ControllerTest {
                         preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("provider").description("kakao")),
                         requestFields(fieldWithPath("code").type(TokenRequest.class).description("OAuth 로그인 인증 코드")),
-                        responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token"),
-                                fieldWithPath("refreshToken").type(JsonFieldType.STRING).description("refresh token"))
+                        responseFields(fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access token")),
+                        responseCookies(
+                                cookieWithName("refreshToken")
+                                        .description("프론트엔드에게 예전에 발급했던 리프레시 토큰")
+                        )
                 ))
                 .andExpect(status().isOk());
     }
@@ -103,13 +112,14 @@ public class AuthControllerTest extends ControllerTest {
         mockMvc.perform(post("/auth/token/renewal")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(토큰_갱신_요청())))
+                        .cookie(토큰_갱신_요청())
+                )
                 .andDo(print())
                 .andDo(document("auth/generateRenewalToken",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(
-                                fieldWithPath("refreshToken").type(JsonFieldType.STRING)
+                        requestCookies(
+                                cookieWithName("refreshToken")
                                         .description("프론트엔드에게 예전에 발급했던 리프레시 토큰")
                         ),
                         responseFields(
@@ -130,14 +140,15 @@ public class AuthControllerTest extends ControllerTest {
         mockMvc.perform(post("/auth/token/renewal")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(토큰_갱신_요청())))
+                        .cookie(토큰_갱신_요청())
+                )
                 .andDo(print())
                 .andDo(document("auth/generateRenewalToken/invalidTokenError",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(
-                                fieldWithPath("refreshToken").type(JsonFieldType.STRING)
-                                        .description("OAuth 리프레시 토큰 인증 코드")
+                        requestCookies(
+                                cookieWithName("refreshToken")
+                                        .description("프론트엔드에게 예전에 발급했던 리프레시 토큰")
                         )
                 ))
                 .andExpect(status().isBadRequest());

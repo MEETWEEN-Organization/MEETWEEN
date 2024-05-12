@@ -45,7 +45,7 @@ public class JwtTokenProvider {
 
     public String createRefreshToken(long memberId) {
         if(!refreshTokenRepository.existsById(memberId)) {
-            String newRefreshToken = createToken(String.valueOf(memberId), accessTokenExpireLength);
+            String newRefreshToken = createToken(String.valueOf(memberId), refreshTokenExpireLength);
             refreshTokenRepository.save(memberId, newRefreshToken);
             return newRefreshToken;
         }
