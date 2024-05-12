@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
-import Select from '@components/common/Select/Select';
-import { selectWrapperStyle, sizeStyle } from '@components/common/Select/Select.style';
+import Select from '@/components/common/Select/Select';
+import { selectWrapperStyle, sizeStyle } from '@/components/common/Select/Select.style';
 
-import { useOverlay } from '@hooks/common';
+import { useOverlay } from '@/hooks/common';
 
-import DownArrow from '@assets/svg/select-arrow.svg?react';
+import DownArrow from '@/assets/svg/select-arrow.svg?react';
 
 const meta = {
   title: 'Common/Select',

@@ -1,12 +1,12 @@
-import Box from '@/components/common/Box/Box';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Button from '@components/common/Button/Button';
-import Heading from '@components/common/Heading/Heading';
-import Modal from '@components/common/Modal/Modal';
-import Text from '@components/common/Text/Text';
+import Box from '@/components/common/Box/Box';
+import Button from '@/components/common/Button/Button';
+import Heading from '@/components/common/Heading/Heading';
+import Modal from '@/components/common/Modal/Modal';
+import Text from '@/components/common/Text/Text';
 
-import { useOverlay } from '@hooks/common';
+import { useOverlay } from '@/hooks/common';
 
 const meta = {
   title: 'Common/Modal',

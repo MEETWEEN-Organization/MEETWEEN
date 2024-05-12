@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Menu from '@components/common/Menu/Menu';
-import MenuItem from '@components/common/MenuItem/MenuItem';
-import MenuList from '@components/common/MenuList/MenuList';
-import Profile from '@components/common/Profile/Profile';
+import Menu from '@/components/common/Menu/Menu';
+import MenuItem from '@/components/common/MenuItem/MenuItem';
+import MenuList from '@/components/common/MenuList/MenuList';
+import Profile from '@/components/common/Profile/Profile';
 
-import { useOverlay } from '@hooks/common';
+import { useOverlay } from '@/hooks/common';
 
-import user from '@assets/profile_sample.jpeg';
+import user from '@/assets/profile_sample.jpeg';
 
 import { containerStyle } from '../style';
 

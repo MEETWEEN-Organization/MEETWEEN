@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { formatRealDate, getNewYearMonthInfo, getYearMonthInfo } from '@utils/date';
+import { formatRealDate, getNewYearMonthInfo, getYearMonthInfo } from '@/utils/date';
 
-import { YearMonthType } from '@type/date';
+import { YearMonthType } from '@/type/date';
 
-const useCalendar = () => {
+export const useCalendar = () => {
   const currentDate = new Date();
   const currentYearMonth = getYearMonthInfo(currentDate);
 
@@ -22,5 +22,3 @@ const useCalendar = () => {
 
   return { currentDate, yearMonthData, selectedDate, handleDateClick, handleChangeMonth };
 };
-
-export default useCalendar;

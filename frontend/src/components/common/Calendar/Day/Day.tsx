@@ -37,21 +37,21 @@ const Day = ({
   return (
     <div>
       <span
-        role={!!onClick ? 'button' : undefined}
-        tabIndex={!!onClick ? 0 : -1}
+        role={onClick ? 'button' : undefined}
+        tabIndex={onClick ? 0 : -1}
         aria-label={
           year ? `${year}년 ${month}월 ${validDate?.slice(validDate.length - 2)}일` : `${day}요일`
         }
         css={[
           dayStyle(!!onClick, isHoliday),
           getTodayStyle(isToday),
-          getCurrentMonthDayStyle(isCurrentMonthDate || !Boolean(year)),
+          getCurrentMonthDayStyle(isCurrentMonthDate || !year),
           getSelectedStyle(isSelected),
         ]}
         onClick={onClick}
         onKeyDown={handleKeyDown}
       >
-        {!!validDate ? validDate?.slice(validDate.length - 2) : day}
+        {validDate ? validDate?.slice(validDate.length - 2) : day}
       </span>
     </div>
   );

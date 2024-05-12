@@ -1,9 +1,10 @@
-import Heading from '@/components/common/Heading/Heading';
-import { Theme } from '@/styles/theme/theme';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Box from '@components/common/Box/Box';
-import Flex from '@components/common/Flex/Flex';
+import Box from '@/components/common/Box/Box';
+import Flex from '@/components/common/Flex/Flex';
+import Heading from '@/components/common/Heading/Heading';
+
+import { Theme } from '@/styles/theme/theme';
 
 const meta = {
   title: 'Common/Flex',
