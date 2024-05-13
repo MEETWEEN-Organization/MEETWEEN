@@ -3,13 +3,14 @@ package meetween.backend.support.annotation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import meetween.backend.appointment.presentation.AppointmentController;
 import meetween.backend.appointment.service.AppointmentService;
-import meetween.backend.authentication.controller.AuthControllerTest;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import meetween.backend.authentication.infrastructure.uri.OAuthUriProvider;
 import meetween.backend.authentication.presentataion.AuthArgumentResolver;
 import meetween.backend.authentication.presentataion.AuthController;
 import meetween.backend.authentication.presentataion.BearerTokenExtractor;
 import meetween.backend.authentication.service.AuthService;
+import meetween.backend.category.presentation.CategoryController;
+import meetween.backend.category.service.CategoryService;
 import meetween.backend.member.presentation.MemberController;
 import meetween.backend.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest({
         MemberController.class,
         AppointmentController.class,
-        AuthController.class
+        AuthController.class,
+        CategoryController.class
 })
 @ActiveProfiles("test")
 public abstract class ControllerTest {
@@ -51,6 +53,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected AuthService authService;
+
+    @MockBean
+    protected CategoryService categoryService;
 
     @MockBean
     protected OAuthUriProvider oAuthUriProvider;
