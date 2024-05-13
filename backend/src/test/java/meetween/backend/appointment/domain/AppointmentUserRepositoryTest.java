@@ -1,5 +1,9 @@
 package meetween.backend.appointment.domain;
 
+import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
+import static meetween.backend.support.fixture.common.MemberFixtures.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import meetween.backend.global.config.JpaAuditConfig;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
@@ -12,9 +16,6 @@ import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
-import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
-import static meetween.backend.support.fixture.common.MemberFixtures.*;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @Import(JpaAuditConfig.class)

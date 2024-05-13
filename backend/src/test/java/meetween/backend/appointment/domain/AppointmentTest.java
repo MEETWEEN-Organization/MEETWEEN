@@ -1,16 +1,15 @@
 package meetween.backend.appointment.domain;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
+
 import meetween.backend.appointment.exception.InvalidAppointmentException;
-import meetween.backend.category.domain.Category;
-import meetween.backend.support.fixture.common.CategoryFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class AppointmentTest {
 
