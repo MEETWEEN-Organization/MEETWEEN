@@ -7,6 +7,8 @@ import meetween.backend.global.entity.BaseEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "appointment")
@@ -39,6 +41,9 @@ public class Appointment extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "appointment")
     private Category category;
+
+    @OneToMany(mappedBy = "appointment")
+    private List<AppointmentUser> appointmentUsers = new ArrayList<AppointmentUser>();
 
     protected Appointment() {}
 
