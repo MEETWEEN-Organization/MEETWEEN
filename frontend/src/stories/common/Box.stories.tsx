@@ -1,7 +1,8 @@
-import { Theme } from '@/styles/theme/theme';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Box from '@components/common/Box/Box';
+import Box from '@/components/common/Box/Box';
+
+import { Theme } from '@/styles/theme/theme';
 
 import { listStyle } from '../style';
 

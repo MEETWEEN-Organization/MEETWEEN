@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
-import ColorPicker from '@components/common/ColorPicker/ColorPicker';
+import ColorPicker from '@/components/common/ColorPicker/ColorPicker';
 
-import { containerStyle } from '@stories/style';
+import { containerStyle } from '@/stories/style';
 
 const meta = {
   title: 'Common/ColorPicker',

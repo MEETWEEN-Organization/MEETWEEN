@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { RecoilRoot } from 'recoil';
 
-import Button from '@components/common/Button/Button';
-import ToastContainer from '@components/common/ToastContainer/ToastContainer';
-import ToastFactory from '@components/common/ToastFactory/ToastFactory';
+import Button from '@/components/common/Button/Button';
+import ToastContainer from '@/components/common/ToastContainer/ToastContainer';
+import ToastFactory from '@/components/common/ToastFactory/ToastFactory';
 
-import { useToast } from '@hooks/common';
+import { useToast } from '@/hooks/common';
 
 import { listStyle } from '../style';
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Counter from '@components/common/Counter/Counter';
+import Counter from '@/components/common/Counter/Counter';
 
 import { containerStyle } from '../style';
 

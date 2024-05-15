@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
-import Tab from '@components/common/Tab/Tab';
-import Tabs from '@components/common/Tabs/Tabs';
+import Tab from '@/components/common/Tab/Tab';
+import Tabs from '@/components/common/Tabs/Tabs';
 
 import { containerStyle } from '../style';
 

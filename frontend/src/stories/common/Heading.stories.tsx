@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Heading from '@components/common/Heading/Heading';
+import Heading from '@/components/common/Heading/Heading';
 
 import { listStyle } from '../style';
 

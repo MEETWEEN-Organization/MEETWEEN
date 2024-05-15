@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { useState } from 'react';
 
-import Button from '@components/common/Button/Button';
-import ProgressBar from '@components/common/ProgressBar/ProgressBar';
+import Button from '@/components/common/Button/Button';
+import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 
 import { containerStyle } from '../style';
 

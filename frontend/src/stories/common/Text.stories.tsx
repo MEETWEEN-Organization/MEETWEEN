@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Text, { TextProps } from '@components/common/Text/Text';
+import Text, { TextProps } from '@/components/common/Text/Text';
 
 import { containerStyle, listStyle } from '../style';
 
