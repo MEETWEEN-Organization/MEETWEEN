@@ -1,14 +1,5 @@
 package meetween.backend.appointment.presentation;
 
-import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
-import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
-import meetween.backend.appointment.dto.response.AppointmentResponse;
-import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
-import meetween.backend.support.annotation.ControllerTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-
 import static java.util.Arrays.asList;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
 import static meetween.backend.support.fixture.common.CategoryFixtures.스터디_카테고리_제목;
@@ -20,6 +11,16 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
+import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
+import meetween.backend.appointment.dto.response.AppointmentResponse;
+import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
+import meetween.backend.support.annotation.ControllerTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
+
 
 class AppointmentControllerTest extends ControllerTest {
 

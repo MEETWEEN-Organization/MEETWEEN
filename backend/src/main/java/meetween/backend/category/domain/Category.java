@@ -46,6 +46,10 @@ public class Category extends BaseEntity {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Appointment getAppointment() {
         return appointment;
     }

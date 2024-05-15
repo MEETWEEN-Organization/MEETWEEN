@@ -1,5 +1,16 @@
 package meetween.backend.appointment.service;
 
+import static java.util.Arrays.asList;
+import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
+import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현_민성약속_유저_생성;
+import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현_수현약속_유저_생성;
+import static meetween.backend.support.fixture.common.CategoryFixtures.수현_약속_스터디_카테고리;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
+
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.appointment.domain.AppointmentRepository;
 import meetween.backend.appointment.domain.AppointmentUser;
@@ -21,18 +32,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static java.util.Arrays.asList;
-import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
-import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현_민성약속_유저_생성;
-import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현_수현약속_유저_생성;
-import static meetween.backend.support.fixture.common.CategoryFixtures.수현_약속_스터디_카테고리;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-
 
 @ExtendWith(MockitoExtension.class)
 class AppointmentServiceTest {

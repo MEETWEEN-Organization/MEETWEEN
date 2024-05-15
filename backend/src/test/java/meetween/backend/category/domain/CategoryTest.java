@@ -1,13 +1,14 @@
 package meetween.backend.category.domain;
 
+import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
+
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.category.exception.InvalidCategoryException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryTest {
 

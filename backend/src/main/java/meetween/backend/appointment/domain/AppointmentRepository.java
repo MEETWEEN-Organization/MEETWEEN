@@ -1,8 +1,12 @@
 package meetween.backend.appointment.domain;
 
 import meetween.backend.appointment.exception.NoExistAppointmentException;
+import meetween.backend.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
@@ -15,11 +19,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                 .orElseThrow(NoExistAppointmentException::new);
     }
 
-//    List<Appointment> findByCategory(Category category);
-//    @Query("SELECT DISTINCT a FROM Appointment a " +
-//            "JOIN a.category c " +
-//            "JOIN a.appointmentUsers au " +
-//            "WHERE au.user = :user " +
-//            "AND c.name = :categoryName")
-//    List<Appointment> findByUserAndCategoryName(@Param("user") User user, @Param("categoryName") String categoryName);
+    @Query("SELECT DISTINCT a FROM Appointment a " +
+            "JOIN a.category c " +
+            "JOIN a.appointmentUsers au " +
+            "WHERE au.member = :member " +
+            "AND c.name = :categoryName")
+    List<Appointment> findByUserAndCategoryName(@Param("member") Member member, @Param("categoryName") String categoryName);
 }
