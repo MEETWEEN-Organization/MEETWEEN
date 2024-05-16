@@ -1,4 +1,4 @@
-package meetween.backend.appointment.service;
+package meetween.backend.appointment.application;
 
 import meetween.backend.appointment.domain.*;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;

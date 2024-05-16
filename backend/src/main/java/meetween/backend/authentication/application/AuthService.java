@@ -1,20 +1,16 @@
-package meetween.backend.authentication.service;
+package meetween.backend.authentication.application;
 
 import meetween.backend.authentication.domain.OAuthProvider;
 import meetween.backend.authentication.domain.oauthmember.OAuthMember;
 import meetween.backend.authentication.domain.client.OAuthClient;
-import meetween.backend.authentication.domain.token.InMemoryRefreshTokenRepository;
 import meetween.backend.authentication.domain.token.MemberToken;
-import meetween.backend.authentication.domain.token.RefreshTokenRepository;
 import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
 import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
-import meetween.backend.authentication.exception.InvalidTokenException;
 import meetween.backend.member.domain.SocialType;
 import meetween.backend.member.domain.Member;
-import meetween.backend.authentication.dto.TokenResponse;
 import meetween.backend.authentication.infrastructure.uri.OAuthUriProvider;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
-import meetween.backend.member.service.MemberService;
+import meetween.backend.member.application.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

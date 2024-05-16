@@ -1,4 +1,4 @@
-package meetween.backend.category.service;
+package meetween.backend.category.application;
 
 import static meetween.backend.support.fixture.common.AppointmentFixtures.민성_약속;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속;
@@ -10,9 +10,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 import meetween.backend.appointment.domain.AppointmentRepository;
-import meetween.backend.appointment.domain.AppointmentUserRepository;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
-import meetween.backend.category.domain.CategoryRepository;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.support.fixture.common.MemberFixtures;
@@ -38,13 +36,7 @@ class CategoryServiceTest {
     private AppointmentRepository appointmentRepository;
 
     @Mock
-    private CategoryRepository categoryRepository;
-
-    @Mock
     private MemberRepository memberRepository;
-
-    @Mock
-    private AppointmentUserRepository appointmentUserRepository;
 
     private Member mockMember;
 

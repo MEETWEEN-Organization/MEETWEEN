@@ -1,4 +1,4 @@
-package meetween.backend.authentication.service;
+package meetween.backend.authentication.application;
 
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.KAKAO_OAUTH_PROVIDER;
 import static meetween.backend.support.fixture.common.AuthenticationFixtures.AUTHORIZATION_CODE;
@@ -19,6 +19,7 @@ import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
 import meetween.backend.authentication.exception.InvalidTokenException;
 import meetween.backend.authentication.exception.NoSuchRefreshTokenException;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
+import meetween.backend.authentication.application.AuthService;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.support.annotation.ServiceTest;
