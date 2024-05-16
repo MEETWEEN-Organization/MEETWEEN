@@ -6,7 +6,7 @@ import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
-import meetween.backend.appointment.service.AppointmentService;
+import meetween.backend.appointment.application.AppointmentService;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
 import org.springframework.http.ResponseEntity;

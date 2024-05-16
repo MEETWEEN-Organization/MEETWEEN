@@ -1,4 +1,4 @@
-package meetween.backend.authentication.service.client;
+package meetween.backend.authentication.application.client;
 
 import meetween.backend.authentication.domain.client.OAuthClient;
 import meetween.backend.authentication.domain.oauthmember.KakaoOAuthMember;

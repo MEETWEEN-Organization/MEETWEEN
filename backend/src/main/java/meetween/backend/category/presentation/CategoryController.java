@@ -2,10 +2,10 @@ package meetween.backend.category.presentation;
 
 import jakarta.validation.Valid;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
-import meetween.backend.appointment.service.AppointmentService;
+import meetween.backend.appointment.application.AppointmentService;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
-import meetween.backend.category.service.CategoryService;
+import meetween.backend.category.application.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

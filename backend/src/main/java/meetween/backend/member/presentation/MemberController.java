@@ -3,7 +3,7 @@ package meetween.backend.member.presentation;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
 import meetween.backend.member.dto.MemberResponse;
-import meetween.backend.member.service.MemberService;
+import meetween.backend.member.application.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

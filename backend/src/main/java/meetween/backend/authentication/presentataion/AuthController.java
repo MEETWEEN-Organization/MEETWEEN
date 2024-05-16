@@ -9,7 +9,7 @@ import meetween.backend.authentication.dto.RenewalAccessTokenRequest;
 import meetween.backend.authentication.dto.RenewalAccessTokenResponse;
 import meetween.backend.authentication.dto.TokenRequest;
 import meetween.backend.authentication.dto.TokenResponse;
-import meetween.backend.authentication.service.AuthService;
+import meetween.backend.authentication.application.AuthService;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
