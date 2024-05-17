@@ -23,7 +23,7 @@ public class AppointmentUser extends BaseEntity {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "category_color", nullable = false)
-    private memberAuthority memberAuthority;
+    private MemberAuthority memberAuthority;
 
     protected AppointmentUser() {}
 
@@ -32,7 +32,15 @@ public class AppointmentUser extends BaseEntity {
         this.member = member;
     }
 
+    public void updateAuthority(MemberAuthority memberAuthority) {
+        this.memberAuthority = memberAuthority;
+    }
+
     public Appointment getAppointment() {
         return appointment;
+    }
+
+    public MemberAuthority getMemberAuthority() {
+        return memberAuthority;
     }
 }
