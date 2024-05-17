@@ -58,5 +58,8 @@ public abstract class ControllerTest {
     protected CategoryService categoryService;
 
     @MockBean
+    protected AppointmentUserService appointmentUserService;
+
+    @MockBean
     protected OAuthUriProvider oAuthUriProvider;
 }
