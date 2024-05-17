@@ -21,6 +21,10 @@ public class AppointmentUser extends BaseEntity {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "category_color", nullable = false)
+    private memberAuthority memberAuthority;
+
     protected AppointmentUser() {}
 
     public AppointmentUser(final Appointment appointment,final Member member) {
