@@ -3,6 +3,7 @@ package meetween.backend.support.annotation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import meetween.backend.appointment.presentation.AppointmentController;
 import meetween.backend.appointment.service.AppointmentService;
+import meetween.backend.appointment.service.AppointmentUserService;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
 import meetween.backend.authentication.infrastructure.uri.OAuthUriProvider;
 import meetween.backend.authentication.presentataion.AuthArgumentResolver;
@@ -56,6 +57,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected CategoryService categoryService;
+
+    @MockBean
+    protected AppointmentUserService appointmentUserService;
 
     @MockBean
     protected OAuthUriProvider oAuthUriProvider;
