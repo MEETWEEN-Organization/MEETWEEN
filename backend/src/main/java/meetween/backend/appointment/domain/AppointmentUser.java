@@ -22,14 +22,15 @@ public class AppointmentUser extends BaseEntity {
     private Member member;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "category_color", nullable = false)
+    @Column(name = "member_authority", nullable = false)
     private MemberAuthority memberAuthority;
 
     protected AppointmentUser() {}
 
-    public AppointmentUser(final Appointment appointment,final Member member) {
+    public AppointmentUser(final Appointment appointment, final Member member, final MemberAuthority memberAuthority) {
         this.appointment = appointment;
         this.member = member;
+        this.memberAuthority = memberAuthority;
     }
 
     public void updateAuthority(MemberAuthority memberAuthority) {

@@ -95,8 +95,8 @@ class AppointmentRepositoryTest {
         Appointment appointment2 = new Appointment("만성의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
         Category category1 = new Category("스터디", CategoryColor._9A61D2, appointment1);
         Category category2 = new Category("스터디", CategoryColor._9A61D2, appointment2);
-        AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member);
-        AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member);
+        AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
+        AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member, MemberAuthority.ADMIN);
         appointment1.setCategory(category1);
         appointment2.setCategory(category2);
 
