@@ -7,6 +7,7 @@ import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.appointment.service.AppointmentService;
+import meetween.backend.appointment.service.AppointmentUserService;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,11 @@ import java.net.URI;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
+    private final AppointmentUserService appointmentUserService;
 
-    public AppointmentController(final AppointmentService appointmentService) {
+    public AppointmentController(final AppointmentService appointmentService, final AppointmentUserService appointmentUserService) {
         this.appointmentService = appointmentService;
+        this.appointmentUserService = appointmentUserService;
     }
 
     @PostMapping
@@ -44,11 +47,11 @@ public class AppointmentController {
         return ResponseEntity.ok().body(response);
     }
 
-    @PatchMapping("/{appointmentId}/{memberId}/authority")
+    @PatchMapping("/{appointmentId}/{targetMemberId}/authority")
     public ResponseEntity<Void> updateAuthority(@AuthPrincipal final LoginMember loginMember,
                                                 @PathVariable final Long appointmentId,
-                                                @PathVariable final Long memberId) {
-        appointmentUserService.updateAuthority(appointmentId, loginMember.getId(), memberId);
+                                                @PathVariable final Long targetMemberId) {
+        appointmentUserService.updateAuthority(appointmentId, loginMember.getId(), targetMemberId);
         return ResponseEntity.noContent().build();
     }
 }
