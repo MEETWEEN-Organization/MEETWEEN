@@ -1,4 +1,4 @@
-package meetween.backend.member.service;
+package meetween.backend.member.application;
 
 import static meetween.backend.support.fixture.common.MemberFixtures.수현_유저;
 import static org.assertj.core.api.Assertions.assertThat;

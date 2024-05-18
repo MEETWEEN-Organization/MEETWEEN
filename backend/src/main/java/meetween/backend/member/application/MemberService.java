@@ -1,4 +1,4 @@
-package meetween.backend.member.service;
+package meetween.backend.member.application;
 
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;

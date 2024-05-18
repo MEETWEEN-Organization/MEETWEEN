@@ -1,4 +1,4 @@
-package meetween.backend.appointment.service;
+package meetween.backend.appointment.application;
 
 import static java.util.Arrays.asList;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.*;

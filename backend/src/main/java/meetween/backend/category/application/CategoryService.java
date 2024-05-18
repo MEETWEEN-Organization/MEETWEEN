@@ -1,4 +1,4 @@
-package meetween.backend.category.service;
+package meetween.backend.category.application;
 
 import meetween.backend.appointment.domain.AppointmentRepository;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
