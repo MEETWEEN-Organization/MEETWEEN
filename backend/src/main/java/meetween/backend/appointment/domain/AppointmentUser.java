@@ -25,6 +25,9 @@ public class AppointmentUser extends BaseEntity {
     @Column(name = "member_authority", nullable = false)
     private MemberAuthority memberAuthority;
 
+    @Version
+    private Long version;
+
     protected AppointmentUser() {}
 
     public AppointmentUser(final Appointment appointment, final Member member, final MemberAuthority memberAuthority) {
@@ -34,14 +37,26 @@ public class AppointmentUser extends BaseEntity {
     }
 
     public void updateAuthority(MemberAuthority memberAuthority) {
-        this.memberAuthority = memberAuthority;
+        this.memberAuthority = MemberAuthority.getAnotherAuthority(memberAuthority);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Appointment getAppointment() {
         return appointment;
     }
 
+    public Member getMember() {
+        return member;
+    }
+
     public MemberAuthority getMemberAuthority() {
         return memberAuthority;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 }
