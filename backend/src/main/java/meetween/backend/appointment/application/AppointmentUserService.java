@@ -1,12 +1,17 @@
-package meetween.backend.appointment.service;
+package meetween.backend.appointment.application;
 
 import meetween.backend.appointment.domain.*;
+import meetween.backend.appointment.exception.NoExistAppointmentUserException;
 import meetween.backend.appointment.exception.NotAdminMemberException;
-import meetween.backend.authentication.dto.LoginMember;
+import meetween.backend.category.domain.CategoryRepository;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Objects;
 
 @Transactional(readOnly = true)
 @Service
@@ -15,32 +20,53 @@ public class AppointmentUserService {
     private final AppointmentUserRepository appointmentUserRepository;
     private final MemberRepository memberRepository;
     private final AppointmentRepository appointmentRepository;
+    private final CategoryRepository categoryRepository;
 
-    public AppointmentUserService(final AppointmentUserRepository appointmentUserRepository, final MemberRepository memberRepository, final AppointmentRepository appointmentRepository) {
+    public AppointmentUserService(final CategoryRepository categoryRepository, final AppointmentUserRepository appointmentUserRepository, final MemberRepository memberRepository, final AppointmentRepository appointmentRepository) {
         this.appointmentUserRepository = appointmentUserRepository;
         this.appointmentRepository = appointmentRepository;
         this.memberRepository = memberRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Transactional
     public void updateAuthority(Long appointmentId, Long loginMemberId, Long targetMemberId) {
-        Member loginMember = memberRepository.getById(loginMemberId);
-        Member targetMember = memberRepository.getById(targetMemberId);
-        Appointment appointment = appointmentRepository.getById(appointmentId);
-        AppointmentUser loginAppointmentUser = appointmentUserRepository.getByMemberAndAppointment(loginMember, appointment);
-        AppointmentUser targetAppointmentUser = appointmentUserRepository.getByMemberAndAppointment(targetMember, appointment);
-        MemberAuthority targetAuthority = targetAppointmentUser.getMemberAuthority();
+        try {
+            Appointment appointment = appointmentRepository.getById(appointmentId);
+            List<AppointmentUser> appointmentUserList = appointmentUserRepository.findByAppointmentWithOptimisticLock(appointment);
+            AppointmentUser targetAppointmentUser = getAppointmentUser(targetMemberId, appointmentUserList);
 
-        validateIsAdminMember(loginAppointmentUser);
+            MemberAuthority loginMemberAuthority = getMemberAuthority(loginMemberId, appointmentUserList);
+            validateIsAdminMember(loginMemberAuthority);
 
-        targetAppointmentUser.updateAuthority(MemberAuthority.getAnotherAuthority(targetAuthority));
-        appointmentUserRepository.save(targetAppointmentUser);
+            targetAppointmentUser.updateAuthority(targetAppointmentUser.getMemberAuthority());
+        } catch (ObjectOptimisticLockingFailureException e) { // 동시성 문제 발생했을 때
+            throw new NotAdminMemberException("회원님의 권한이 변경되어 권한 수정이 불가능합니다.");
+        }
     }
 
-    private void validateIsAdminMember(AppointmentUser loginAppointmentUser) {
-        if (loginAppointmentUser.getMemberAuthority() == MemberAuthority.ADMIN) {
-            return;
+    private AppointmentUser getAppointmentUser(Long targetMemberId, List<AppointmentUser> appointmentUserList) {
+        for (AppointmentUser appointmentUser : appointmentUserList) {
+            if (Objects.equals(appointmentUser.getMember().getId(), targetMemberId)) {
+                return appointmentUser;
+            }
         }
-        throw new NotAdminMemberException();
+        throw new NoExistAppointmentUserException();
+    }
+
+    private MemberAuthority getMemberAuthority(Long memberId, List<AppointmentUser> appointmentUserList) {
+        Member member = memberRepository.getById(memberId);
+        for (AppointmentUser appointmentUser : appointmentUserList) {
+            if (appointmentUser.getMember() == member) {
+                return appointmentUser.getMemberAuthority();
+            }
+        }
+        throw new NoExistAppointmentUserException();
+    }
+
+    private void validateIsAdminMember(MemberAuthority memberAuthority) {
+        if (memberAuthority != MemberAuthority.ADMIN) {
+            throw new NotAdminMemberException();
+        }
     }
 }
