@@ -5,8 +5,7 @@ import meetween.backend.appointment.domain.MemberAuthority;
 
 import static meetween.backend.support.fixture.common.AppointmentFixtures.민성_약속;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속;
-import static meetween.backend.support.fixture.common.MemberFixtures.민성_유저;
-import static meetween.backend.support.fixture.common.MemberFixtures.수현_유저;
+import static meetween.backend.support.fixture.common.MemberFixtures.*;
 
 public class AppointmentUserFixtures {
 
@@ -16,6 +15,10 @@ public class AppointmentUserFixtures {
 
     public static AppointmentUser 수현약속_민성유저() {
         return new AppointmentUser(수현_약속(), 민성_유저(), MemberAuthority.NORMAL);
+    }
+
+    public static AppointmentUser 수현약속_주용유저() {
+        return new AppointmentUser(수현_약속(), 주용_유저(), MemberAuthority.ADMIN);
     }
 
     public static AppointmentUser 민성약속_수현유저() {
