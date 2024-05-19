@@ -1,6 +1,7 @@
 package meetween.backend.support.annotation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import meetween.backend.appointment.application.AppointmentUserService;
 import meetween.backend.appointment.presentation.AppointmentController;
 import meetween.backend.appointment.application.AppointmentService;
 import meetween.backend.authentication.infrastructure.jwt.JwtTokenProvider;
