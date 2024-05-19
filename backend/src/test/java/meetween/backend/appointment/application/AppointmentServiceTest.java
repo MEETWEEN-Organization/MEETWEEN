@@ -72,7 +72,6 @@ class AppointmentServiceTest {
                 .willReturn(수현_약속());
         given(appointmentUserRepository.save(any(AppointmentUser.class)))
                 .willReturn(수현약속_수현유저());
-
         // when
         final AppointmentResponse actual = appointmentService.save(mockMember.getId(), request);
 
