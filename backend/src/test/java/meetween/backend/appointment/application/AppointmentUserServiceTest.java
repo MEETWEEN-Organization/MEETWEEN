@@ -1,15 +1,16 @@
 package meetween.backend.appointment.application;
 
 import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속;
-import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현약속_민성유저;
-import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현약속_수현유저;
+import static meetween.backend.support.fixture.common.AppointmentUserFixtures.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 import meetween.backend.appointment.domain.AppointmentRepository;
+import meetween.backend.appointment.domain.AppointmentUser;
 import meetween.backend.appointment.domain.AppointmentUserRepository;
+import meetween.backend.appointment.domain.MemberAuthority;
 import meetween.backend.appointment.exception.NotAdminMemberException;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
@@ -22,6 +23,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class AppointmentUserServiceTest {
@@ -54,16 +57,10 @@ public class AppointmentUserServiceTest {
     @Test
     void 약속내_다른_유저의_권한을_변경한다() {
         //given
-        given(memberRepository.getById(1L))
-                .willReturn(mockMemberA);
-        given(memberRepository.getById(2L))
-                .willReturn(mockMemberB);
         given(appointmentRepository.getById(anyLong()))
                 .willReturn(수현_약속());
-        given(appointmentUserRepository.getByMemberAndAppointment(eq(mockMemberA), any()))
-                .willReturn(수현약속_수현유저());
-        given(appointmentUserRepository.getByMemberAndAppointment(eq(mockMemberB), any()))
-                .willReturn(수현약속_민성유저());
+        given(appointmentUserRepository.findByAppointmentWithOptimisticLock(any()))
+                .willReturn(List.of(new AppointmentUser(수현_약속(), mockMemberA, MemberAuthority.ADMIN), new AppointmentUser(수현_약속(), mockMemberB, MemberAuthority.ADMIN)));
 
         //when, then
         assertThatCode(() -> appointmentUserService.updateAuthority(1L, mockMemberA.getId(), mockMemberB.getId()))
@@ -74,19 +71,14 @@ public class AppointmentUserServiceTest {
     @Test
     void 어드민이_아닌_유저가_다른_유저의_권한을_변경_시도하면_예외를_발생시킨다() {
         //given
-        given(memberRepository.getById(1L))
-                .willReturn(mockMemberA);
-        given(memberRepository.getById(2L))
-                .willReturn(mockMemberB);
         given(appointmentRepository.getById(anyLong()))
                 .willReturn(수현_약속());
-        given(appointmentUserRepository.getByMemberAndAppointment(eq(mockMemberA), any()))
-                .willReturn(수현약속_수현유저());
-        given(appointmentUserRepository.getByMemberAndAppointment(eq(mockMemberB), any()))
-                .willReturn(수현약속_민성유저());
+        given(appointmentUserRepository.findByAppointmentWithOptimisticLock(any()))
+                .willReturn(List.of(new AppointmentUser(수현_약속(), mockMemberA, MemberAuthority.NORMAL), new AppointmentUser(수현_약속(), mockMemberB, MemberAuthority.ADMIN)));
+
 
         //when, then
-        assertThatThrownBy(() -> appointmentUserService.updateAuthority(1L, mockMemberB.getId(), mockMemberA.getId()))
+        assertThatThrownBy(() -> appointmentUserService.updateAuthority(1L, mockMemberA.getId(), mockMemberB.getId()))
                 .isInstanceOf(NotAdminMemberException.class);
     }
 }

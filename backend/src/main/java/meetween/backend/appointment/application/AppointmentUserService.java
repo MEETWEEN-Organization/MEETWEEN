@@ -55,9 +55,8 @@ public class AppointmentUserService {
     }
 
     private MemberAuthority getMemberAuthority(Long memberId, List<AppointmentUser> appointmentUserList) {
-        Member member = memberRepository.getById(memberId);
         for (AppointmentUser appointmentUser : appointmentUserList) {
-            if (appointmentUser.getMember() == member) {
+            if (Objects.equals(appointmentUser.getMember().getId(), memberId)) {
                 return appointmentUser.getMemberAuthority();
             }
         }
