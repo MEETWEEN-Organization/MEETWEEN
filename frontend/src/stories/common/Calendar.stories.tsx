@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Calendar from '@/components/common/Calendar/Calendar';
 
-import useCalendar from '@/hooks/common/useCalendar';
+import { useCalendar } from '@/hooks/common';
 
 import { getYearMonthInfo } from '@/utils/date';
 
@@ -34,6 +34,8 @@ export const PlayGround: Story = {
   render: () => {
     const { currentDate, yearMonthData, selectedDate, handleDateClick, handleChangeMonth } =
       useCalendar();
+
+    console.log(yearMonthData);
 
     return (
       <Calendar
