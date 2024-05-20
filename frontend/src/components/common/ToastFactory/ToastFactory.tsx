@@ -6,6 +6,7 @@ import Toast from '@/components/common/Toast/Toast';
 
 import { toastListState } from '@/store/toast';
 
+/* eslint-disable react-hooks/exhaustive-deps */
 const ToastFactory = () => {
   const [toastList, setToastList] = useRecoilState(toastListState);
 

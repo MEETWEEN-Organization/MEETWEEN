@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
-import { fadeIn } from '@styles/animation';
-import { Theme } from '@styles/theme/theme';
+import { fadeIn } from '@/styles/animation';
+import { Theme } from '@/styles/theme/theme';
 
 export const backgroundStyle = css({
   position: 'fixed',

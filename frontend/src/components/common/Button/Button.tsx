@@ -5,7 +5,7 @@ import { buttonStyle, sizeStyle, variantStyle } from '@/components/common/Button
 import { SizeType } from '@/type/size';
 
 export interface ButtonProps extends ComponentPropsWithRef<'button'> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'default';
+  variant?: 'primary' | 'secondary' | 'outline' | 'default' | 'text';
   size?: Extract<SizeType, 'xLarge' | 'large' | 'medium' | 'small'>;
   icon?: ReactElement;
   children: ReactNode;

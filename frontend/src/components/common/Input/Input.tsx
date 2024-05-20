@@ -1,7 +1,3 @@
-import Label from '@components/common/Label/Label';
-import SupportingText from '@components/common/SupportingText/SupportingText';
-import { SizeType } from '@type/size';
-
 import { ComponentPropsWithRef, ForwardedRef, ReactElement, forwardRef } from 'react';
 
 import {
@@ -10,6 +6,10 @@ import {
   sizeStyle,
   variantStyle,
 } from '@/components/common/Input/Input.style';
+import Label from '@/components/common/Label/Label';
+import SupportingText from '@/components/common/SupportingText/SupportingText';
+
+import { SizeType } from '@/type/size';
 
 export interface InputProps extends Omit<ComponentPropsWithRef<'input'>, 'size'> {
   label?: string;
