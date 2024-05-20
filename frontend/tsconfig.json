@@ -13,19 +13,20 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@type/*": ["src/type/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@pages/*": ["src/pages/*"],
-      "@styles/*": ["src/styles/*"],
-      "@constants/*": ["src/constants/*"],
-      "@assets/*": ["src/assets/*"],
-      "@api/*": ["src/api/*"],
-      "@mocks/*": ["src/mocks/*"],
-      "@stories/*": ["src/stories/*"],
-      "@router/*": ["src/router/*"],
-      "@store/*": ["src/store/*"],
-      "@utils/*": ["src/utils/*"]
+      "@/components/*": ["src/components/*"],
+      "@/type/*": ["src/type/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/api/*": ["src/api/*"],
+      "@/mocks/*": ["src/mocks/*"],
+      "@/stories/*": ["src/stories/*"],
+      "@/router/*": ["src/router/*"],
+      "@/store/*": ["src/store/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/__tests__/*": ["src/__tests__/*"]
     },
     "jsxImportSource": "@emotion/react",
     "strict": true,
@@ -34,5 +35,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "./src/assets/index.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "./src/assets/index.d.ts", "./global.d.ts", "jest.config.js"]
 }

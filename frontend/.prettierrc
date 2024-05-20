@@ -26,6 +26,7 @@
     "^@/styles/(.*)$",
     "^@/stories/(.*)$",
     "^@/mocks/(.*)$",
+    "^@/(.*)$",
     "^[./]"
   ],
   "importOrderSeparation": true,
