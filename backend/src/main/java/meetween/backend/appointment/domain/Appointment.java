@@ -27,12 +27,6 @@ public class Appointment extends BaseEntity {
     @Column(name = "appointment_date_time", nullable = false)
     private LocalDateTime appointmentDateTime;
 
-    @Column(name = "latitude", nullable = false)
-    private BigDecimal latitude;
-
-    @Column(name = "longitude", nullable = false)
-    private BigDecimal longitude;
-
     @Column(name = "invite_code", nullable = false)
     private Long inviteCode;
 
@@ -55,8 +49,6 @@ public class Appointment extends BaseEntity {
         this.inviteCode = inviteCode;
         this.appointmentDateTime = appointmentDateTime;
         this.memberCount = memberCount;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
 
     private void validateTitleLength(final String title) {
@@ -98,14 +90,6 @@ public class Appointment extends BaseEntity {
 
     public LocalDateTime getAppointmentDateTime() {
         return appointmentDateTime;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
     }
 
     public Long getInviteCode() {
