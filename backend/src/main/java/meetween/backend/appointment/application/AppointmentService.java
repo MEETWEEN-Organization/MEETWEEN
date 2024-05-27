@@ -44,6 +44,7 @@ public class AppointmentService {
         Appointment appointment = request.toEntity(inviteCode);
         Location location = new Location(appointment, request.getLatitude(), request.getLongitude(), LocationType.CHOICED);
         Category category = new Category(request.getCategoryName(), CategoryColor.getCategoryColor(request.getCategoryColor()), appointment);
+        appointment.updateCategory(category);
 
         locationRepository.save(location);
         appointmentRepository.save(appointment);
