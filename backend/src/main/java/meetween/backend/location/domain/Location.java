@@ -46,4 +46,8 @@ public class Location extends BaseEntity {
     public BigDecimal getLongitude() {
         return longitude;
     }
+
+    public LocationType getLocationType() {
+        return locationType;
+    }
 }
