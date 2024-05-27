@@ -1,6 +1,7 @@
-package meetween.backend.appointment.domain;
+package meetween.backend.location.domain;
 
 import jakarta.persistence.*;
+import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.global.entity.BaseEntity;
 
 import java.math.BigDecimal;
@@ -24,11 +25,24 @@ public class Location extends BaseEntity {
     @Column(name = "longitude", nullable = false)
     private BigDecimal longitude;
 
-    protected Location() {}
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "location_type", nullable = false)
+    private LocationType locationType;
+
+    protected Location() {
+    }
 
     public Location(final Appointment appointment, final BigDecimal latitude, final BigDecimal longitude) {
         this.appointment = appointment;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
     }
 }
