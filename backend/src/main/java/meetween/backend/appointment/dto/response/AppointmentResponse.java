@@ -1,6 +1,7 @@
 package meetween.backend.appointment.dto.response;
 
 import meetween.backend.appointment.domain.Appointment;
+import meetween.backend.location.domain.Location;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,13 +17,13 @@ public class AppointmentResponse {
     private final Long inviteCode;
     private final Long memberCount;
 
-    public AppointmentResponse(final Appointment appointment) {
+    public AppointmentResponse(final Appointment appointment, final Location location) {
         this.id = appointment.getId();
         this.categoryId = appointment.getCategory().getId();
         this.title = appointment.getTitle();
         this.appointmentDateTime = appointment.getAppointmentDateTime();
-        this.latitude = appointment.getLatitude();
-        this.longitude = appointment.getLongitude();
+        this.latitude = location.getLatitude();
+        this.longitude = location.getLongitude();
         this.inviteCode = appointment.getInviteCode();
         this.memberCount = appointment.getMemberCount();
     }
