@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
-    List<Location> findByAppointment(Long appointmentId);
+    List<Location> findByAppointment(Appointment appointment);
 
     @Query("select l from Location l where l.appointment = :appointment and l.locationType = 'CHOICED'")
     Optional<Location> findChoicedLocationByAppointment(Appointment appointment);
