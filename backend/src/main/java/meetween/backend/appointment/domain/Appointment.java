@@ -41,7 +41,7 @@ public class Appointment extends BaseEntity {
 
     protected Appointment() {}
 
-    public Appointment(final String title, final Long inviteCode, final LocalDateTime appointmentDateTime, final Long memberCount, final BigDecimal latitude, final BigDecimal longitude) {
+    public Appointment(final String title, final Long inviteCode, final LocalDateTime appointmentDateTime, final Long memberCount) {
         validateTitleLength(title);
         validateDateTime(appointmentDateTime);
         validateMemberCount(memberCount);

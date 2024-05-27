@@ -45,7 +45,7 @@ public class MultiThreadTest {
 
     @BeforeEach
     public void before() {
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
         Member member1 = 수현_유저();
         Member member2 = 주용_유저();
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment, member1, MemberAuthority.ADMIN);

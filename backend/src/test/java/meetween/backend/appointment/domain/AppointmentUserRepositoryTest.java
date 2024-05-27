@@ -37,10 +37,10 @@ class AppointmentUserRepositoryTest {
     void 특정_유저가_속한_모든_약속_유저를_찾는다() {
         //given
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment1 = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L, 수현_약속_위도, 수현_약속_경도);
+        Appointment appointment1 = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
 
-        Appointment appointment2 = new Appointment(민성_약속_제목, 민성_약속_초대코드, 하루_뒤_시간, 3L, 민성_약속_위도, 민성_약속_경도);
+        Appointment appointment2 = new Appointment(민성_약속_제목, 민성_약속_초대코드, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member, MemberAuthority.ADMIN);
 
         memberRepository.save(member);
@@ -61,7 +61,7 @@ class AppointmentUserRepositoryTest {
     void 멤버와_약속을_통해_약속_유저를_찾는다() {
         //given
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L, 수현_약속_위도, 수현_약속_경도);
+        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser = new AppointmentUser(appointment, member, MemberAuthority.ADMIN);
 
         memberRepository.save(member);
@@ -80,7 +80,7 @@ class AppointmentUserRepositoryTest {
     void 입력받은_멤버와_약속을_가진_약속_유저가_없으면_예외를_발생시킨다() {
         //given
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L, 수현_약속_위도, 수현_약속_경도);
+        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
 
         memberRepository.save(member);
         appointmentRepository.save(appointment);
