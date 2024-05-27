@@ -44,7 +44,7 @@ public class AppointmentCreateRequest {
     }
 
     public Appointment toEntity(Long inviteCode) {
-        return new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude);
+        return new Appointment(title, inviteCode, appointmentDateTime, memberCount);
     }
 
     public String getCategoryName() {
