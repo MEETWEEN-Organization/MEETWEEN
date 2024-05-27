@@ -47,7 +47,7 @@ class AppointmentRepositoryTest {
         Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
         Long inviteCode = appointment.getInviteCode();
         Category category = new Category("스터디", CategoryColor._9A61D2, appointment);
-        appointment.setCategory(category);
+        appointment.updateCategory(category);
 
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
@@ -66,7 +66,7 @@ class AppointmentRepositoryTest {
         //given
         Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
         Category category = new Category("스터디", CategoryColor._9A61D2, appointment);
-        appointment.setCategory(category);
+        appointment.updateCategory(category);
 
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
@@ -126,8 +126,8 @@ class AppointmentRepositoryTest {
         Category category2 = new Category("스터디", CategoryColor._9A61D2, appointment2);
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
         AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member, MemberAuthority.ADMIN);
-        appointment1.setCategory(category1);
-        appointment2.setCategory(category2);
+        appointment1.updateCategory(category1);
+        appointment2.updateCategory(category2);
 
         memberRepository.save(member);
         appointmentRepository.save(appointment1);
