@@ -32,10 +32,11 @@ public class Location extends BaseEntity {
     protected Location() {
     }
 
-    public Location(final Appointment appointment, final BigDecimal latitude, final BigDecimal longitude) {
+    public Location(final Appointment appointment, final BigDecimal latitude, final BigDecimal longitude, final LocationType locationType) {
         this.appointment = appointment;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.locationType = locationType;
     }
 
     public BigDecimal getLatitude() {
