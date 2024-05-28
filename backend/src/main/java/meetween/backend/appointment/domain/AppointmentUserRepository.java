@@ -20,6 +20,8 @@ public interface AppointmentUserRepository extends JpaRepository<AppointmentUser
                 .orElseThrow(NoExistAppointmentUserException::new);
     }
 
+    boolean existsByAppointmentAndMember(Appointment appointment, Member member);
+
     @Lock(LockModeType.OPTIMISTIC)
     @Query("select au from AppointmentUser au where au.appointment = :appointment")
     List<AppointmentUser> findByAppointmentWithOptimisticLock(Appointment appointment);
