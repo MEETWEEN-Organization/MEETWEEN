@@ -18,6 +18,7 @@ import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
+import meetween.backend.category.domain.CategoryRepository;
 import meetween.backend.location.domain.LocationRepository;
 import meetween.backend.member.domain.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +39,9 @@ class AppointmentServiceTest {
 
     @Mock
     private MemberRepository memberRepository;
+
+    @Mock
+    private CategoryRepository categoryRepository;
 
     @Mock
     private LocationRepository locationRepository;
