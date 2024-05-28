@@ -38,7 +38,7 @@ class AppointmentControllerTest extends ControllerTest {
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
         given(appointmentService.save(any(), any())).willReturn(response);
 
-        // when & then
+        // when, then
         mockMvc.perform(post("/appointment")
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                         .accept(MediaType.APPLICATION_JSON)

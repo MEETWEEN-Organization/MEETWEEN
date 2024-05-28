@@ -36,9 +36,6 @@ public class AppointmentUserServiceTest {
     private AppointmentRepository appointmentRepository;
 
     @Mock
-    private MemberRepository memberRepository;
-
-    @Mock
     private AppointmentUserRepository appointmentUserRepository;
 
     private Member mockMemberA;
