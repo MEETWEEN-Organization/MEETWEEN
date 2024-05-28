@@ -12,6 +12,8 @@ import meetween.backend.authentication.presentataion.BearerTokenExtractor;
 import meetween.backend.authentication.application.AuthService;
 import meetween.backend.category.presentation.CategoryController;
 import meetween.backend.category.application.CategoryService;
+import meetween.backend.location.application.LocationService;
+import meetween.backend.location.presentation.LocationController;
 import meetween.backend.member.presentation.MemberController;
 import meetween.backend.member.application.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,8 @@ import org.springframework.test.web.servlet.MockMvc;
         MemberController.class,
         AppointmentController.class,
         AuthController.class,
-        CategoryController.class
+        CategoryController.class,
+        LocationController.class
 })
 @ActiveProfiles("test")
 public abstract class ControllerTest {
@@ -60,6 +63,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected AppointmentUserService appointmentUserService;
+
+    @MockBean
+    protected LocationService locationService;
 
     @MockBean
     protected OAuthUriProvider oAuthUriProvider;
