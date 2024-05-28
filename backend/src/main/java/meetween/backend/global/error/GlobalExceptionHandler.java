@@ -1,20 +1,23 @@
 package meetween.backend.global.error;
 
+import meetween.backend.appointment.exception.InvalidAppointmentException;
+import meetween.backend.appointment.exception.NoExistAppointmentException;
+import meetween.backend.appointment.exception.NoExistAppointmentUserException;
+import meetween.backend.appointment.exception.NotAdminMemberException;
 import meetween.backend.authentication.exception.InvalidOAuthServiceException;
+import meetween.backend.category.exception.InvalidCategoryColorException;
+import meetween.backend.category.exception.InvalidCategoryException;
+import meetween.backend.location.exception.InvalidLocationTypeException;
+import meetween.backend.location.exception.NoExistLocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Objects;
 
@@ -23,6 +26,31 @@ public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     // TODO: RuntimeException 에 대한 애플리케이션 커스텀 클래스 세부 예외처리
+
+    @ExceptionHandler({
+            NoExistAppointmentException.class,
+            NoExistAppointmentUserException.class,
+            NoExistLocationException.class
+    })
+    public ResponseEntity<ExceptionResponse> handleNoSuchData(final RuntimeException exception) {
+        log.error(exception.getMessage(), exception);
+        ExceptionResponse exceptionResponse = new ExceptionResponse(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+    }
+
+    @ExceptionHandler({
+            InvalidAppointmentException.class,
+            InvalidLocationTypeException.class,
+            InvalidCategoryException.class,
+            InvalidCategoryColorException.class,
+            NotAdminMemberException.class
+    })
+    public ResponseEntity<ExceptionResponse> handleInvalidData(final RuntimeException exception) {
+        log.error(exception.getMessage(), exception);
+        ExceptionResponse exceptionResponse = new ExceptionResponse(exception.getMessage());
+        return ResponseEntity.badRequest().body(exceptionResponse);
+    }
+
     @ExceptionHandler({InvalidOAuthServiceException.class})
     public ResponseEntity<ExceptionResponse> handleOAuthServiceException(final RuntimeException exception) {
         log.error(exception.getMessage(), exception);
