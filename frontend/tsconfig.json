@@ -35,5 +35,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "./src/assets/index.d.ts", "./global.d.ts", "jest.config.js"]
+  "include": ["**/*.ts", "**/*.tsx", "./src/assets/index.d.ts", "./global.d.ts", "./jest.config.js"]
 }
