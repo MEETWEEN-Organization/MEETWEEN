@@ -19,6 +19,7 @@ export interface ToastProps extends ComponentPropsWithoutRef<'div'> {
   onClose: () => void;
 }
 
+/* eslint-disable react-hooks/exhaustive-deps */
 const Toast = ({
   variant = 'default',
   showDuration = 3000,

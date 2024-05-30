@@ -11,7 +11,7 @@ const ProgressBar = (
   { degree, maxLength = 10 }: ProgressBarProps,
   ref: ForwardedRef<HTMLProgressElement>,
 ) => {
-  return <progress ref={ref} css={progressBarStyle} max={maxLength} value={degree}></progress>;
+  return <progress ref={ref} css={progressBarStyle} max={maxLength} value={degree} />;
 };
 
 export default forwardRef(ProgressBar);

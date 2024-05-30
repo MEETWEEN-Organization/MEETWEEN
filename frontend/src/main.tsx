@@ -9,8 +9,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { RecoilRoot } from 'recoil';
 
-import { GlobalStyle } from '@styles/GlobalStyle';
-import { Theme } from '@styles/theme/theme.js';
+import { GlobalStyle } from '@/styles/GlobalStyle';
+import { Theme } from '@/styles/theme/theme.js';
 
 const queryClient = new QueryClient();
 

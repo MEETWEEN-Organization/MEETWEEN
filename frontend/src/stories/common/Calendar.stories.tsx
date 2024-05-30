@@ -1,8 +1,10 @@
-import useCalendar from '@/hooks/common/useCalendar';
-import { getYearMonthInfo } from '@/utils/date';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Calendar from '@components/common/Calendar/Calendar';
+import Calendar from '@/components/common/Calendar/Calendar';
+
+import { useCalendar } from '@/hooks/common';
+
+import { getYearMonthInfo } from '@/utils/date';
 
 import { containerStyle } from '../style';
 

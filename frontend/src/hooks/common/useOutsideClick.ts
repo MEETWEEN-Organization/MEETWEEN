@@ -35,7 +35,7 @@ export const useOutsideClick = <T extends HTMLElement = HTMLDivElement>(onClose:
       window.removeEventListener('click', handleClick);
       window.removeEventListener('keypress', handleEscape);
     };
-  }, [onClose, targetRef]);
+  }, [onClose, handleClick, handleEscape, targetRef]);
 
   return targetRef;
 };

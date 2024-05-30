@@ -1,11 +1,11 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-import Dropdown from '@components/common/Dropdown/Dropdown';
-import DropdownItem from '@components/common/Dropdown/DropdownItem';
-import DropdownList from '@components/common/Dropdown/DropdownList';
-import { DropdownTrigger } from '@components/common/Dropdown/DropdownTrigger';
+import Dropdown from '@/components/common/Dropdown/Dropdown';
+import DropdownItem from '@/components/common/Dropdown/DropdownItem';
+import DropdownList from '@/components/common/Dropdown/DropdownList';
+import { DropdownTrigger } from '@/components/common/Dropdown/DropdownTrigger';
 
-import { SizeType } from '@type/size';
+import { SizeType } from '@/type/size';
 
 import * as Styled from './Select.style';
 
