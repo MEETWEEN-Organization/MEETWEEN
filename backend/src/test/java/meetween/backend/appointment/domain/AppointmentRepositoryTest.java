@@ -18,10 +18,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @DataJpaTest
@@ -115,9 +115,9 @@ class AppointmentRepositoryTest {
                 .isInstanceOf(NoExistAppointmentException.class);
     }
 
-    @DisplayName("카테고리 이름을 통해 로그인 된 유저가 속한 약속들을 조회한다.")
+    @DisplayName("카테고리 이름을 통해 로그인 된 유저가 속한 약속들을 조회하고 페이징한다")
     @Test
-    void 카테고리_이름을_통해_로그인된_유저가_속한_약속들을_조회한다() {
+    void 카테고리_이름을_통해_로그인된_유저가_속한_약속들을_조회하고_페이징한다() {
         //given
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
         Appointment appointment1 = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
@@ -128,6 +128,7 @@ class AppointmentRepositoryTest {
         AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member, MemberAuthority.ADMIN);
         appointment1.updateCategory(category1);
         appointment2.updateCategory(category2);
+        PageRequest pageRequest = PageRequest.of(0, 1);
 
         memberRepository.save(member);
         appointmentRepository.save(appointment1);
@@ -138,9 +139,9 @@ class AppointmentRepositoryTest {
         categoryRepository.save(category2);
 
         //when
-        List<Appointment> actual = appointmentRepository.findByUserAndCategoryName(member, category1.getName());
+        Page<Appointment> actual = appointmentRepository.findByUserAndCategoryName(member, category1.getName(), pageRequest);
 
         //then
-        assertThat(actual).hasSize(2);
+        assertThat(actual).hasSize(1);
     }
 }
