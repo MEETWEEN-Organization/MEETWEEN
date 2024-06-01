@@ -10,6 +10,7 @@ import meetween.backend.appointment.application.AppointmentService;
 import meetween.backend.appointment.application.AppointmentUserService;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,8 +43,11 @@ public class AppointmentController {
     }
 
     @GetMapping("my")
-    public ResponseEntity<IntegratedAppointmentResponses> findMyAllAppointments(@AuthPrincipal final LoginMember loginMember) {
-        IntegratedAppointmentResponses response = appointmentService.findAll(loginMember.getId());
+    public ResponseEntity<IntegratedAppointmentResponses> findMyAllAppointments(@AuthPrincipal final LoginMember loginMember,
+                                                                                @RequestParam final Integer page
+                                                                                ) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        IntegratedAppointmentResponses response = appointmentService.findAll(loginMember.getId(), pageRequest);
         return ResponseEntity.ok().body(response);
     }
 
