@@ -15,8 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
 
 
 @DataJpaTest
@@ -32,10 +33,12 @@ class AppointmentUserRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @DisplayName("특정 유저가 속한 모든 약속-유저를 찾는다.")
+    @DisplayName("특정 유저가 속한 모든 약속-유저를 찾아 페이징한다.")
     @Test
-    void 특정_유저가_속한_모든_약속_유저를_찾는다() {
+    void 특정_유저가_속한_모든_약속_유저를_찾아_페이징한다() {
         //given
+        PageRequest pageRequest = PageRequest.of(0, 1);
+
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
         Appointment appointment1 = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
@@ -50,10 +53,10 @@ class AppointmentUserRepositoryTest {
         appointmentUserRepository.save(appointmentUser2);
 
         //when
-        List<AppointmentUser> actual = appointmentUserRepository.findAllByMember(member);
+        Page<AppointmentUser> actual = appointmentUserRepository.findAllByMember(member, pageRequest);
 
         //then
-        assertThat(actual).hasSize(2);
+        assertThat(actual).hasSize(1);
     }
 
     @DisplayName("멤버와 약속을 통해 약속-유저를 찾는다.")
