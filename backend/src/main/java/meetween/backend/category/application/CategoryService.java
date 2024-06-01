@@ -8,6 +8,7 @@ import meetween.backend.location.domain.Location;
 import meetween.backend.location.domain.LocationRepository;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +28,9 @@ public class CategoryService {
         this.locationRepository = locationRepository;
     }
 
-    public IntegratedAppointmentResponses findByCategory(Long memberId, String categoryName) {
+    public IntegratedAppointmentResponses findByCategory(Long memberId, String categoryName, PageRequest pageRequest) {
         Member member = memberRepository.getById(memberId);
-        return new IntegratedAppointmentResponses(appointmentRepository.findByUserAndCategoryName(member, categoryName).stream()
+        return new IntegratedAppointmentResponses(appointmentRepository.findByUserAndCategoryName(member, categoryName, pageRequest).stream()
                 .map(appointment -> new AppointmentResponse(appointment, getChoicedLocation(appointment)))
                 .collect(Collectors.toList()));
     }
