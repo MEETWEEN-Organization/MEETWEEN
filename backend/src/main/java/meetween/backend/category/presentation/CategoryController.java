@@ -6,6 +6,7 @@ import meetween.backend.appointment.application.AppointmentService;
 import meetween.backend.authentication.dto.LoginMember;
 import meetween.backend.authentication.presentataion.AuthPrincipal;
 import meetween.backend.category.application.CategoryService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,11 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<IntegratedAppointmentResponses> findAppointments(@AuthPrincipal LoginMember loginMember,
-                                                                           @Valid @RequestParam final String categoryName) {
-        IntegratedAppointmentResponses response = categoryService.findByCategory(loginMember.getId(), categoryName);
+    public ResponseEntity<IntegratedAppointmentResponses> findAppointmentsByCategory(@AuthPrincipal LoginMember loginMember,
+                                                                                     @RequestParam final String categoryName,
+                                                                                     @RequestParam final Integer page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        IntegratedAppointmentResponses response = categoryService.findByCategory(loginMember.getId(), categoryName, pageRequest);
         return ResponseEntity.ok().body(response);
     }
 }
