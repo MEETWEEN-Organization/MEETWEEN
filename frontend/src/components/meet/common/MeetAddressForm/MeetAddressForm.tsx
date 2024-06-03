@@ -8,7 +8,7 @@ import {
   formStyle,
 } from '@/components/meet/common/MeetAddressForm/MeetAddressForm.style';
 
-import { AddressResultType, LatLngType } from '@/type/funnel';
+import { AddressType, LatLngType } from '@/type/place';
 
 import SearchIcon from '@/assets/svg/search.svg?react';
 
@@ -25,20 +25,20 @@ const MeetAddressForm = ({ friendsLength = 3 }: MeetAddressFormProps) => {
   const [latLngs, setLatLngs] = useState<LatLngType[]>([]);
   const [values, setValues] = useState<string[]>(initialInputValues);
 
-  console.log(latLngs);
-
   const currentInputCount = values.filter((value) => !!value).length;
+
+  console.log(latLngs);
 
   const handleSearchAddress = (index: number) => {
     new window.daum.Postcode({
       oncomplete: (data: { address: string }) => {
         const geocoder = new window.kakao.maps.services.Geocoder();
 
-        geocoder.addressSearch(data.address, async (result: AddressResultType[], status: any) => {
+        geocoder.addressSearch(data.address, async (result: AddressType[], status: any) => {
           if (status !== 'OK') return;
 
           setLatLngs((prev) => [
-            ...prev,
+            ...[...prev].filter((item) => item.key !== index),
             {
               x: result[0].x,
               y: result[0].y,
@@ -47,7 +47,7 @@ const MeetAddressForm = ({ friendsLength = 3 }: MeetAddressFormProps) => {
           ]);
           setValues((prev) => {
             const next = prev.concat();
-            next[index] = result[0].address.address_name;
+            next[index] = result[0].address_name;
             return next;
           });
         });
