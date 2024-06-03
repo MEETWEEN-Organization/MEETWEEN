@@ -15,5 +15,5 @@ export const listStyle = css({
   gap: '24px',
   alignItems: 'flex-start',
 
-  width: '300px',
+  width: '500px',
 });

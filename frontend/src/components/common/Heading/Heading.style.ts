@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
-import { Theme } from '@styles/theme/theme';
 
 import { HeadingProps } from '@/components/common/Heading/Heading';
+
+import { Theme } from '@/styles/theme/theme';
 
 export const headingStyle = (size: Required<HeadingProps>['size']) => {
   const heading = {

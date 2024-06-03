@@ -1,8 +1,3 @@
-import {
-  calendarContainerStyle,
-  dayContainerStyle,
-  headerStyle,
-} from '@/components/common/Calendar/Calendar.style';
 import Heading from '@/components/common/Heading/Heading';
 
 import { getDayInfo, getDaySize } from '@/utils/date';
@@ -14,6 +9,7 @@ import { DAYS_OF_WEEK } from '@/constants/common';
 import PrevMonth from '@/assets/svg/left-arrow.svg?react';
 import NextMonth from '@/assets/svg/right-arrow.svg?react';
 
+import { calendarContainerStyle, dayContainerStyle, headerStyle } from './Calendar.style';
 import Day from './Day/Day';
 
 interface CalendarProps {

@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
-import { Theme } from '@styles/theme/theme';
 
 import { TextProps } from '@/components/common/SupportingText/SupportingText';
+
+import { Theme } from '@/styles/theme/theme';
 
 export const getTextStyle = (isError: Required<TextProps>['isError']) =>
   css({

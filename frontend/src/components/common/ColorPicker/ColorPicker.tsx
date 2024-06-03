@@ -27,7 +27,13 @@ const ColorPicker = ({ color, onSelectColor, label }: ColorPickerProps) => {
   };
 
   return (
-    <Dropdown onClose={close} label={label}>
+    <Dropdown
+      css={css`
+        width: 100%;
+      `}
+      onClose={close}
+      label={label}
+    >
       <Dropdown.Trigger as={<ColorSelector onClick={toggle} currentColor={color} />} />
       <Dropdown.List css={palleteListStyle} isOpen={isOpen}>
         {COLOR_PALLETE.map((color) => (

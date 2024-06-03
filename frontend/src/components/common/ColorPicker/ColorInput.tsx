@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import React, { ComponentPropsWithoutRef } from 'react';
 
 import {
+  buttonStyle,
   currentColorDisplayStyle,
   inputWrapperStyle,
 } from '@/components/common/ColorPicker/ColorPicker.style';
@@ -31,7 +32,6 @@ const ColorSelector = ({ currentColor, onClick, ...props }: ColorSelectorProps) 
       aria-label="색상 선택 버튼"
       tabIndex={0}
       css={inputWrapperStyle}
-      onClick={onClick}
       onKeyDown={handleKeyDown}
       {...props}
     >
@@ -39,12 +39,15 @@ const ColorSelector = ({ currentColor, onClick, ...props }: ColorSelectorProps) 
         size="medium"
         css={css`
           color: ${Theme.color.gray400};
+          white-space: nowrap;
         `}
       >
         색상을 선택해주세요
       </Text>
-      <div css={currentColorDisplayStyle(currentColor)} />
-      <DropdownArrow width={20} height={20} />
+      <button onClick={onClick} css={buttonStyle}>
+        <div css={currentColorDisplayStyle(currentColor)} />
+        <DropdownArrow width={20} height={20} />
+      </button>
     </div>
   );
 };

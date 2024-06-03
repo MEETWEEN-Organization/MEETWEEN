@@ -12,8 +12,12 @@ export interface BadgeProps extends Omit<ComponentPropsWithoutRef<'span'>, 'colo
   color?: keyof typeof COLOR;
 }
 
-const Badge = ({ text, size = 'medium', color }: BadgeProps) => {
-  return <span css={[badgeStyle(color), sizeStyle[size]]}>{text}</span>;
+const Badge = ({ text, size = 'medium', color, ...props }: BadgeProps) => {
+  return (
+    <span css={[badgeStyle(color), sizeStyle[size]]} {...props}>
+      {text}
+    </span>
+  );
 };
 
 export default Badge;

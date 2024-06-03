@@ -5,13 +5,13 @@ import { Theme } from '@/styles/theme/theme';
 export const inputWrapperStyle = css({
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
+
+  padding: '12px 32px',
 
   border: `1px solid ${Theme.color.gray200}`,
 
-  padding: '12px 16px',
   borderRadius: Theme.borderRadius.medium,
-
-  cursor: 'pointer',
 
   '& > :not(:first-child)': {
     transform: 'translateX(10px)',
@@ -27,3 +27,13 @@ export const currentColorDisplayStyle = (color: string) =>
 
     backgroundColor: color,
   });
+
+export const buttonStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+
+  border: 'none',
+  backgroundColor: 'transparent',
+
+  cursor: 'pointer',
+});

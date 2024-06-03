@@ -40,6 +40,10 @@ export const variantStyle = {
       backgroundColor: Theme.color.blue900,
     },
   }),
+
+  text: css({
+    backgroundColor: 'transparent',
+  }),
 };
 
 export const sizeStyle = {

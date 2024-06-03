@@ -60,14 +60,14 @@ export const Playground: Story = {
           size="small"
           trigger={
             <div
-              role="listbox"
+              role="button"
+              aria-label="리스트 박스 토글 버튼"
               tabIndex={0}
-              aria-expanded={isOpen}
               onKeyDown={handleKeyDown}
               onClick={toggle}
               css={[selectWrapperStyle]}
             >
-              <button css={sizeStyle('140px', 'small')}>{value || '선택해주세요'}</button>
+              <p css={sizeStyle('160px', 'small')}>{value || '선택해주세요'}</p>
               <DownArrow width={28} height={28} />
             </div>
           }
@@ -76,73 +76,3 @@ export const Playground: Story = {
     );
   },
 };
-
-// export const Variants: Story = {
-//   render: ({ size, isError }) => (
-//     <ul css={listStyle}>
-//       <li>
-//         <Select size={size} isError={isError} variant="default">
-//           <option value="option">Option</option>
-//         </Select>
-//       </li>
-//       <li>
-//         <Select size={size} isError={isError} variant="outline">
-//           <option value="option">Option</option>
-//         </Select>
-//       </li>
-//     </ul>
-//   ),
-
-//   argTypes: {
-//     variant: {
-//       control: false,
-//     },
-//   },
-// };
-
-// export const Sizes: Story = {
-//   render: ({ variant, isError }) => (
-//     <ul css={listStyle}>
-//       <li>
-//         <Select variant={variant} isError={isError} size="large">
-//           <option value="option">Option</option>
-//         </Select>
-//       </li>
-//       <li>
-//         <Select variant={variant} isError={isError} size="medium">
-//           <option value="option">Option</option>
-//         </Select>
-//       </li>
-//       <li>
-//         <Select variant={variant} isError={isError} size="small">
-//           <option value="option">Option</option>
-//         </Select>
-//       </li>
-//     </ul>
-//   ),
-//   argTypes: {
-//     size: {
-//       control: false,
-//     },
-//   },
-// };
-
-// export const WithLabel: Story = {
-//   args: {
-//     label: 'Label',
-//     isError: false,
-//   },
-// };
-
-// export const WithSupportingText: Story = {
-//   args: {
-//     supportingText: 'SupportingText',
-//   },
-// };
-
-// export const WithError: Story = {
-//   args: {
-//     isError: true,
-//     supportingText: 'SupportingText',
-//   },
-// };

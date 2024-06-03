@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Profile from '@/components/common/Profile/Profile';
 
-import icon from '@/assets/profile_sample.jpeg';
+import icon from '@/assets/img/profile_sample.jpeg';
 
 const meta = {
   title: 'Common/Profile',

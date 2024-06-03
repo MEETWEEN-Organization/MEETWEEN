@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useCallback, useEffect, useState } from 'react';
+import { ComponentPropsWithoutRef, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { textStyle, toastStyle, variantStyle } from '@/components/common/Toast/Toast.style';
@@ -30,27 +30,30 @@ const Toast = ({
   const [isRendered, setIsRendered] = useState(true);
   const [isShown, setIsShown] = useState(true);
 
-  let hideRef: NodeJS.Timeout;
-  let showRef: NodeJS.Timeout;
+  const hideRef = useRef<NodeJS.Timeout>();
+  const showRef = useRef<NodeJS.Timeout>();
+
+  // let hideRef: NodeJS.Timeout;
+  // let showRef: NodeJS.Timeout;
 
   const handleClose = useCallback(() => {
-    hideRef = setTimeout(() => {
+    hideRef.current = setTimeout(() => {
       // useEffect의 setTimeOut Clear 해야함
       setIsRendered(false);
       onClose();
-      clearTimeout(showRef);
+      clearTimeout(showRef.current);
     }, 600);
   }, [onClose, setIsRendered]);
 
   useEffect(() => {
-    showRef = setTimeout(() => {
+    showRef.current = setTimeout(() => {
       // isShown은 true 상태이므로 마운트 시, show 애니메이션 시작
       // 컴포넌트 마운트 시 2초 후에 hide 애니메이션을 시작하고 handleClose 호출
       setIsShown(false);
       handleClose();
     }, showDuration);
 
-    return () => clearTimeout(hideRef);
+    return () => clearTimeout(hideRef.current);
   }, [showDuration, handleClose]);
 
   return isRendered
@@ -61,7 +64,7 @@ const Toast = ({
         </div>,
         document.getElementById('toast-container') as Element,
       )
-    : createPortal(null, document.getElementById('toast-container') as Element);
+    : createPortal(<div />, document.getElementById('toast-container') as Element);
 };
 
 export default Toast;

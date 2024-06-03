@@ -35,6 +35,8 @@ export const PlayGround: Story = {
     const { currentDate, yearMonthData, selectedDate, handleDateClick, handleChangeMonth } =
       useCalendar();
 
+    console.log(yearMonthData);
+
     return (
       <Calendar
         currentDate={currentDate}
