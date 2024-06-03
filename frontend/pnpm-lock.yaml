@@ -60,6 +60,9 @@ importers:
       '@emotion/babel-preset-css-prop':
         specifier: ^11.11.0
         version: 11.11.0(@babel/core@7.24.6)
+      '@storybook/addon-a11y':
+        specifier: ^8.1.5
+        version: 8.1.5
       '@storybook/addon-essentials':
         specifier: ^8.0.6
         version: 8.1.4(@types/react-dom@18.3.0)(@types/react@18.3.3)(prettier@3.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1589,6 +1592,9 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
+  '@storybook/addon-a11y@8.1.5':
+    resolution: {integrity: sha512-ZEXrfdMzo0fT8vhzuzy+UZYyotC1PQV9T1mxnPBzCCCgqXQHgADv88JwOMIqgPKmKJb499Xq6E9h+ta9pYd8YQ==}
+
   '@storybook/addon-actions@8.1.4':
     resolution: {integrity: sha512-3q/DCcnSjpuWBoKpA+0j1etXyMOu+GsdUtxv041tsNjMMwyc+CfHUGiAHMyQ0TpEf8MPQoTeZsRPrEZwVUNXow==}
 
@@ -1606,6 +1612,9 @@ packages:
 
   '@storybook/addon-highlight@8.1.4':
     resolution: {integrity: sha512-Wx8p/DrEuf/fis5x9XHT1gYEJaM9ia/aPPqUfFq/o66z2jUPgITZ49aYRMA2VXxViG6RPAu2cp2ma4FrHy0FuA==}
+
+  '@storybook/addon-highlight@8.1.5':
+    resolution: {integrity: sha512-E31yrV7lmE82T57tLSm8mg50BX3lBbA4qozaVKyWohw0NrZPcrS3Z6Iyjl0dp7heoUFpE3rljHwMxADRA25HkQ==}
 
   '@storybook/addon-interactions@8.1.4':
     resolution: {integrity: sha512-l7LNMgpuMBw7qvrJBpH7lh/EMNOMB9rNyGQOF4RVW7VO3dA5mfPPXnBElQbVyijFMuAtebzenAehgMKusH9UJw==}
@@ -7798,6 +7807,11 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
+  '@storybook/addon-a11y@8.1.5':
+    dependencies:
+      '@storybook/addon-highlight': 8.1.5
+      axe-core: 4.7.0
+
   '@storybook/addon-actions@8.1.4':
     dependencies:
       '@storybook/core-events': 8.1.4
@@ -7882,6 +7896,10 @@ snapshots:
       - supports-color
 
   '@storybook/addon-highlight@8.1.4':
+    dependencies:
+      '@storybook/global': 5.0.0
+
+  '@storybook/addon-highlight@8.1.5':
     dependencies:
       '@storybook/global': 5.0.0
 
