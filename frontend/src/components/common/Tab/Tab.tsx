@@ -25,6 +25,7 @@ const Tab = ({ text, tabId, selectedId, changeSelect, ...props }: TabProps) => {
       <li
         {...props}
         role="tab"
+        aria-selected={tabId === selectedId}
         tabIndex={0}
         onClick={handleSelect}
         onKeyDown={handleEnterKeyPress}

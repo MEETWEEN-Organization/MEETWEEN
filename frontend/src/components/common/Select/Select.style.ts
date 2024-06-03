@@ -17,9 +17,15 @@ export const selectWrapperStyle = css({
   border: `1px solid ${Theme.color.gray200}`,
   borderRadius: Theme.borderRadius.medium,
 
+  cursor: 'pointer',
+
   '& > button, & > input': {
     border: 'none',
     backgroundColor: 'transparent',
+  },
+
+  '& > p': {
+    textAlign: 'center',
   },
 });
 

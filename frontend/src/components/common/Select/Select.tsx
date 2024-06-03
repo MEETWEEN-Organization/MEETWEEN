@@ -35,11 +35,12 @@ const Select = ({
     onClose?.();
   };
   return (
-    <Dropdown label={label} onClose={onClose} {...props}>
+    <Dropdown role="listbox" label={label} onClose={onClose} {...props}>
       <DropdownTrigger as={trigger} />
       <DropdownList isOpen={isOpen}>
         {options.map((item) => (
           <DropdownItem
+            role="option"
             key={item}
             onSelect={() => handleSelect(item)}
             css={Styled.sizeStyle('', size)}

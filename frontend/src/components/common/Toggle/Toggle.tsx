@@ -11,6 +11,7 @@ const Toggle = ({ onToggle, isChecked }: ToggleProps) => {
   return (
     <input
       role="switch"
+      aria-label="토글 버튼"
       aria-checked={isChecked}
       css={toggleStyle}
       onChange={onToggle}

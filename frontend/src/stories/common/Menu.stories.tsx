@@ -7,7 +7,7 @@ import Profile from '@/components/common/Profile/Profile';
 
 import { useOverlay } from '@/hooks/common';
 
-import user from '@/assets/profile_sample.jpeg';
+import user from '@/assets/img/profile_sample.jpeg';
 
 import { containerStyle } from '../style';
 
