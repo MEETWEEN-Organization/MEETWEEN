@@ -15,7 +15,7 @@ const ToastFactory = () => {
       const removed = toastList.filter((toast) => toast.id !== id);
       setToastList(removed);
     },
-    [setToastList],
+    [setToastList, toastList],
   );
 
   return (

@@ -1,11 +1,15 @@
 package meetween.backend.appointment.domain;
 
+import static meetween.backend.support.fixture.common.MemberFixtures.*;
+
 import meetween.backend.appointment.exception.NoExistAppointmentException;
 import meetween.backend.category.domain.Category;
 import meetween.backend.category.domain.CategoryColor;
 import meetween.backend.category.domain.CategoryRepository;
 import meetween.backend.global.config.JpaAuditConfig;
+import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
+import meetween.backend.member.domain.SocialType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +19,8 @@ import org.springframework.context.annotation.Import;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 @DataJpaTest
 @Import(JpaAuditConfig.class)
@@ -28,6 +34,9 @@ class AppointmentRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private AppointmentUserRepository appointmentUserRepository;
 
     @DisplayName("초대코드를 통해 약속을 찾는다")
     @Test
@@ -75,5 +84,34 @@ class AppointmentRepositoryTest {
 
         //when, then
         Assertions.assertThat(appointmentRepository.existsByInviteCode(appointment.getInviteCode())).isEqualTo(true);
+    }
+
+    @DisplayName("카테고리 이름을 통해 로그인 된 유저가 속한 약속들을 조회한다.")
+    @Test
+    void 카테고리_이름을_통해_로그인된_유저가_속한_약속들을_조회한다() {
+        //given
+        Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
+        Appointment appointment1 = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Appointment appointment2 = new Appointment("만성의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Category category1 = new Category("스터디", CategoryColor._9A61D2, appointment1);
+        Category category2 = new Category("스터디", CategoryColor._9A61D2, appointment2);
+        AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member);
+        AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member);
+        appointment1.setCategory(category1);
+        appointment2.setCategory(category2);
+
+        memberRepository.save(member);
+        appointmentRepository.save(appointment1);
+        appointmentRepository.save(appointment2);
+        appointmentUserRepository.save(appointmentUser1);
+        appointmentUserRepository.save(appointmentUser2);
+        categoryRepository.save(category1);
+        categoryRepository.save(category2);
+
+        //when
+        List<Appointment> actual = appointmentRepository.findByUserAndCategoryName(member, category1.getName());
+
+        //then
+        Assertions.assertThat(actual).hasSize(2);
     }
 }

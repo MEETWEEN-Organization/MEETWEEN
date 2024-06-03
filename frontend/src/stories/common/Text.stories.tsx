@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Text, { TextProps } from '@/components/common/Text/Text';
 
-import { containerStyle, listStyle } from '../style';
+import { containerStyle, listStyle } from '@/stories/style';
 
 const meta = {
   title: 'Common/Text',

@@ -8,7 +8,7 @@ import ToastFactory from '@/components/common/ToastFactory/ToastFactory';
 
 import { useToast } from '@/hooks/common';
 
-import { listStyle } from '../style';
+import { listStyle } from '@/stories/style';
 
 const meta = {
   title: 'Common/Toast',
