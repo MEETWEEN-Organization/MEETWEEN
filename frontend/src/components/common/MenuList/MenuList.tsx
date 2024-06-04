@@ -13,7 +13,7 @@ const MenuList = (
 ) => {
   return (
     isOpen && (
-      <ul aria-label={'메뉴 리스트'} css={listStyle(position)} ref={ref} {...props}>
+      <ul aria-label={'메뉴 리스트'} css={listStyle} ref={ref} {...props}>
         {children}
       </ul>
     )

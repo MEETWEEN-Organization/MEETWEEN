@@ -2,18 +2,24 @@ import { css } from '@emotion/react';
 
 import { Theme } from '@/styles/theme/theme';
 
-import { MenuListProps } from './MenuList';
+export const listStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
 
-export const listStyle = (position: Required<MenuListProps>['position']) =>
-  css({
-    position: 'absolute',
+  position: 'absolute',
 
-    zIndex: Theme.zIndex.overlayHigh,
+  transform: 'translateY(50px)',
 
-    borderRadius: Theme.borderRadius.medium,
-    boxShadow: Theme.boxShadow.blur200,
+  minWidth: '140px',
 
-    transform: `translateY(${position})`,
+  zIndex: Theme.zIndex.overlayHigh,
 
-    transition: 'all 0.2s ease-in',
-  });
+  padding: `${Theme.spacing.spacing2} 0`,
+
+  backgroundColor: Theme.color.white,
+  borderRadius: Theme.borderRadius.medium,
+
+  boxShadow: Theme.boxShadow.blur100,
+
+  transition: 'all 0.2s ease-in',
+});
