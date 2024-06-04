@@ -18,13 +18,20 @@ export const containerStyle = css({
 
   boxShadow: Theme.boxShadow.shadow4,
 
-  '& > p': {
-    width: '60%',
-    color: Theme.color.gray400,
-  },
-
   '& > button': {
     marginTop: Theme.spacing.spacing2,
     width: '100%',
+  },
+});
+
+export const titleWrapperStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: Theme.spacing.spacing2,
+
+  '& > p': {
+    width: '60%',
+    color: Theme.color.gray400,
   },
 });
