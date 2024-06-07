@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-import { headingStyle } from '@/components/common/Heading/Heading.style';
+import { headingStyle, textStyle } from '@/components/common/Heading/Heading.style';
 
 import { SizeType } from '@/type/size';
 
@@ -22,7 +22,7 @@ const Heading = ({ size = 'large', ...props }: HeadingProps) => {
   const Tag = TAG_BY_SIZE[size] as JSX.ElementType;
 
   return (
-    <Tag css={headingStyle(size)} {...props}>
+    <Tag css={[headingStyle(size), textStyle]} {...props}>
       {props.children}
     </Tag>
   );
