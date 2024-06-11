@@ -1,19 +1,13 @@
+import { useFunnelInfo } from '@/context/funnel';
+
 import ColorPicker from '@/components/common/ColorPicker/ColorPicker';
 import Flex from '@/components/common/Flex/Flex';
 import Input from '@/components/common/Input/Input';
 import { formStyle } from '@/components/meet/common/MeetInfoForm/MeetInfoForm.style';
 
-import { COLOR_PALLETE } from '@/constants/common';
+const MeetInfoForm = () => {
+  const { info, handleTitleChange, handleCategoryChange, handleSelectColor } = useFunnelInfo();
 
-interface MeetInfoFormProps {
-  selectedColor?: string;
-  onSelectColor?: (color: string) => void;
-}
-
-const MeetInfoForm = ({
-  selectedColor = COLOR_PALLETE[0],
-  onSelectColor = () => {},
-}: MeetInfoFormProps) => {
   return (
     <section css={formStyle}>
       <Input
@@ -22,6 +16,8 @@ const MeetInfoForm = ({
         label="약속 이름"
         name="title"
         placeholder="약속 이름을 설정해주세요"
+        value={info.title}
+        onChange={handleTitleChange}
       />
       <Flex styles={{ gap: '24px' }}>
         <Input
@@ -30,8 +26,14 @@ const MeetInfoForm = ({
           label="카테고리 이름"
           name="category"
           placeholder="카테고리를 설정해주세요"
+          value={info.category}
+          onChange={handleCategoryChange}
         />
-        <ColorPicker label="카테고리 색상" color={selectedColor} onSelectColor={onSelectColor} />
+        <ColorPicker
+          label="카테고리 색상"
+          color={info.categoryColor}
+          onSelectColor={handleSelectColor}
+        />
       </Flex>
     </section>
   );

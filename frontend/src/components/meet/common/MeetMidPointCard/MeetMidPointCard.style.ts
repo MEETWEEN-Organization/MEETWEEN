@@ -35,9 +35,11 @@ export const arrowStyle = css({
 export const durationAverageTextStyle = css({
   display: 'flex',
   alignItems: 'center',
-  gap: '4px',
+  gap: '6px',
 
-  '& > p:nth-child(1)': {
+  minWidth: '50%',
+
+  '& > span': {
     color: Theme.color.blue500,
 
     fontSize: '20px',
@@ -46,16 +48,4 @@ export const durationAverageTextStyle = css({
   '& > p': {
     fontWeight: 500,
   },
-});
-
-export const durationRowStyle = css({
-  display: 'flex',
-  justifyContent: 'space-between',
-
-  width: '90%',
-});
-
-export const titleRowStyle = css({
-  display: 'flex',
-  justifyContent: 'space-between',
 });

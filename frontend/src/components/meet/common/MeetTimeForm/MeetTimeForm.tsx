@@ -12,8 +12,8 @@ const MeetTimeForm = ({}: MeetTimeFormProps) => {
         gap: Theme.spacing.spacing5,
       }}
     >
-      <Input variant="text" size="large" label="Hour" placeholder="00" />
-      <Input variant="text" size="large" label="Minute" placeholder="00" />
+      <Input variant="text" size="large" label="Hour" placeholder="0 ~ 23" />
+      <Input variant="text" size="large" label="Minute" placeholder="0 ~ 59" />
     </Flex>
   );
 };
