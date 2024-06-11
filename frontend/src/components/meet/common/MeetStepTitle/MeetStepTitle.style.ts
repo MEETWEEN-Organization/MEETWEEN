@@ -16,14 +16,10 @@ export const titleWrapperStyle = css({
   gap: Theme.spacing.spacing3,
 
   '& > h2': {
-    maxWidth: '400px',
-
     textAlign: 'center',
   },
 
   '& > p': {
-    maxWidth: '320px',
-
     color: Theme.color.gray500,
 
     textAlign: 'center',

@@ -22,7 +22,7 @@ const Heading = ({ size = 'large', ...props }: HeadingProps) => {
   const Tag = TAG_BY_SIZE[size] as JSX.ElementType;
 
   return (
-    <Tag css={headingStyle(size)} {...props}>
+    <Tag css={[headingStyle(size)]} {...props}>
       {props.children}
     </Tag>
   );

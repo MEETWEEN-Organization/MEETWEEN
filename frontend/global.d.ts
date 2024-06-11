@@ -1,8 +1,7 @@
-export {};
-
 declare global {
   interface Window {
-    kakao: any;
+    google: any;
     daum: any;
   }
 }
+export {};

@@ -18,14 +18,16 @@ const meta = {
       </ul>
     ),
   ],
-  argTypes: {},
+  args: {
+    carDuration: 18,
+    subWayDuration: 30,
+    destination: '주안역',
+    routeUrl: 'https://github.com/wuzoo',
+    averageDuration: '1시간 25분',
+  },
 } satisfies Meta<typeof MeetMidPointCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {
-  render: () => {
-    return <MeetMidPointCard />;
-  },
-};
+export const Default: Story = {};

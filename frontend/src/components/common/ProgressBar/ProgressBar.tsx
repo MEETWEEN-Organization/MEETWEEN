@@ -8,10 +8,10 @@ interface ProgressBarProps extends ComponentPropsWithRef<'progress'> {
 }
 
 const ProgressBar = (
-  { degree, maxLength = 10 }: ProgressBarProps,
+  { degree, maxLength = 10, ...props }: ProgressBarProps,
   ref: ForwardedRef<HTMLProgressElement>,
 ) => {
-  return <progress ref={ref} css={progressBarStyle} max={maxLength} value={degree} />;
+  return <progress ref={ref} css={progressBarStyle} max={maxLength} value={degree} {...props} />;
 };
 
 export default forwardRef(ProgressBar);

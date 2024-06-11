@@ -10,7 +10,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    friendsLength: {
+    addressCount: {
       controls: {
         type: 'text',
       },
@@ -23,6 +23,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
   render: () => {
-    return <MeetAddressForm friendsLength={7} />;
+    return <MeetAddressForm addressCount={7} />;
   },
 };

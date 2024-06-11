@@ -17,7 +17,7 @@ export const calendarContainerStyle = css({
 
   '&  h6': {
     textAlign: 'center',
-    margin: '16px',
+    margin: '12px',
   },
 });
 

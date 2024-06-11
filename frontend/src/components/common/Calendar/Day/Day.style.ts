@@ -10,8 +10,8 @@ export const dayStyle = (isClickable: boolean, isHoliday: Required<DayProps>['is
     justifyContent: 'center',
     alignItems: 'center',
 
-    width: '40px',
-    height: '40px',
+    width: '36px',
+    height: '36px',
 
     margin: '2px',
 

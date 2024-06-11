@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 import Box from '@/components/common/Box/Box';
-import ColorSelector from '@/components/common/ColorPicker/ColorInput';
+import ColorSelector from '@/components/common/ColorPicker/ColorPickerTrigger';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 
 import { useOverlay } from '@/hooks/common';
@@ -38,6 +38,7 @@ const ColorPicker = ({ color, onSelectColor, label }: ColorPickerProps) => {
       <Dropdown.List css={palleteListStyle} isOpen={isOpen}>
         {COLOR_PALLETE.map((color) => (
           <Box
+            key={color}
             role="button"
             tabIndex={0}
             onKeyDown={(e) => handleKeyDown(e, color)}

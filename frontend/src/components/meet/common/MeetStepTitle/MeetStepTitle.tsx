@@ -1,34 +1,37 @@
+import { ComponentPropsWithoutRef } from 'react';
+
 import Flex from '@/components/common/Flex/Flex';
 import Heading from '@/components/common/Heading/Heading';
 import Text from '@/components/common/Text/Text';
 import {
   imgStyle,
   titleWrapperStyle,
-} from '@/components/meet/common/MeetPageTitle/MeetPageTitle.style';
+} from '@/components/meet/common/MeetStepTitle/MeetStepTitle.style';
 
-import bulb_png from '@/assets/img/main-bulb.png';
+import bulbJpg from '@/assets/img/main-bulb.jpg';
 import bulb from '@/assets/img/main-bulb.webp';
 
 import { Theme } from '@/styles/theme/theme';
 
-interface MeetPageTitleProps {
+export interface MeetStepTitleProps extends ComponentPropsWithoutRef<'header'> {
   mainDescription: string;
   subDescription: string;
 }
 
-const MeetPageTitle = ({ mainDescription, subDescription }: MeetPageTitleProps) => {
+const MeetStepTitle = ({ mainDescription, subDescription, ...props }: MeetStepTitleProps) => {
   return (
     <Flex
-      tag="section"
+      tag="header"
       styles={{
         direction: 'column',
         align: 'center',
         gap: Theme.spacing.spacing6,
       }}
+      {...props}
     >
       <picture css={imgStyle}>
         <source srcSet={bulb} type="image/webp" />
-        <img src={bulb_png} alt="Bulb" />
+        <img src={bulbJpg} alt="Bulb" />
       </picture>
 
       <div css={titleWrapperStyle}>
@@ -39,4 +42,4 @@ const MeetPageTitle = ({ mainDescription, subDescription }: MeetPageTitleProps) 
   );
 };
 
-export default MeetPageTitle;
+export default MeetStepTitle;

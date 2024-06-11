@@ -1,11 +1,10 @@
-import { css } from '@emotion/react';
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { RecoilRoot } from 'recoil';
 
 import ToastContainer from '@/components/common/ToastContainer/ToastContainer';
 import ToastFactory from '@/components/common/ToastFactory/ToastFactory';
 import MeetResultCard from '@/components/meet/common/MeetResultCard/MeetResultCard';
+
+import { listStyle } from '@/stories/style';
 
 const meta = {
   title: 'Meet/MeetResultCard',
@@ -16,15 +15,9 @@ const meta = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <RecoilRoot>
-        <div
-          css={css`
-            width: 500px;
-          `}
-        >
-          <Story />
-        </div>
-      </RecoilRoot>
+      <div css={listStyle}>
+        <Story />
+      </div>
     ),
   ],
   argTypes: {

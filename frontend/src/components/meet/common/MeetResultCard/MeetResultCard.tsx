@@ -22,15 +22,17 @@ import Member from '@/assets/svg/member.svg?react';
 import Position from '@/assets/svg/position.svg?react';
 
 interface MeetResultCardProps extends HTMLAttributes<HTMLDivElement> {
-  meetTitle?: string;
-  memberCount?: number;
-  meetTime?: string;
-  meetPlace?: string;
-  inviteCode?: number;
+  meetTitle: string;
+  meetCategory: string;
+  memberCount: number;
+  meetTime: string;
+  meetPlace: string;
+  inviteCode: number;
 }
 
 const MeetResultCard = ({
   meetTitle,
+  meetCategory,
   memberCount,
   meetTime,
   meetPlace,
@@ -57,7 +59,7 @@ const MeetResultCard = ({
     <div css={cardStyle}>
       <Flex styles={{ gap: '12px' }}>
         <Heading size="xSmall">{meetTitle}</Heading>
-        <Badge size="small" text="동아리 활동" color="purple100" />
+        <Badge size="small" text={meetCategory} color="purple100" />
       </Flex>
 
       <ul css={listStyle}>

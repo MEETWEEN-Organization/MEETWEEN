@@ -8,7 +8,7 @@ export const cardStyle = css({
 
   position: 'relative',
 
-  width: '100%',
+  width: '500px',
 
   padding: '16px 36px',
 
