@@ -14,11 +14,21 @@ export const formStyle = css({
 
   padding: '12px 24px',
 
-  height: '400px',
+  maxHeight: '340px',
+
   overflowY: 'scroll',
 });
 
-export const currentCompletedTextStyle = css({
-  color: Theme.color.blue500,
+export const textStyle = css({
+  color: Theme.color.black,
   fontSize: Theme.heading.xSmall.fontSize,
+  fontWeight: 600,
+
+  '& > span:first-of-type': {
+    color: Theme.color.blue500,
+    marginRight: '0.5ch',
+  },
+  '& > span:nth-child(3)': {
+    marginLeft: '0.5ch',
+  },
 });

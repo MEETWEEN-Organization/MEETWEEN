@@ -1,16 +1,13 @@
 import { css } from '@emotion/react';
 
-import { MeetStepTitleProps } from '@/components/meet/common/MeetStepTitle/MeetStepTitle';
-
 import { Theme } from '@/styles/theme/theme';
 
-export const imgStyle = (size: Required<MeetStepTitleProps>['logoSize']) =>
-  css({
-    '& > source, & > img': {
-      width: `${size}px`,
-      height: `${size}px`,
-    },
-  });
+export const imgStyle = css({
+  '& > source, & > img': {
+    width: '160px',
+    height: '160px',
+  },
+});
 
 export const titleWrapperStyle = css({
   display: 'flex',

@@ -1,26 +1,26 @@
 import { useState } from 'react';
 
 import Flex from '@/components/common/Flex/Flex';
-import Heading from '@/components/common/Heading/Heading';
 import Input from '@/components/common/Input/Input';
+import Text from '@/components/common/Text/Text';
 import {
-  currentCompletedTextStyle,
   formStyle,
+  textStyle,
 } from '@/components/meet/common/MeetAddressForm/MeetAddressForm.style';
 
-import { AddressType, LatLngType } from '@/type/place';
+import { LatLngType } from '@/type/place';
 
 import SearchIcon from '@/assets/svg/search.svg?react';
 
 import { Theme } from '@/styles/theme/theme';
 
 interface MeetAddressFormProps {
-  friendsLength?: number;
+  addressCount?: number;
 }
 
-const MeetAddressForm = ({ friendsLength = 3 }: MeetAddressFormProps) => {
-  const addressInputArray = new Array(friendsLength).fill(0).map((_, i) => i + 1);
-  const initialInputValues = new Array(friendsLength).fill('');
+const MeetAddressForm = ({ addressCount = 3 }: MeetAddressFormProps) => {
+  const addressInputArray = new Array(addressCount).fill(0).map((_, i) => i + 1);
+  const initialInputValues = new Array(addressCount).fill('');
 
   const [latLngs, setLatLngs] = useState<LatLngType[]>([]);
   const [values, setValues] = useState<string[]>(initialInputValues);
@@ -31,27 +31,7 @@ const MeetAddressForm = ({ friendsLength = 3 }: MeetAddressFormProps) => {
 
   const handleSearchAddress = (index: number) => {
     new window.daum.Postcode({
-      oncomplete: (data: { address: string }) => {
-        const geocoder = new window.kakao.maps.services.Geocoder();
-
-        geocoder.addressSearch(data.address, async (result: AddressType[], status: any) => {
-          if (status !== 'OK') return;
-
-          setLatLngs((prev) => [
-            ...[...prev].filter((item) => item.key !== index),
-            {
-              x: result[0].x,
-              y: result[0].y,
-              key: index,
-            },
-          ]);
-          setValues((prev) => {
-            const next = prev.concat();
-            next[index] = result[0].address_name;
-            return next;
-          });
-        });
-      },
+      oncomplete: (data: { address: string }) => {},
     }).open();
   };
 
@@ -64,11 +44,11 @@ const MeetAddressForm = ({ friendsLength = 3 }: MeetAddressFormProps) => {
         gap: Theme.spacing.spacing3,
       }}
     >
-      <Heading size="xSmall">
-        <span css={currentCompletedTextStyle}>{currentInputCount}&nbsp;</span>
-        <span>/&nbsp;</span>
-        <span>{friendsLength}</span>
-      </Heading>
+      <Text css={textStyle} size="large">
+        <span>{currentInputCount}</span>
+        <span>/</span>
+        <span>{addressCount}</span>
+      </Text>
       <form css={formStyle}>
         {addressInputArray.map((index) => (
           <Input

@@ -5,6 +5,7 @@ import { Theme } from '@/styles/theme/theme';
 export const progressBarStyle = css({
   appearance: 'none',
   width: '100%',
+  height: '10px',
 
   '::-webkit-progress-bar': {
     background: Theme.color.gray200,

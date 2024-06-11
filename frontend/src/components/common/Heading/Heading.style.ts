@@ -39,7 +39,3 @@ export const headingStyle = (size: Required<HeadingProps>['size']) => {
 
   return heading[size];
 };
-
-export const textStyle = css({
-  wordBreak: 'keep-all',
-});

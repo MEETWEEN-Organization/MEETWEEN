@@ -2,20 +2,23 @@ import { css } from '@emotion/react';
 
 import { Theme } from '@/styles/theme/theme';
 
-export const cardContainerStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: Theme.spacing.spacing4,
+export const cardContainerStyle = (isSelected: boolean) =>
+  css({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: Theme.spacing.spacing4,
 
-  width: '100%',
+    minWidth: '500px',
 
-  padding: '16px 24px',
+    padding: '16px 24px',
 
-  border: `1px solid ${Theme.color.gray200}`,
-  borderRadius: Theme.borderRadius.medium,
+    border: 'none',
+    borderRadius: Theme.borderRadius.medium,
 
-  cursor: 'pointer',
-});
+    boxShadow: `inset 0px 0px 0px ${isSelected ? '1.5' : '1'}px ${isSelected ? Theme.color.blue400 : Theme.color.gray200}`,
+
+    cursor: 'pointer',
+  });
 
 export const arrowStyle = css({
   display: 'flex',

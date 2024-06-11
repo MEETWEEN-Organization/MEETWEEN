@@ -16,21 +16,30 @@ interface MeetMidPointCardProps extends ComponentPropsWithoutRef<'li'> {
   averageDuration: string;
   destination: string;
   routeUrl?: string;
+
+  cardId: number | string;
+  selectId: number | string;
 }
 
 const MeetMidPointCard = ({
+  cardId,
+  selectId,
+
   carDuration,
   subwayDuration,
   averageDuration,
   destination,
   routeUrl = '',
+  ...props
 }: MeetMidPointCardProps) => {
   const handleRedirect = () => {
     window.location.href = routeUrl;
   };
 
+  const isSelected = cardId === selectId;
+
   return (
-    <li css={cardContainerStyle}>
+    <li css={cardContainerStyle(isSelected)} {...props}>
       <Flex styles={{ justify: 'space-between' }}>
         <Heading size="xSmall">{destination}</Heading>
         <MeetFindRouteButton onClick={handleRedirect} />

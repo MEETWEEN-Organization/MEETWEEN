@@ -14,30 +14,22 @@ import bulb from '@/assets/img/main-bulb.webp';
 import { Theme } from '@/styles/theme/theme';
 
 export interface MeetStepTitleProps extends ComponentPropsWithoutRef<'header'> {
-  logoSize?: number;
-  logoPos?: 'left' | 'top';
   mainDescription: string;
   subDescription: string;
 }
 
-const MeetStepTitle = ({
-  logoSize = 140,
-  logoPos = 'top',
-  mainDescription,
-  subDescription,
-  ...props
-}: MeetStepTitleProps) => {
+const MeetStepTitle = ({ mainDescription, subDescription, ...props }: MeetStepTitleProps) => {
   return (
     <Flex
       tag="header"
       styles={{
-        direction: logoPos === 'left' ? 'row' : 'column',
+        direction: 'column',
         align: 'center',
         gap: Theme.spacing.spacing6,
       }}
       {...props}
     >
-      <picture css={imgStyle(logoSize)}>
+      <picture css={imgStyle}>
         <source srcSet={bulb} type="image/webp" />
         <img src={bulbJpg} alt="Bulb" />
       </picture>
