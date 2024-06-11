@@ -76,3 +76,11 @@ export const getYearMonthInfo = (date: Date) => {
 
   return { month, year, startDate, firstDay, lastDate };
 };
+
+export const getResultDate = (dateString: string, time: string) => {
+  const [year, month, date] = dateString.split('-');
+
+  const isAm = Number(time.split(':').at(0)) < 12;
+
+  return `${year}년 ${month}월 ${date}일 ${time} ${isAm ? 'AM' : 'PM'}`;
+};

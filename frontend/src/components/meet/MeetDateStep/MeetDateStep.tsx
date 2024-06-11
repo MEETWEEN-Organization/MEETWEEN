@@ -1,8 +1,9 @@
-import { css } from '@emotion/react';
+import { useFunnelInfo } from '@/context/funnel';
 
 import Button from '@/components/common/Button/Button';
 import Calendar from '@/components/common/Calendar/Calendar';
 import Flex from '@/components/common/Flex/Flex';
+import { wrapperStyle } from '@/components/meet/MeetMemberCountStep/MeetMemberCountStep.style';
 import MeetStepTitle from '@/components/meet/common/MeetStepTitle/MeetStepTitle';
 
 import { useCalendar } from '@/hooks/common';
@@ -14,6 +15,14 @@ import { Theme } from '@/styles/theme/theme';
 const MeetDateStep = ({ onNextStep }: StepProps) => {
   const { currentDate, yearMonthData, selectedDate, handleDateClick, handleChangeMonth } =
     useCalendar();
+
+  const { handleChangeDate } = useFunnelInfo();
+
+  const handleNextStep = () => {
+    handleChangeDate(selectedDate);
+
+    onNextStep?.();
+  };
 
   return (
     <section css={wrapperStyle}>
@@ -30,7 +39,7 @@ const MeetDateStep = ({ onNextStep }: StepProps) => {
           selectedDate={selectedDate}
         />
       </Flex>
-      <Button onClick={onNextStep} variant="default" size="large">
+      <Button onClick={handleNextStep} variant="default" size="large">
         다음으로
       </Button>
     </section>
@@ -38,12 +47,3 @@ const MeetDateStep = ({ onNextStep }: StepProps) => {
 };
 
 export default MeetDateStep;
-
-const wrapperStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-
-  height: '80vh',
-});
