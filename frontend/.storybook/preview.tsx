@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { RecoilRoot } from 'recoil';
 
+import { MeetFunnelInfoProvider } from '../src/context/funnel';
 import { GlobalStyle } from '../src/styles/GlobalStyle';
 import { Theme } from '../src/styles/theme/theme';
 
@@ -33,8 +34,10 @@ export const decorators = [
       <RecoilRoot>
         <MemoryRouter initialEntries={['/']}>
           <ThemeProvider theme={Theme}>
-            <Global styles={GlobalStyle} />
-            <Story />
+            <MeetFunnelInfoProvider>
+              <Global styles={GlobalStyle} />
+              <Story />
+            </MeetFunnelInfoProvider>
           </ThemeProvider>
         </MemoryRouter>
       </RecoilRoot>
