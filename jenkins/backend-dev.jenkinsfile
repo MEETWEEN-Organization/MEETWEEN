@@ -20,8 +20,8 @@ pipeline {
            steps {
                dir('backend/build/libs') {
                    sshagent(credentials: ['aws_key']) {
-                        sh 'scp -o StrictHostKeyChecking=no backend-0.0.1-SNAPSHOT.jar ubuntu@${BACKEND_DEV_IP}:/home/ubuntu'
-                        sh 'ssh ubuntu@${BACKEND_DEV_IP} "sh run.sh" &'
+                        sh 'scp -o StrictHostKeyChecking=no backend-0.0.1-SNAPSHOT.jar ubuntu@${{BACKEND_DEV_IP}}:/home/ubuntu'
+                        sh 'ssh ubuntu@${{BACKEND_DEV_IP}} "sh run.sh" &'
                    }
                }
            }
