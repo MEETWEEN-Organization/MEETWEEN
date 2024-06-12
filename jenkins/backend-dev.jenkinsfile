@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    tools {
+        gradle 'gradle'
+    }
+    stages {
+        stage('Github') {
+            steps {
+                git branch: 'develop', url: 'https://github.com/Durable-developers/MEETWEEN.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                dir("./backend") {
+                    sh "./gradlew clean build"
+                }
+            }
+        }
+        stage('Deploy') {
+           steps {
+               dir('backend/build/libs') {
+                   sshagent(credentials: ['aws_key']) {
+                        sh 'scp backend-0.0.1-SNAPSHOT.jar ubuntu@172.31.41.220:/home/ubuntu'
+                        sh 'ssh ubuntu@172.31.41.220 "sh run.sh" &'
+                   }
+               }
+           }
+       }
+    }
+}
