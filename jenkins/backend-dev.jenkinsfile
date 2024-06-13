@@ -27,8 +27,8 @@ pipeline {
                             target_port=${GREEN_PORT}
                         else
                             target_port=${BLUE_PORT}
-                        echo "${target_port} 포트를 target_port로 설정합니다. 📌"
                         fi
+                        echo "${target_port} 포트를 target_port로 설정합니다. 📌"
 
 
                         scp -o StrictHostKeyChecking=no backend-0.0.1-SNAPSHOT.jar ubuntu@${BACKEND_DEV_IP}:/home/ubuntu
