@@ -22,7 +22,8 @@ pipeline {
                    sshagent(credentials: ['aws_key']) {
                         sh '''#!/bin/bash
 
-                        if curl -s "http://${BACKEND_DEV_IP}:${BLUE_PORT}" > /dev/null
+                        RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://${BACKEND_DEV_IP}:${BLUE_PORT}")
+                        if [ ${RESPONSE_CODE} -ge 100 ]
                         then
                             target_port=${GREEN_PORT}
                         else
@@ -37,7 +38,8 @@ pipeline {
 
                         for retry_count in \$(seq 10)
                         do
-                            if curl -s "http://${BACKEND_DEV_PUBLIC_IP}:${target_port}" > /dev/null
+                            RESPONSE_CODE_HEALTH=$(curl -s -o /dev/null -w "%{http_code}" "http://${BACKEND_DEV_IP}:${target_port}")
+                            if [ ${RESPONSE_CODE_HEALTH} -ge 100 ]
                             then
                                 echo "Health check 성공 ✅ 포트 번호: ${target_port}"
                                 break
