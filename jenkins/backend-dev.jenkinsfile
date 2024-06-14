@@ -32,7 +32,7 @@ pipeline {
 
 
                         scp -o StrictHostKeyChecking=no backend-0.0.1-SNAPSHOT.jar ubuntu@${BACKEND_DEV_IP}:/home/ubuntu
-                        ssh ubuntu@${BACKEND_DEV_IP} 'sh run.sh ${target_port}' &
+                        ssh ubuntu@${BACKEND_DEV_IP} "sh run.sh ${target_port}" &
 
 
                         for retry_count in \$(seq 10)
