@@ -8,4 +8,12 @@ export const formStyle = css({
   gap: Theme.spacing.spacing4,
 
   maxWidth: '500px',
+
+  '& > button': {
+    width: '180px',
+
+    marginTop: Theme.spacing.spacing6,
+
+    placeSelf: 'center',
+  },
 });

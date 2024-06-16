@@ -1,9 +1,9 @@
-import { useFunnelInfo } from '@/context/funnel';
-
 import Button from '@/components/common/Button/Button';
-import { wrapperStyle } from '@/components/meet/MeetMemberCountStep/MeetMemberCountStep.style';
+import { wrapperStyle } from '@/components/meet/MeetStep.style';
 import MeetGuestCounter from '@/components/meet/common/MeetGuestCounter/MeetGuestCounter';
 import MeetStepTitle from '@/components/meet/common/MeetStepTitle/MeetStepTitle';
+
+import { useFunnelInfo } from '@/context/funnel';
 
 import { StepProps } from '@/type/funnel';
 

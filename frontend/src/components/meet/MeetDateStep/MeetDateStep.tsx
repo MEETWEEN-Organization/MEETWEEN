@@ -1,12 +1,12 @@
-import { useFunnelInfo } from '@/context/funnel';
-
 import Button from '@/components/common/Button/Button';
 import Calendar from '@/components/common/Calendar/Calendar';
 import Flex from '@/components/common/Flex/Flex';
-import { wrapperStyle } from '@/components/meet/MeetMemberCountStep/MeetMemberCountStep.style';
+import { wrapperStyle } from '@/components/meet/MeetStep.style';
 import MeetStepTitle from '@/components/meet/common/MeetStepTitle/MeetStepTitle';
 
 import { useCalendar } from '@/hooks/common';
+
+import { useFunnelInfo } from '@/context/funnel';
 
 import { StepProps } from '@/type/funnel';
 

@@ -8,7 +8,7 @@ import MeetStepTitle from '@/components/meet/common/MeetStepTitle/MeetStepTitle'
 import { getResultDate } from '@/utils/date';
 
 interface MeetResultStepProps {
-  onComplete: () => void;
+  onComplete?: () => void;
 }
 
 const MeetResultStep = ({ onComplete }: MeetResultStepProps) => {

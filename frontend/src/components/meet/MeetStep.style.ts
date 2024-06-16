@@ -4,10 +4,14 @@ import { Theme } from '@/styles/theme/theme';
 
 export const wrapperStyle = css({
   display: 'flex',
+  flexDirection: 'column',
   alignItems: 'center',
-  gap: Theme.spacing.spacing3,
+  gap: Theme.spacing.spacing7,
 
-  '& > p': {
-    color: Theme.color.gray600,
+  paddingTop: Theme.spacing.spacing8,
+
+  '& > button': {
+    placeSelf: 'revert',
+    width: '180px',
   },
 });
