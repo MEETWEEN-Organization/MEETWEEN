@@ -29,7 +29,7 @@ export const inputWrapperStyle = (isError: Required<InputProps>['isError']) =>
 
     '&:focus-within': {
       boxShadow: isError
-        ? `inset 0 0 0 1.5px ${Theme.color.red100}`
+        ? `inset 0 0 0 1.5px ${Theme.color.red200}`
         : `inset 0 0 0 1.5px ${Theme.color.gray300}`,
     },
 
