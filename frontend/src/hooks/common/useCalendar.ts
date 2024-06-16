@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { formatRealDate, getNewYearMonthInfo, getYearMonthInfo } from '@/utils/date';
+import { getNewYearMonthInfo, getYearMonthInfo } from '@/utils/date';
 
 import { YearMonthType } from '@/type/date';
 
@@ -8,17 +8,17 @@ export const useCalendar = () => {
   const currentDate = new Date();
   const currentYearMonth = getYearMonthInfo(currentDate);
 
-  const [selectedDate, setSelectedDate] = useState<string>(formatRealDate(currentYearMonth, 0));
+  const [selectedDate, setSelectedDate] = useState<string>('');
   const [yearMonthData, setYearMonthData] = useState<YearMonthType>(currentYearMonth);
 
-  const handleDateClick = (date: string) => {
+  const handleDateClick = useCallback((date: string) => {
     setSelectedDate(date);
-  };
+  }, []);
 
-  const handleChangeMonth = (change: number) => {
+  const handleChangeMonth = useCallback((change: number) => {
     setSelectedDate('');
     setYearMonthData((prev) => getNewYearMonthInfo(prev, change));
-  };
+  }, []);
 
   return { currentDate, yearMonthData, selectedDate, handleDateClick, handleChangeMonth };
 };

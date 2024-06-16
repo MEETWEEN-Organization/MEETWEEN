@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 type ItemType<T> = {
   [K in keyof T]: T[K];
@@ -7,9 +7,9 @@ type ItemType<T> = {
 export const useSelect = <T>(defaultValue: T) => {
   const [selectedItem, setSelectedItem] = useState<ItemType<T>>(defaultValue);
 
-  const handleSelect = (item: T) => {
+  const handleSelect = useCallback((item: T) => {
     setSelectedItem(item);
-  };
+  }, []);
 
   return { selectedItem, handleSelect };
 };
