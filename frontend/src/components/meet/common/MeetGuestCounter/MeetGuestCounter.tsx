@@ -21,7 +21,7 @@ const MeetGuestCounter = ({
   const [isError, setIsError] = useState(false);
 
   const checkDecreaseLimit = useCallback((count: number) => {
-    if (count === 0) {
+    if (count === 1) {
       setIsError(true);
       return false;
     }
