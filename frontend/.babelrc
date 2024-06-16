@@ -5,5 +5,33 @@
     "@babel/preset-react",
     "@emotion/babel-preset-css-prop"
   ],
-  "plugins": ["@emotion", "react-require"]
+  "plugins": [
+    "@emotion",
+    "react-require",
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "extensions": [".js", ".ts", ".tsx", ".json"],
+        "alias": {
+          "@/*": "./src/*",
+          "@/components/*": "./src/components/*",
+          "@/type/*": "./src/type/*",
+          "@/hooks/*": "./src/hooks/*",
+          "@/pages/*": "./src/pages/*",
+          "@/styles/*": "./src/styles/*",
+          "@/constants/*": "./src/constants/*",
+          "@/assets/*": "./src/assets/*",
+          "@/api/*": "./src/api/*",
+          "@/mocks/*": "./src/mocks/*",
+          "@/stories/*": "./src/stories/*",
+          "@/router/*": "./src/router/*",
+          "@/context/*": "./src/context/*",
+          "@/store/*": "./src/store/*",
+          "@/utils/*": "./src/utils/*",
+          "@/__tests__/*": "./src/__tests__/*"
+        }
+      }
+    ]
+  ]
 }

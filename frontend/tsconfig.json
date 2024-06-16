@@ -24,6 +24,7 @@
       "@/mocks/*": ["src/mocks/*"],
       "@/stories/*": ["src/stories/*"],
       "@/router/*": ["src/router/*"],
+      "@/context/*": ["src/context/*"],
       "@/store/*": ["src/store/*"],
       "@/utils/*": ["src/utils/*"],
       "@/__tests__/*": ["src/__tests__/*"]
