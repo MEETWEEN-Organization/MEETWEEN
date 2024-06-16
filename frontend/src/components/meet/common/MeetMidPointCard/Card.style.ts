@@ -52,3 +52,23 @@ export const durationAverageTextStyle = css({
     fontWeight: 500,
   },
 });
+
+export const wrapperStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: Theme.spacing.spacing3,
+
+  '& > p': {
+    color: Theme.color.gray600,
+  },
+});
+
+export const iconStyle = css({
+  width: '24px',
+  height: '24px',
+
+  paddingBottom: '2px',
+
+  borderRadius: '50%',
+  backgroundColor: Theme.color.gray500,
+});
