@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import Flex from '@/components/common/Flex/Flex';
 import Input from '@/components/common/Input/Input';
 import Text from '@/components/common/Text/Text';
@@ -8,32 +6,26 @@ import {
   textStyle,
 } from '@/components/meet/common/MeetAddressForm/MeetAddressForm.style';
 
-import { LatLngType } from '@/type/place';
+import { AddressType } from '@/type/place';
 
 import SearchIcon from '@/assets/svg/search.svg?react';
 
 import { Theme } from '@/styles/theme/theme';
 
 interface MeetAddressFormProps {
+  addressInfo?: AddressType[];
   addressCount?: number;
+  onSearchAddress?: (index: number) => void;
 }
 
-const MeetAddressForm = ({ addressCount = 3 }: MeetAddressFormProps) => {
+const MeetAddressForm = ({
+  addressInfo = [],
+  addressCount = 3,
+  onSearchAddress,
+}: MeetAddressFormProps) => {
   const addressInputArray = new Array(addressCount).fill(0).map((_, i) => i + 1);
-  const initialInputValues = new Array(addressCount).fill('');
 
-  const [latLngs, setLatLngs] = useState<LatLngType[]>([]);
-  const [values, setValues] = useState<string[]>(initialInputValues);
-
-  const currentInputCount = values.filter((value) => !!value).length;
-
-  console.log(latLngs);
-
-  const handleSearchAddress = (index: number) => {
-    new window.daum.Postcode({
-      oncomplete: (data: { address: string }) => {},
-    }).open();
-  };
+  const currentInputCount = addressInfo.filter((item) => item.address_name !== '').length;
 
   return (
     <Flex
@@ -55,10 +47,10 @@ const MeetAddressForm = ({ addressCount = 3 }: MeetAddressFormProps) => {
             key={index}
             variant="text"
             icon={<SearchIcon />}
-            value={values[index - 1]}
+            value={addressInfo[index - 1].address_name}
             placeholder={`주소 ${index}을 입력해주세요`}
             onChange={() => {}}
-            onFocus={() => handleSearchAddress(index - 1)}
+            onFocus={() => onSearchAddress?.(index - 1)}
             // onClick={() => handleSearchAddress(index - 1)}
           />
         ))}
