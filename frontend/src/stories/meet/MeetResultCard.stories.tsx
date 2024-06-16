@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ToastContainer from '@/components/common/ToastContainer/ToastContainer';
-import ToastFactory from '@/components/common/ToastFactory/ToastFactory';
 import MeetResultCard from '@/components/meet/common/MeetResultCard/MeetResultCard';
 
 import { listStyle } from '@/stories/style';
@@ -28,7 +26,7 @@ const meta = {
       control: { type: 'text' },
     },
     memberCount: {
-      control: { type: 'range', min: 0, max: 10 },
+      control: { type: 'range', min: 1, max: 10 },
     },
     meetTime: {
       control: { type: 'text' },
@@ -38,9 +36,11 @@ const meta = {
     },
   },
   args: {
+    meetTitle: '우리들의 스터디',
+    meetCategory: '스터디',
     memberCount: 3,
-    meetTime: '2024-06-21 18:00 PM',
-    meetPlace: '서울특별시 강남구 강남역 2번출구',
+    meetTime: '2024년 6월 12일 18:00PM',
+    meetPlace: '인천광역시 미추홀구 주안역',
     inviteCode: 123123,
   },
 } satisfies Meta<typeof MeetResultCard>;
@@ -48,15 +48,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {
-  render: (args) => {
-    return (
-      <>
-        <MeetResultCard {...args} />
-        <ToastContainer>
-          <ToastFactory />
-        </ToastContainer>
-      </>
-    );
-  },
-};
+export const Default: Story = {};

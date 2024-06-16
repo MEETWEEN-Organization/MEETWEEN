@@ -11,7 +11,6 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {},
   args: {
     guestCount: 0,
   },

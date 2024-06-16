@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import MeetResultStep from '@/components/meet/MeetRusultStep/MeetResultStep';
+import MeetResultStep from '@/components/meet/MeetResultStep/MeetResultStep';
 
 const meta = {
   title: 'Meet/MeetResultStep',
