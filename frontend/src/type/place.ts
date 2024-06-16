@@ -1,12 +1,12 @@
-export interface AddressType {
+export interface LatLngType {
   x: string;
   y: string;
   address_name: string;
 }
 
-export type LatLngType = {
+export type AddressType = {
   key: number;
-} & Omit<AddressType, 'address_name'>;
+} & LatLngType;
 
 export interface KeywordResultType extends AddressType {
   place_name: string;
