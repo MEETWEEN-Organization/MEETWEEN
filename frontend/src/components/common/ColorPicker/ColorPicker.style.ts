@@ -13,6 +13,8 @@ export const inputWrapperStyle = css({
 
   borderRadius: Theme.borderRadius.medium,
 
+  cursor: 'pointer',
+
   '& > :not(:first-child)': {
     transform: 'translateX(10px)',
   },

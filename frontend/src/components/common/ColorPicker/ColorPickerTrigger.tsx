@@ -3,7 +3,6 @@ import { css } from '@emotion/react';
 import React, { ComponentPropsWithoutRef } from 'react';
 
 import {
-  buttonStyle,
   currentColorDisplayStyle,
   inputWrapperStyle,
 } from '@/components/common/ColorPicker/ColorPicker.style';
@@ -33,6 +32,7 @@ const ColorSelector = ({ currentColor, onClick, ...props }: ColorSelectorProps) 
       tabIndex={0}
       css={inputWrapperStyle}
       onKeyDown={handleKeyDown}
+      onClick={onClick}
       {...props}
     >
       <Text
@@ -44,10 +44,8 @@ const ColorSelector = ({ currentColor, onClick, ...props }: ColorSelectorProps) 
       >
         색상을 선택해주세요
       </Text>
-      <button onClick={onClick} css={buttonStyle}>
-        <div css={currentColorDisplayStyle(currentColor)} />
-        <DropdownArrow width={20} height={20} />
-      </button>
+      <div css={currentColorDisplayStyle(currentColor)} />
+      <DropdownArrow width={20} height={20} />
     </div>
   );
 };
