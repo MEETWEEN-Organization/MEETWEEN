@@ -3,9 +3,10 @@ import { css } from '@emotion/react';
 import React, { SetStateAction, Suspense, createContext, lazy, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import GoogleMapWrapper from '@/components/common/GoogleMapWrapper/GoogleMapWrapper';
 import ProgressBar from '@/components/common/ProgressBar/ProgressBar';
 import MeetResultStep from '@/components/meet/MeetResultStep/MeetResultStep';
-import MeetDistanceResult from '@/components/meet/MeetSelectMidPointStep/MeetSelectMidPointStep';
+import MeetSelectMidPointStep from '@/components/meet/MeetSelectMidPointStep/MeetSelectMidPointStep';
 
 import { useFunnel } from '@/hooks/meet/useFunnel';
 
@@ -84,7 +85,9 @@ const MeetCreatePage = () => {
           </Suspense>
         </Funnel.Step>
         <Funnel.Step name="중간 장소 결과">
-          <MeetDistanceResult onNextStep={() => handleNextStep('약속 생성 완료')} />
+          <GoogleMapWrapper>
+            <MeetSelectMidPointStep onNextStep={() => handleNextStep('약속 생성 완료')} />
+          </GoogleMapWrapper>
         </Funnel.Step>
         <Funnel.Step name="약속 생성 완료">
           <MeetResultStep onComplete={() => navigate('/mymeet')} />
