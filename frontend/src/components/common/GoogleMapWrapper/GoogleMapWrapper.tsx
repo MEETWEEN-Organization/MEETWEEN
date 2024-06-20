@@ -8,7 +8,6 @@ type GoogleMapWrapperProps = PropsWithChildren;
 
 const GoogleMapWrapper = ({ children }: GoogleMapWrapperProps) => {
   const render = (status: Status) => {
-    console.log(status);
     if (status === Status.FAILURE) throw new Error('google map load fail');
     // if (status === Status.LOADING) return <Spinner />;
 
