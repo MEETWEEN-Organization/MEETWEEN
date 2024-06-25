@@ -13,6 +13,8 @@ import meetween.backend.location.domain.LocationRepository;
 import meetween.backend.location.domain.LocationType;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,12 +75,12 @@ public class AppointmentService {
         return new AppointmentResponse(appointment, location);
     }
 
-    public IntegratedAppointmentResponses findAll(final Long memberId) {
+    public IntegratedAppointmentResponses findAll(final Long memberId, PageRequest pageRequest) {
+        Page<AppointmentUser> appointmentUserPage = appointmentUserRepository.findAllByMember(memberRepository.getById(memberId), pageRequest);
         return new IntegratedAppointmentResponses(
-                appointmentUserRepository.findAllByMember(memberRepository.getById(memberId)).stream()
+                appointmentUserPage.stream()
                         .map(appointmentUser -> new AppointmentResponse(appointmentUser.getAppointment(), getChoicedLocation(appointmentUser.getAppointment())))
-                        .collect(Collectors.toList())
-        );
+                        .collect(Collectors.toList()), appointmentUserPage.getTotalPages());
     }
 
     private Location getChoicedLocation(Appointment appointment) {

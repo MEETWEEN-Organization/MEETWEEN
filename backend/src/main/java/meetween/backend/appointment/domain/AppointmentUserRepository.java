@@ -3,6 +3,8 @@ package meetween.backend.appointment.domain;
 import jakarta.persistence.LockModeType;
 import meetween.backend.appointment.exception.NoExistAppointmentUserException;
 import meetween.backend.member.domain.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
@@ -14,7 +16,7 @@ import java.util.Optional;
 public interface AppointmentUserRepository extends JpaRepository<AppointmentUser, Long> {
 
     @EntityGraph(attributePaths = {"appointment", "appointment.category"})
-    List<AppointmentUser> findAllByMember(Member member);
+    Page<AppointmentUser> findAllByMember(Member member, PageRequest pageRequest);
 
     Optional<AppointmentUser> findByAppointmentAndMember(Appointment appointment, Member member);
 

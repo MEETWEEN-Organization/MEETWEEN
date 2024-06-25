@@ -25,6 +25,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -56,18 +59,23 @@ class CategoryServiceTest {
     @Test
     void 카테고리_이름을_통해_약속들을_찾아_약속_응답을_만든다() {
         //given
+        PageRequest pageRequest = PageRequest.of(1, 1);
+        List<Appointment> appointments = List.of(수현_약속(), 민성_약속());
+        Page<Appointment> appointmentPage = new PageImpl<>(appointments, pageRequest, appointments.size());
+
         given(memberRepository.getById(anyLong()))
                 .willReturn(mockMember);
-        given(appointmentRepository.findByUserAndCategoryName(any(), any()))
-                .willReturn(List.of(수현_약속(), 민성_약속()));
+        given(appointmentRepository.findByUserAndCategoryName(any(), any(), any()))
+                .willReturn(appointmentPage);
         given(locationRepository.getChoicedLocationByAppointment(any(Appointment.class)))
                 .willReturn(수현약속_인하대학교());
         String categoryName = 스터디_카테고리_제목;
 
         //when
-        final IntegratedAppointmentResponses actual = categoryService.findByCategory(mockMember.getId(), categoryName);
+        final IntegratedAppointmentResponses actual = categoryService.findByCategory(mockMember.getId(), categoryName, pageRequest);
 
         //then
         assertThat(actual.getAppointmentResponses()).hasSize(2);
+        assertThat(actual.getTotalPages()).isEqualTo(2);
     }
 }

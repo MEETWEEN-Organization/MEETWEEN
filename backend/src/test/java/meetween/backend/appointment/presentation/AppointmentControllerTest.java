@@ -73,11 +73,9 @@ class AppointmentControllerTest extends ControllerTest {
     @Test
     void 내_약속을_전부_조회하면_200을_반환한다() throws Exception {
         //given
-        Long inviteCode = 123456L;
-        AppointmentParticipateRequest request = new AppointmentParticipateRequest(inviteCode);
-        IntegratedAppointmentResponses response = new IntegratedAppointmentResponses(asList(new AppointmentResponse(수현_약속(), 수현약속_인하대학교()), new AppointmentResponse(민성_약속(), 민성약속_인하대학교())));
+        IntegratedAppointmentResponses response = new IntegratedAppointmentResponses(asList(new AppointmentResponse(수현_약속(), 수현약속_인하대학교()), new AppointmentResponse(민성_약속(), 민성약속_인하대학교())), 2);
 
-        given(appointmentService.findAll(any())).willReturn(response);
+        given(appointmentService.findAll(any(), any())).willReturn(response);
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
 
         // when, then
@@ -85,7 +83,7 @@ class AppointmentControllerTest extends ControllerTest {
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .param("page", "1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

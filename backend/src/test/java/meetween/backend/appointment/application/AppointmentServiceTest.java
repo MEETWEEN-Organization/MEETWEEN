@@ -1,6 +1,5 @@
 package meetween.backend.appointment.application;
 
-import static java.util.Arrays.asList;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
 import static meetween.backend.support.fixture.common.AppointmentUserFixtures.민성약속_수현유저;
 import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현약속_수현유저;
@@ -13,6 +12,7 @@ import static org.mockito.BDDMockito.given;
 
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.appointment.domain.AppointmentRepository;
+import meetween.backend.appointment.domain.AppointmentUser;
 import meetween.backend.appointment.domain.AppointmentUserRepository;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
@@ -27,6 +27,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class AppointmentServiceTest {
@@ -87,17 +92,22 @@ class AppointmentServiceTest {
     @Test
     void 회원을_통해_모든_회원_약속을_조회한다() {
         //given
+        PageRequest pageRequest = PageRequest.of(1, 1);
+        List<AppointmentUser> appointmentUsers = List.of(수현약속_수현유저(), 민성약속_수현유저());
+        Page<AppointmentUser> appointmentPage = new PageImpl<>(appointmentUsers, pageRequest, appointmentUsers.size());
+
         given(memberRepository.getById(anyLong()))
                 .willReturn(수현_유저());
-        given(appointmentUserRepository.findAllByMember(any()))
-                .willReturn(asList(수현약속_수현유저(), 민성약속_수현유저()));
+        given(appointmentUserRepository.findAllByMember(any(), any()))
+                .willReturn(appointmentPage);
         given(locationRepository.getChoicedLocationByAppointment(any(Appointment.class)))
                 .willReturn(수현약속_인하대학교());
 
         //when
-        final IntegratedAppointmentResponses actual = appointmentService.findAll(1L);
+        final IntegratedAppointmentResponses actual = appointmentService.findAll(1L, pageRequest);
 
         //then
         assertThat(actual.getAppointmentResponses()).hasSize(2);
+        assertThat(actual.getTotalPages()).isEqualTo(2);
     }
 }
