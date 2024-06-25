@@ -18,7 +18,7 @@ class CategoryTest {
         //given
         String name = "미트윈 약속";
         CategoryColor categoryColor = CategoryColor._9A61D2;
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 4L, 수현_약속_위도, 수현_약속_경도);
+        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 4L);
 
         //when, then
         assertDoesNotThrow(() -> new Category(name, categoryColor, appointment));
@@ -30,7 +30,7 @@ class CategoryTest {
         //given
         String name = "미트윈미트윈미트윈미트윈";
         CategoryColor categoryColor = CategoryColor._5B59B3;
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 4L, 수현_약속_위도, 수현_약속_경도);
+        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 4L);
 
         //when, then
         assertThatThrownBy(() -> new Category(name, categoryColor, appointment))

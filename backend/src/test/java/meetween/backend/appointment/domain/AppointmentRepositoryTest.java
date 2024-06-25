@@ -44,10 +44,10 @@ class AppointmentRepositoryTest {
     @Test
     void 초대코드를_통해_약속을_찾는다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
         Long inviteCode = appointment.getInviteCode();
         Category category = new Category("스터디", CategoryColor._9A61D2, appointment);
-        appointment.setCategory(category);
+        appointment.updateCategory(category);
 
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
@@ -64,9 +64,9 @@ class AppointmentRepositoryTest {
     @Test
     void 존재하지_않는_초대코드를_약속을_조회하면_예외를_발생시킨다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
         Category category = new Category("스터디", CategoryColor._9A61D2, appointment);
-        appointment.setCategory(category);
+        appointment.updateCategory(category);
 
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
@@ -81,7 +81,7 @@ class AppointmentRepositoryTest {
     @Test
     void 존재하는_초대_코드라면_참을_반환한다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
 
         appointmentRepository.save(appointment);
 
@@ -93,7 +93,7 @@ class AppointmentRepositoryTest {
     @Test
     void 아이디를_통해_약속을_반환한다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
         appointmentRepository.save(appointment);
         Long appointmentId = appointment.getId();
 
@@ -120,14 +120,14 @@ class AppointmentRepositoryTest {
     void 카테고리_이름을_통해_로그인된_유저가_속한_약속들을_조회한다() {
         //given
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment1 = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
-        Appointment appointment2 = new Appointment("만성의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        Appointment appointment1 = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        Appointment appointment2 = new Appointment("만성의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
         Category category1 = new Category("스터디", CategoryColor._9A61D2, appointment1);
         Category category2 = new Category("스터디", CategoryColor._9A61D2, appointment2);
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
         AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member, MemberAuthority.ADMIN);
-        appointment1.setCategory(category1);
-        appointment2.setCategory(category2);
+        appointment1.updateCategory(category1);
+        appointment2.updateCategory(category2);
 
         memberRepository.save(member);
         appointmentRepository.save(appointment1);

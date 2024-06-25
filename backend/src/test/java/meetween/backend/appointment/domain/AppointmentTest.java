@@ -25,7 +25,7 @@ public class AppointmentTest {
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         // when, then
-        assertDoesNotThrow(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude));
+        assertDoesNotThrow(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount));
     }
 
     @DisplayName("약속 제목의 길이가 20을 초과하는 경우 예외가 발생한다.")
@@ -40,7 +40,7 @@ public class AppointmentTest {
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 
@@ -56,7 +56,7 @@ public class AppointmentTest {
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 
@@ -72,7 +72,7 @@ public class AppointmentTest {
         BigDecimal longitude = BigDecimal.valueOf(37.5280674292228);
 
         //when, then
-        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount, latitude, longitude))
+        assertThatThrownBy(() -> new Appointment(title, inviteCode, appointmentDateTime, memberCount))
                 .isInstanceOf(InvalidAppointmentException.class);
     }
 }

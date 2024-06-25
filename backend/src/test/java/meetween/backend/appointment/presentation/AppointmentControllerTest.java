@@ -4,6 +4,8 @@ import static java.util.Arrays.asList;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
 import static meetween.backend.support.fixture.common.CategoryFixtures.스터디_카테고리_제목;
 import static meetween.backend.support.fixture.common.CategoryFixtures.스터디_카테고리_컬러_문자;
+import static meetween.backend.support.fixture.common.LocationFixtures.민성약속_인하대학교;
+import static meetween.backend.support.fixture.common.LocationFixtures.수현약속_인하대학교;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -32,7 +34,7 @@ class AppointmentControllerTest extends ControllerTest {
     void 약속을_생성하면_상태코드_201을_반환한다() throws Exception {
         // given
         AppointmentCreateRequest request = new AppointmentCreateRequest(수현_약속_제목, 하루_뒤_시간, 수현_약속_위도, 수현_약속_경도, 3L, 스터디_카테고리_제목, 스터디_카테고리_컬러_문자);
-        AppointmentResponse response = new AppointmentResponse(수현_약속());
+        AppointmentResponse response = new AppointmentResponse(수현_약속(), 수현약속_인하대학교());
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
         given(appointmentService.save(any(), any())).willReturn(response);
 
@@ -52,7 +54,7 @@ class AppointmentControllerTest extends ControllerTest {
         // given
         Long inviteCode = 123456L;
         AppointmentParticipateRequest request = new AppointmentParticipateRequest(inviteCode);
-        AppointmentResponse response = new AppointmentResponse(수현_약속());
+        AppointmentResponse response = new AppointmentResponse(수현_약속(), 수현약속_인하대학교());
 
         given(appointmentService.participate(any(), any())).willReturn(response);
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
@@ -73,7 +75,7 @@ class AppointmentControllerTest extends ControllerTest {
         //given
         Long inviteCode = 123456L;
         AppointmentParticipateRequest request = new AppointmentParticipateRequest(inviteCode);
-        IntegratedAppointmentResponses response = new IntegratedAppointmentResponses(asList(new AppointmentResponse(수현_약속()), new AppointmentResponse(민성_약속())));
+        IntegratedAppointmentResponses response = new IntegratedAppointmentResponses(asList(new AppointmentResponse(수현_약속(), 수현약속_인하대학교()), new AppointmentResponse(민성_약속(), 민성약속_인하대학교())));
 
         given(appointmentService.findAll(any())).willReturn(response);
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));

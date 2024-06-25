@@ -3,6 +3,8 @@ package meetween.backend.category.presentation;
 import static java.util.Arrays.asList;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.민성_약속;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속;
+import static meetween.backend.support.fixture.common.LocationFixtures.민성약속_인하대학교;
+import static meetween.backend.support.fixture.common.LocationFixtures.수현약속_인하대학교;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -28,7 +30,7 @@ class CategoryControllerTest extends ControllerTest {
         //given
         MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
         param.add("categoryName", "스터디");
-        IntegratedAppointmentResponses response = new IntegratedAppointmentResponses(asList(new AppointmentResponse(수현_약속()), new AppointmentResponse(민성_약속())));
+        IntegratedAppointmentResponses response = new IntegratedAppointmentResponses(asList(new AppointmentResponse(수현_약속(), 수현약속_인하대학교()), new AppointmentResponse(민성_약속(), 민성약속_인하대학교())));
 
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
         given(categoryService.findByCategory(anyLong(), anyString())).willReturn(response);
