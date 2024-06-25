@@ -1,9 +1,6 @@
 package meetween.backend.appointment.application;
 
-import meetween.backend.appointment.domain.Appointment;
-import meetween.backend.appointment.domain.AppointmentRepository;
-import meetween.backend.appointment.domain.AppointmentUser;
-import meetween.backend.appointment.domain.AppointmentUserRepository;
+import meetween.backend.appointment.domain.*;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
@@ -45,7 +42,7 @@ public class AppointmentService {
 
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
-        appointmentUserRepository.save(new AppointmentUser(appointment, member));
+        appointmentUserRepository.save(new AppointmentUser(appointment, member, MemberAuthority.ADMIN));
 
         return new AppointmentResponse(appointment);
     }
@@ -63,7 +60,7 @@ public class AppointmentService {
         Member member = memberRepository.getById(memberId);
         Appointment appointment = appointmentRepository.getByInviteCode(request.getInviteCode());
 
-        appointmentUserRepository.save(new AppointmentUser(appointment, member));
+        appointmentUserRepository.save(new AppointmentUser(appointment, member, MemberAuthority.NORMAL));
 
         return new AppointmentResponse(appointment);
     }

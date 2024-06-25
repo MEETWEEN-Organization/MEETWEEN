@@ -2,8 +2,8 @@ package meetween.backend.appointment.application;
 
 import static java.util.Arrays.asList;
 import static meetween.backend.support.fixture.common.AppointmentFixtures.*;
-import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현_민성약속_유저_생성;
-import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현_수현약속_유저_생성;
+import static meetween.backend.support.fixture.common.AppointmentUserFixtures.민성약속_수현유저;
+import static meetween.backend.support.fixture.common.AppointmentUserFixtures.수현약속_수현유저;
 import static meetween.backend.support.fixture.common.CategoryFixtures.수현_약속_스터디_카테고리;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -71,8 +71,7 @@ class AppointmentServiceTest {
         given(appointmentRepository.save(any(Appointment.class)))
                 .willReturn(수현_약속());
         given(appointmentUserRepository.save(any(AppointmentUser.class)))
-                .willReturn(수현_수현약속_유저_생성());
-
+                .willReturn(수현약속_수현유저());
         // when
         final AppointmentResponse actual = appointmentService.save(mockMember.getId(), request);
 
@@ -104,7 +103,7 @@ class AppointmentServiceTest {
         given(memberRepository.getById(anyLong()))
                 .willReturn(mockMember);
         given(appointmentUserRepository.findAllByMember(mockMember))
-                .willReturn(asList(수현_수현약속_유저_생성(), 수현_민성약속_유저_생성()));
+                .willReturn(asList(수현약속_수현유저(), 민성약속_수현유저()));
 
         //when
         final IntegratedAppointmentResponses actual = appointmentService.findAll(mockMember.getId());

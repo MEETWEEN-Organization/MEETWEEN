@@ -19,6 +19,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                 .orElseThrow(NoExistAppointmentException::new);
     }
 
+    default Appointment getById(final Long id) {
+        return findById(id)
+                .orElseThrow(NoExistAppointmentException::new);
+    }
+
     @Query("SELECT DISTINCT a FROM Appointment a " +
             "JOIN a.category c " +
             "JOIN a.appointmentUsers au " +

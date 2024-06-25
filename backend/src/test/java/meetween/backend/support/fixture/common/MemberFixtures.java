@@ -31,6 +31,19 @@ public class MemberFixtures {
         );
     }
 
+    // 주용
+    public static final String 주용_아이디 = "wuzoo";
+    public static final String 주용_프로필_이미지 = "https://avatars.githubusercontent.com/u/88240193?v=6";
+    public static final String 주용_이름 = "주용";
+    public static Member 주용_유저() {
+        return new Member(
+                주용_아이디,
+                주용_프로필_이미지,
+                주용_이름,
+                SocialType.KAKAO
+        );
+    }
+
     public static MemberResponse 수현_응답() {
         return new MemberResponse(
                 1L,

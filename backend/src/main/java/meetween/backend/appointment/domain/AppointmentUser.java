@@ -21,14 +21,42 @@ public class AppointmentUser extends BaseEntity {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "member_authority", nullable = false)
+    private MemberAuthority memberAuthority;
+
+    @Version
+    private Long version;
+
     protected AppointmentUser() {}
 
-    public AppointmentUser(final Appointment appointment,final Member member) {
+    public AppointmentUser(final Appointment appointment, final Member member, final MemberAuthority memberAuthority) {
         this.appointment = appointment;
         this.member = member;
+        this.memberAuthority = memberAuthority;
+    }
+
+    public void updateAuthority(MemberAuthority memberAuthority) {
+        this.memberAuthority = MemberAuthority.getAnotherAuthority(memberAuthority);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Appointment getAppointment() {
         return appointment;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public MemberAuthority getMemberAuthority() {
+        return memberAuthority;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 }

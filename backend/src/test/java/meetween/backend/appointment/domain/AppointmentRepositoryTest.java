@@ -1,6 +1,8 @@
 package meetween.backend.appointment.domain;
 
 import static meetween.backend.support.fixture.common.MemberFixtures.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import meetween.backend.appointment.exception.NoExistAppointmentException;
 import meetween.backend.category.domain.Category;
@@ -54,7 +56,8 @@ class AppointmentRepositoryTest {
         Appointment actual = appointmentRepository.getByInviteCode(inviteCode);
 
         //then
-        Assertions.assertThat(actual).isEqualTo(appointment);
+        assertThat(actual).isEqualTo(appointment);
+
     }
 
     @DisplayName("존재하지 않는 초대코드로 약속을 조회하면 예외를 발생시킨다.")
@@ -74,7 +77,7 @@ class AppointmentRepositoryTest {
         }).isInstanceOf(NoExistAppointmentException.class);
     }
 
-    @DisplayName("존재하는 초대 코드 라면 참을 반환한다.")
+    @DisplayName("존재하는 초대 코드라면 참을 반환한다.")
     @Test
     void 존재하는_초대_코드라면_참을_반환한다() {
         //given
@@ -83,7 +86,33 @@ class AppointmentRepositoryTest {
         appointmentRepository.save(appointment);
 
         //when, then
-        Assertions.assertThat(appointmentRepository.existsByInviteCode(appointment.getInviteCode())).isEqualTo(true);
+        assertThat(appointmentRepository.existsByInviteCode(appointment.getInviteCode())).isEqualTo(true);
+    }
+
+    @DisplayName("아이디를 통해 약속을 반환한다.")
+    @Test
+    void 아이디를_통해_약속을_반환한다() {
+        //given
+        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
+        appointmentRepository.save(appointment);
+        Long appointmentId = appointment.getId();
+
+        //when
+        Appointment actual = appointmentRepository.getById(appointmentId);
+
+        //then
+        assertThat(actual).isEqualTo(appointment);
+    }
+
+    @DisplayName("아이디로 없는 약속을 찾은 경우엔 예외를 발생시킨다.")
+    @Test
+    void 아이디로_없는_약속을_찾은_경우엔_예외를_발생시킨다() {
+        //given
+        Long appointmentId = 1L;
+
+        //when,then
+        assertThatThrownBy(() -> appointmentRepository.getById(appointmentId))
+                .isInstanceOf(NoExistAppointmentException.class);
     }
 
     @DisplayName("카테고리 이름을 통해 로그인 된 유저가 속한 약속들을 조회한다.")
@@ -95,8 +124,8 @@ class AppointmentRepositoryTest {
         Appointment appointment2 = new Appointment("만성의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L, BigDecimal.valueOf(126.99597295767953), BigDecimal.valueOf(37.5280674292228));
         Category category1 = new Category("스터디", CategoryColor._9A61D2, appointment1);
         Category category2 = new Category("스터디", CategoryColor._9A61D2, appointment2);
-        AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member);
-        AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member);
+        AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
+        AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member, MemberAuthority.ADMIN);
         appointment1.setCategory(category1);
         appointment2.setCategory(category2);
 
@@ -112,6 +141,6 @@ class AppointmentRepositoryTest {
         List<Appointment> actual = appointmentRepository.findByUserAndCategoryName(member, category1.getName());
 
         //then
-        Assertions.assertThat(actual).hasSize(2);
+        assertThat(actual).hasSize(2);
     }
 }

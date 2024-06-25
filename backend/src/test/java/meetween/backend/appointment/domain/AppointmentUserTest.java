@@ -12,6 +12,6 @@ class AppointmentUserTest {
     @Test
     void 약속과_유저의_중계모델을_생성한다() {
         //when,then
-        Assertions.assertDoesNotThrow(() -> new AppointmentUser(AppointmentFixtures.수현_약속(), MemberFixtures.수현_유저()));
+        Assertions.assertDoesNotThrow(() -> new AppointmentUser(AppointmentFixtures.수현_약속(), MemberFixtures.수현_유저(), MemberAuthority.ADMIN));
     }
 }
