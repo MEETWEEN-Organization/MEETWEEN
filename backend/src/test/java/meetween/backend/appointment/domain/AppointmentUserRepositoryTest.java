@@ -89,4 +89,40 @@ class AppointmentUserRepositoryTest {
         assertThatThrownBy(() -> appointmentUserRepository.getByMemberAndAppointment(member, appointment))
                 .isInstanceOf(NoExistAppointmentUserException.class);
     }
+
+    @DisplayName("약속과 멤버를 통해 해당하는 약속-유저가 있다면 참을 반환한다.")
+    @Test
+    void 약속과_멤버를_통해_해당하는_약속_유저가_있다면_참을_반환한다() {
+        //given
+        Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
+        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
+        AppointmentUser appointmentUser = new AppointmentUser(appointment, member, MemberAuthority.ADMIN);
+
+        memberRepository.save(member);
+        appointmentRepository.save(appointment);
+        appointmentUserRepository.save(appointmentUser);
+
+        //when
+        boolean actual = appointmentUserRepository.existsByAppointmentAndMember(appointment, member);
+
+        //when
+        assertThat(actual).isEqualTo(true);
+    }
+
+    @DisplayName("약속과 멤버를 통해 해당하는 약속-유저가 없다면 거짓을 반환한다.")
+    @Test
+    void 약속과_멤버를_통해_해당하는_약속_유저가_없다면_거짓을_반환한다() {
+        //given
+        Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
+        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
+
+        memberRepository.save(member);
+        appointmentRepository.save(appointment);
+
+        //when
+        boolean actual = appointmentUserRepository.existsByAppointmentAndMember(appointment, member);
+
+        //when
+        assertThat(actual).isEqualTo(false);
+    }
 }
