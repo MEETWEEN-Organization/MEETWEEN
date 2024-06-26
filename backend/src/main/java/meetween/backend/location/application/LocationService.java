@@ -9,6 +9,7 @@ import meetween.backend.location.domain.Location;
 import meetween.backend.location.domain.LocationRepository;
 import meetween.backend.location.domain.LocationType;
 import meetween.backend.location.dto.request.LocationAddRequest;
+import meetween.backend.location.exception.InvalidLocationTypeException;
 import meetween.backend.location.exception.NotOnlyOneLocationException;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
@@ -51,10 +52,17 @@ public class LocationService {
 
         locationRepository.getChoicedLocationByAppointment(appointment).changeLocationType();
         Location location = locationRepository.getById(locationId);
+        validateIsProposedLocation(location);
         location.changeLocationType();
         validateIsOnlyOneMainLocation(appointment);
 
         return new AppointmentResponse(appointment, location);
+    }
+
+    private void validateIsProposedLocation(final Location location) {
+        if (location.getLocationType() == LocationType.CHOICED) {
+            throw new InvalidLocationTypeException("선택된 장소가 아닌 장소가 필요합니다.");
+        }
     }
 
     private void validateIsIncludedMember(final Member member, final Appointment appointment) {
