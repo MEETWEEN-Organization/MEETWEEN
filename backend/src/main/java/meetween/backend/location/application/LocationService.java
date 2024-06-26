@@ -9,6 +9,7 @@ import meetween.backend.location.domain.Location;
 import meetween.backend.location.domain.LocationRepository;
 import meetween.backend.location.domain.LocationType;
 import meetween.backend.location.dto.request.LocationAddRequest;
+import meetween.backend.location.exception.NotOnlyOneLocationException;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class LocationService {
     }
 
     @Transactional
-    public AppointmentResponse addLocation(Long memberId, Long appointmentId, LocationAddRequest request) {
+    public AppointmentResponse addLocation(final Long memberId, final Long appointmentId, final LocationAddRequest request) {
         Appointment appointment = appointmentRepository.getById(appointmentId);
         Member member = memberRepository.getById(memberId);
         validateIsIncludedMember(member, appointment);
@@ -42,9 +43,29 @@ public class LocationService {
         return new AppointmentResponse(appointment, location);
     }
 
-    private void validateIsIncludedMember(Member member, Appointment appointment) {
+    @Transactional
+    public AppointmentResponse changeMain(final Long memberId, final Long appointmentId, final Long locationId) {
+        Appointment appointment = appointmentRepository.getById(appointmentId);
+        Member member = memberRepository.getById(memberId);
+        validateIsIncludedMember(member, appointment);
+
+        locationRepository.getChoicedLocationByAppointment(appointment).changeLocationType();
+        Location location = locationRepository.getById(locationId);
+        location.changeLocationType();
+        validateIsOnlyOneMainLocation(appointment);
+
+        return new AppointmentResponse(appointment, location);
+    }
+
+    private void validateIsIncludedMember(final Member member, final Appointment appointment) {
         if (!appointmentUserRepository.existsByAppointmentAndMember(appointment, member)) {
             throw new NoExistAppointmentUserException();
+        }
+    }
+
+    private void validateIsOnlyOneMainLocation(Appointment appointment) {
+        if (locationRepository.findChoicedLocationByAppointment(appointment).size() != 1) {
+            throw new NotOnlyOneLocationException();
         }
     }
 }
