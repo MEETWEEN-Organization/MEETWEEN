@@ -23,4 +23,13 @@ public enum LocationType {
         }
         throw new InvalidLocationTypeException();
     }
+
+    public static LocationType changeLocationType(String locationType) {
+        if (locationType.equals(CHOICED.name)) {
+            return PROPOSED;
+        } else if (locationType.equals(PROPOSED.name)) {
+            return CHOICED;
+        }
+        throw new InvalidLocationTypeException();
+    }
 }
