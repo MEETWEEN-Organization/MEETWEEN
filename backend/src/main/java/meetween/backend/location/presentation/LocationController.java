@@ -26,4 +26,12 @@ public class LocationController {
         AppointmentResponse response = locationService.addLocation(loginMember.getId(), appointmentId, request);
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/{appointmentId}/change-main/{locationId}")
+    public ResponseEntity<AppointmentResponse> changeMain(@AuthPrincipal final LoginMember loginMember,
+                                                          @PathVariable final Long appointmentId,
+                                                          @PathVariable final Long locationId) {
+        AppointmentResponse response = locationService.changeMain(loginMember.getId(), appointmentId, locationId);
+        return ResponseEntity.ok().body(response);
+    }
 }
