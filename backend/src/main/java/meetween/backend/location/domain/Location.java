@@ -54,4 +54,8 @@ public class Location extends BaseEntity {
     public LocationType getLocationType() {
         return locationType;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
