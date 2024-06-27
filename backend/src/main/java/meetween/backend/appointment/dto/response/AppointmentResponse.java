@@ -24,7 +24,7 @@ public class AppointmentResponse {
         this.appointmentDateTime = appointment.getAppointmentDateTime();
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
-        this.inviteCode = appointment.getInviteCode();
+        this.inviteCode = appointment.getInviteCode().getCode();
         this.memberCount = appointment.getMemberCount();
     }
 
