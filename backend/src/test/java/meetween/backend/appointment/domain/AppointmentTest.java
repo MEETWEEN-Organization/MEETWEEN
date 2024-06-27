@@ -18,7 +18,7 @@ public class AppointmentTest {
     void 약속을_생성한다() {
         // given
         String title = "수현의 약속";
-        Long inviteCode = 123456L;
+        InviteCode inviteCode = new InviteCode(123456L);
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
@@ -33,7 +33,7 @@ public class AppointmentTest {
     void 약속_제목의_길이가_20을_초과하는_경우_예외가_발생한다() {
         //given
         String title = "수현의 약속의 약속의 약속의 약속의 약속의 약속";
-        Long inviteCode = 123456L;
+        InviteCode inviteCode = new InviteCode(123456L);
         LocalDateTime appointmentDateTime = LocalDateTime.now().plusDays(1);
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
@@ -49,7 +49,7 @@ public class AppointmentTest {
     void 약속_시간이_현재_시간보다_이전일_때_예외가_발생한다() {
         //given
         String title = "수현의 약속";
-        Long inviteCode = 123456L;
+        InviteCode inviteCode = new InviteCode(123456L);
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
         Long memberCount = 3L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);
@@ -65,7 +65,7 @@ public class AppointmentTest {
     void 약속_인원_수가_10명을_초과하는_경우_예외가_발생한다() {
         //given
         String title = "수현의 약속";
-        Long inviteCode = 123456L;
+        InviteCode inviteCode = new InviteCode(123456L);
         LocalDateTime appointmentDateTime = LocalDateTime.now().minusDays(1);
         Long memberCount = 11L;
         BigDecimal latitude = BigDecimal.valueOf(126.99597295767953);

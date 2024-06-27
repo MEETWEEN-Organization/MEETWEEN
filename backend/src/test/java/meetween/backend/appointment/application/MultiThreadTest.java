@@ -40,17 +40,22 @@ public class MultiThreadTest {
     private AppointmentUserRepository appointmentUserRepository;
 
     @Autowired
+    private InviteCodeRepository inviteCodeRepository;
+
+    @Autowired
     private EntityManager entityManager;
 
 
     @BeforeEach
     public void before() {
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
         Member member1 = 수현_유저();
         Member member2 = 주용_유저();
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment, member1, MemberAuthority.ADMIN);
         AppointmentUser appointmentUser2 = new AppointmentUser(appointment, member2, MemberAuthority.ADMIN);
 
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         memberRepository.save(member1);
         memberRepository.save(member2);
