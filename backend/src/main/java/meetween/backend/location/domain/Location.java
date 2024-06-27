@@ -39,6 +39,10 @@ public class Location extends BaseEntity {
         this.locationType = locationType;
     }
 
+    public void changeLocationType() {
+        locationType = LocationType.changeLocationType(locationType.name());
+    }
+
     public BigDecimal getLatitude() {
         return latitude;
     }
@@ -49,5 +53,9 @@ public class Location extends BaseEntity {
 
     public LocationType getLocationType() {
         return locationType;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

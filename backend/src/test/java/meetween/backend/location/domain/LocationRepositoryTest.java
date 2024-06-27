@@ -58,4 +58,29 @@ class LocationRepositoryTest {
         assertThatThrownBy(() -> locationRepository.getChoicedLocationByAppointment(appointment))
                 .isInstanceOf(NoExistLocationException.class);
     }
+
+    @DisplayName("id를 통해 특정 장소를 조회한다.")
+    @Test
+    void id를_통해_특정_장소을_조회한다() {
+        //given
+        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        Location location = new Location(appointment, BigDecimal.valueOf(37.450354677762), BigDecimal.valueOf(126.65915614333), LocationType.CHOICED);
+
+        appointmentRepository.save(appointment);
+        locationRepository.save(location);
+
+        //when
+        Location actual = locationRepository.getById(location.getId());
+
+        //then
+        assertThat(actual).isEqualTo(location);
+    }
+
+    @DisplayName("특정 id의 장소가 없다면 예외를 발생시킨다")
+    @Test
+    void 특정_id의_장소가_없다면_예외를_발생시킨다() {
+        //when,then
+        assertThatThrownBy(() -> locationRepository.getById(1L))
+                .isInstanceOf(NoExistLocationException.class);
+    }
 }

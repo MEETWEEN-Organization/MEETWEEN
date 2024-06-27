@@ -5,8 +5,8 @@ import meetween.backend.location.exception.InvalidLocationTypeException;
 import java.util.Objects;
 
 public enum LocationType {
-    CHOICED("choiced"),
-    PROPOSED("proposed");
+    CHOICED("CHOICED"),
+    PROPOSED("PROPOSED");
 
     private final String name;
 
@@ -21,6 +21,16 @@ public enum LocationType {
         if (Objects.equals(locationType, PROPOSED.name)) {
             return PROPOSED;
         }
+        throw new InvalidLocationTypeException();
+    }
+
+    public static LocationType changeLocationType(String locationType) {
+        if (locationType.equals(CHOICED.name)) {
+            return PROPOSED;
+        } else if (locationType.equals(PROPOSED.name)) {
+            return CHOICED;
+        }
+        System.out.println(locationType);
         throw new InvalidLocationTypeException();
     }
 }

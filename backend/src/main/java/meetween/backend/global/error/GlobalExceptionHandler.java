@@ -9,6 +9,7 @@ import meetween.backend.category.exception.InvalidCategoryColorException;
 import meetween.backend.category.exception.InvalidCategoryException;
 import meetween.backend.location.exception.InvalidLocationTypeException;
 import meetween.backend.location.exception.NoExistLocationException;
+import meetween.backend.location.exception.NotOnlyOneLocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,8 @@ public class GlobalExceptionHandler {
             InvalidLocationTypeException.class,
             InvalidCategoryException.class,
             InvalidCategoryColorException.class,
-            NotAdminMemberException.class
+            NotAdminMemberException.class,
+            NotOnlyOneLocationException.class
     })
     public ResponseEntity<ExceptionResponse> handleInvalidData(final RuntimeException exception) {
         log.error(exception.getMessage(), exception);

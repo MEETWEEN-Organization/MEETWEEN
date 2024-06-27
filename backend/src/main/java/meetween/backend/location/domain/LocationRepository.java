@@ -12,10 +12,16 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     List<Location> findByAppointment(Appointment appointment);
 
     @Query("select l from Location l where l.appointment = :appointment and l.locationType = 'CHOICED'")
-    Optional<Location> findChoicedLocationByAppointment(Appointment appointment);
+    List<Location> findChoicedLocationByAppointment(Appointment appointment);
 
-    default Location getChoicedLocationByAppointment(Appointment appointment) {
-        return findChoicedLocationByAppointment(appointment)
+    default Location getChoicedLocationByAppointment(final Appointment appointment) {
+        return findChoicedLocationByAppointment(appointment).stream()
+                .findFirst()
+                .orElseThrow(NoExistLocationException::new);
+    }
+
+    default Location getById(final Long id) {
+        return findById(id)
                 .orElseThrow(NoExistLocationException::new);
     }
 }
