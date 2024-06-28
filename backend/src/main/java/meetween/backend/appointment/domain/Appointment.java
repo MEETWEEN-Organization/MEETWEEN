@@ -28,7 +28,7 @@ public class Appointment extends BaseEntity {
     private LocalDateTime appointmentDateTime;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invite_code_id", nullable = false)
+    @JoinColumn(name = "invite_code_id")
     private InviteCode inviteCode;
 
     @Column(name = "member_count", nullable = false)
