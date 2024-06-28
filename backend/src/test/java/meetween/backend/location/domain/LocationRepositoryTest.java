@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.appointment.domain.AppointmentRepository;
+import meetween.backend.appointment.domain.InviteCode;
+import meetween.backend.appointment.domain.InviteCodeRepository;
 import meetween.backend.global.config.JpaAuditConfig;
 import meetween.backend.location.exception.NoExistLocationException;
 import org.junit.jupiter.api.DisplayName;
@@ -27,14 +29,19 @@ class LocationRepositoryTest {
     @Autowired
     private LocationRepository locationRepository;
 
+    @Autowired
+    private InviteCodeRepository inviteCodeRepository;
+
     @DisplayName("특정 약속 내의 선택된 장소를 반환한다.")
     @Test
     void 특정_약속_내의_선택된_장소를_반환한다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
         Location location1 = new Location(appointment, BigDecimal.valueOf(37.450354677762), BigDecimal.valueOf(126.65915614333), LocationType.CHOICED);
         Location location2 = new Location(appointment, BigDecimal.valueOf(39.450354677762), BigDecimal.valueOf(129.65915614333), LocationType.PROPOSED);
 
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         locationRepository.save(location1);
         locationRepository.save(location2);
@@ -50,8 +57,10 @@ class LocationRepositoryTest {
     @Test
     void 특정_약속내에_선택된_장소가_없다면_예외를_발생시킨다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
 
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
 
         //when,then
@@ -63,9 +72,11 @@ class LocationRepositoryTest {
     @Test
     void id를_통해_특정_장소을_조회한다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
         Location location = new Location(appointment, BigDecimal.valueOf(37.450354677762), BigDecimal.valueOf(126.65915614333), LocationType.CHOICED);
 
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         locationRepository.save(location);
 

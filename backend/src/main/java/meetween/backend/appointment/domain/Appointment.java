@@ -27,8 +27,9 @@ public class Appointment extends BaseEntity {
     @Column(name = "appointment_date_time", nullable = false)
     private LocalDateTime appointmentDateTime;
 
-    @Column(name = "invite_code", nullable = false)
-    private Long inviteCode;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "invite_code_id")
+    private InviteCode inviteCode;
 
     @Column(name = "member_count", nullable = false)
     private Long memberCount;
@@ -41,7 +42,7 @@ public class Appointment extends BaseEntity {
 
     protected Appointment() {}
 
-    public Appointment(final String title, final Long inviteCode, final LocalDateTime appointmentDateTime, final Long memberCount) {
+    public Appointment(final String title, final InviteCode inviteCode, final LocalDateTime appointmentDateTime, final Long memberCount) {
         validateTitleLength(title);
         validateDateTime(appointmentDateTime);
         validateMemberCount(memberCount);
@@ -92,7 +93,7 @@ public class Appointment extends BaseEntity {
         return appointmentDateTime;
     }
 
-    public Long getInviteCode() {
+    public InviteCode getInviteCode() {
         return inviteCode;
     }
 

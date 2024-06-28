@@ -12,9 +12,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    Optional<Appointment> findByInviteCode(Long inviteCode);
 
-    boolean existsByInviteCode(Long inviteCode);
+    @Query("select a from Appointment a where a.inviteCode.code = :inviteCode")
+    Optional<Appointment> findByInviteCode(Long inviteCode);
 
     default Appointment getByInviteCode(final Long inviteCode) {
         return findByInviteCode(inviteCode)

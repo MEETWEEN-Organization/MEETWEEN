@@ -29,25 +29,28 @@ public class AppointmentService {
     private final CategoryRepository categoryRepository;
     private final MemberRepository memberRepository;
     private final LocationRepository locationRepository;
+    private final InviteCodeRepository inviteCodeRepository;
 
-    public AppointmentService(final AppointmentRepository appointmentRepository, final AppointmentUserRepository appointmentUserRepository, final CategoryRepository categoryRepository, final MemberRepository memberRepository, final LocationRepository locationRepository) {
+    public AppointmentService(final AppointmentRepository appointmentRepository, final AppointmentUserRepository appointmentUserRepository, final CategoryRepository categoryRepository, final MemberRepository memberRepository, final LocationRepository locationRepository, final InviteCodeRepository inviteCodeRepository) {
         this.appointmentRepository = appointmentRepository;
         this.appointmentUserRepository = appointmentUserRepository;
         this.categoryRepository = categoryRepository;
         this.memberRepository = memberRepository;
         this.locationRepository = locationRepository;
+        this.inviteCodeRepository = inviteCodeRepository;
     }
 
     @Transactional
     public AppointmentResponse save(final Long memberId, final AppointmentCreateRequest request) {
         Member member = memberRepository.getById(memberId);
-        Long inviteCode = createInviteCode();
+        InviteCode inviteCode = createInviteCode();
 
         Appointment appointment = request.toEntity(inviteCode);
         Location location = new Location(appointment, request.getLatitude(), request.getLongitude(), LocationType.CHOICED);
         Category category = new Category(request.getCategoryName(), CategoryColor.getCategoryColor(request.getCategoryColor()), appointment);
         appointment.updateCategory(category);
 
+        inviteCodeRepository.save(inviteCode);
         locationRepository.save(location);
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
@@ -56,12 +59,12 @@ public class AppointmentService {
         return new AppointmentResponse(appointment, location);
     }
 
-    private Long createInviteCode() {
+    private InviteCode createInviteCode() {
         long inviteCode = (long)(Math.random() * 899999) + 100000;
-        while (appointmentRepository.existsByInviteCode(inviteCode)) {
+        while (inviteCodeRepository.existsByCode(inviteCode)) {
             inviteCode = (long)(Math.random() * 899999) + 100000;
         }
-        return inviteCode;
+        return new InviteCode(inviteCode);
     }
 
     @Transactional

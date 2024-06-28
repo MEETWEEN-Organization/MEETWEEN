@@ -38,22 +38,26 @@ class AppointmentRepositoryTest {
     private MemberRepository memberRepository;
 
     @Autowired
+    private InviteCodeRepository inviteCodeRepository;
+
+    @Autowired
     private AppointmentUserRepository appointmentUserRepository;
 
     @DisplayName("초대코드를 통해 약속을 찾는다")
     @Test
     void 초대코드를_통해_약속을_찾는다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
-        Long inviteCode = appointment.getInviteCode();
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
         Category category = new Category("스터디", CategoryColor._9A61D2, appointment);
         appointment.updateCategory(category);
 
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
 
         //when
-        Appointment actual = appointmentRepository.getByInviteCode(inviteCode);
+        Appointment actual = appointmentRepository.getByInviteCode(inviteCode.getCode());
 
         //then
         assertThat(actual).isEqualTo(appointment);
@@ -64,10 +68,12 @@ class AppointmentRepositoryTest {
     @Test
     void 존재하지_않는_초대코드를_약속을_조회하면_예외를_발생시킨다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
         Category category = new Category("스터디", CategoryColor._9A61D2, appointment);
         appointment.updateCategory(category);
 
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         categoryRepository.save(category);
 
@@ -81,19 +87,24 @@ class AppointmentRepositoryTest {
     @Test
     void 존재하는_초대_코드라면_참을_반환한다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
 
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
 
         //when, then
-        assertThat(appointmentRepository.existsByInviteCode(appointment.getInviteCode())).isEqualTo(true);
+        assertThat(inviteCodeRepository.existsByCode(appointment.getInviteCode().getCode())).isEqualTo(true);
     }
 
     @DisplayName("아이디를 통해 약속을 반환한다.")
     @Test
     void 아이디를_통해_약속을_반환한다() {
         //given
-        Appointment appointment = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        InviteCode inviteCode = new InviteCode(123456L);
+        Appointment appointment = new Appointment("수현의 약속", inviteCode, LocalDateTime.now().plusDays(1), 3L);
+
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         Long appointmentId = appointment.getId();
 
@@ -119,9 +130,11 @@ class AppointmentRepositoryTest {
     @Test
     void 카테고리_이름을_통해_로그인된_유저가_속한_약속들을_조회하고_페이징한다() {
         //given
+        InviteCode inviteCode1 = new InviteCode(123456L);
+        InviteCode inviteCode2 = new InviteCode(654321L);
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment1 = new Appointment("수현의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
-        Appointment appointment2 = new Appointment("만성의 약속", 123456L, LocalDateTime.now().plusDays(1), 3L);
+        Appointment appointment1 = new Appointment("수현의 약속", inviteCode1, LocalDateTime.now().plusDays(1), 3L);
+        Appointment appointment2 = new Appointment("만성의 약속", inviteCode2, LocalDateTime.now().plusDays(1), 3L);
         Category category1 = new Category("스터디", CategoryColor._9A61D2, appointment1);
         Category category2 = new Category("스터디", CategoryColor._9A61D2, appointment2);
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
@@ -131,6 +144,8 @@ class AppointmentRepositoryTest {
         PageRequest pageRequest = PageRequest.of(0, 1);
 
         memberRepository.save(member);
+        inviteCodeRepository.save(inviteCode1);
+        inviteCodeRepository.save(inviteCode2);
         appointmentRepository.save(appointment1);
         appointmentRepository.save(appointment2);
         appointmentUserRepository.save(appointmentUser1);

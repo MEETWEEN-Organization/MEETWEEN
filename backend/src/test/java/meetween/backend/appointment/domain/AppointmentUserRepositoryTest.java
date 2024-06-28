@@ -17,7 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @DataJpaTest
@@ -31,6 +31,9 @@ class AppointmentUserRepositoryTest {
     private AppointmentUserRepository appointmentUserRepository;
 
     @Autowired
+    private InviteCodeRepository inviteCodeRepository;
+
+    @Autowired
     private MemberRepository memberRepository;
 
     @DisplayName("특정 유저가 속한 모든 약속-유저를 찾아 페이징한다.")
@@ -40,13 +43,18 @@ class AppointmentUserRepositoryTest {
         PageRequest pageRequest = PageRequest.of(0, 1);
 
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment1 = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
+
+        InviteCode inviteCode1 = new InviteCode(123456L);
+        Appointment appointment1 = new Appointment(수현_약속_제목, inviteCode1, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser1 = new AppointmentUser(appointment1, member, MemberAuthority.ADMIN);
 
-        Appointment appointment2 = new Appointment(민성_약속_제목, 민성_약속_초대코드, 하루_뒤_시간, 3L);
+        InviteCode inviteCode2 = new InviteCode(654321L);
+        Appointment appointment2 = new Appointment(민성_약속_제목, inviteCode2, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser2 = new AppointmentUser(appointment2, member, MemberAuthority.ADMIN);
 
         memberRepository.save(member);
+        inviteCodeRepository.save(inviteCode1);
+        inviteCodeRepository.save(inviteCode2);
         appointmentRepository.save(appointment1);
         appointmentRepository.save(appointment2);
         appointmentUserRepository.save(appointmentUser1);
@@ -63,11 +71,13 @@ class AppointmentUserRepositoryTest {
     @Test
     void 멤버와_약속을_통해_약속_유저를_찾는다() {
         //given
+        InviteCode inviteCode = new InviteCode(123456L);
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
+        Appointment appointment = new Appointment(수현_약속_제목, inviteCode, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser = new AppointmentUser(appointment, member, MemberAuthority.ADMIN);
 
         memberRepository.save(member);
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         appointmentUserRepository.save(appointmentUser);
 
@@ -82,10 +92,12 @@ class AppointmentUserRepositoryTest {
     @Test
     void 입력받은_멤버와_약속을_가진_약속_유저가_없으면_예외를_발생시킨다() {
         //given
+        InviteCode inviteCode = new InviteCode(123456L);
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
+        Appointment appointment = new Appointment(수현_약속_제목, inviteCode, 하루_뒤_시간, 3L);
 
         memberRepository.save(member);
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
 
         //when, then
@@ -94,14 +106,17 @@ class AppointmentUserRepositoryTest {
     }
 
     @DisplayName("약속과 멤버를 통해 해당하는 약속-유저가 있다면 참을 반환한다.")
+    @Transactional
     @Test
     void 약속과_멤버를_통해_해당하는_약속_유저가_있다면_참을_반환한다() {
         //given
+        InviteCode inviteCode = new InviteCode(123456L);
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
+        Appointment appointment = new Appointment(수현_약속_제목, inviteCode, 하루_뒤_시간, 3L);
         AppointmentUser appointmentUser = new AppointmentUser(appointment, member, MemberAuthority.ADMIN);
 
         memberRepository.save(member);
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
         appointmentUserRepository.save(appointmentUser);
 
@@ -113,13 +128,16 @@ class AppointmentUserRepositoryTest {
     }
 
     @DisplayName("약속과 멤버를 통해 해당하는 약속-유저가 없다면 거짓을 반환한다.")
+    @Transactional
     @Test
     void 약속과_멤버를_통해_해당하는_약속_유저가_없다면_거짓을_반환한다() {
         //given
+        InviteCode inviteCode = new InviteCode(123456L);
         Member member = new Member(수현_아이디, 수현_프로필_이미지, 수현_이름, SocialType.KAKAO);
-        Appointment appointment = new Appointment(수현_약속_제목, 수현_약속_초대코드, 하루_뒤_시간, 3L);
+        Appointment appointment = new Appointment(수현_약속_제목, inviteCode, 하루_뒤_시간, 3L);
 
         memberRepository.save(member);
+        inviteCodeRepository.save(inviteCode);
         appointmentRepository.save(appointment);
 
         //when

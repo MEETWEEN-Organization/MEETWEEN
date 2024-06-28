@@ -10,10 +10,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
-import meetween.backend.appointment.domain.Appointment;
-import meetween.backend.appointment.domain.AppointmentRepository;
-import meetween.backend.appointment.domain.AppointmentUser;
-import meetween.backend.appointment.domain.AppointmentUserRepository;
+import meetween.backend.appointment.domain.*;
 import meetween.backend.appointment.dto.request.AppointmentCreateRequest;
 import meetween.backend.appointment.dto.request.AppointmentParticipateRequest;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
@@ -47,6 +44,9 @@ class AppointmentServiceTest {
 
     @Mock
     private CategoryRepository categoryRepository;
+
+    @Mock
+    private InviteCodeRepository inviteCodeRepository;
 
     @Mock
     private LocationRepository locationRepository;
