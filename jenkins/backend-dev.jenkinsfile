@@ -20,7 +20,9 @@ pipeline {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQube Scanner') {
-                        sh './gradlew test sonarqube'
+                        sh 'cd backend && ./gradlew --info sonarqube' +
+                            ' -Dsonar.projectKey=MEETWEEN-' + env.BRANCH_NAME +
+                            ' -Dsonar.projectName=MEETWEEN-' + env.BRANCH_NAME
                     }
                 }
             }
