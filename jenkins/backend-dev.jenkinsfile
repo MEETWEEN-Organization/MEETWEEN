@@ -20,9 +20,7 @@ pipeline {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQube') {
-                        sh './gradlew test sonarqube' +
-                            ' -Dsonar.projectKey=MEETWEEN-' + env.BRANCH_NAME +
-                            ' -Dsonar.projectName=MEETWEEN-' + env.BRANCH_NAME
+                        sh './gradlew test sonarqube'
                     }
                 }
             }

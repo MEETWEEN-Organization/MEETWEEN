@@ -79,8 +79,9 @@ jacocoTestReport {
 
 sonarqube {
 	properties {
-		property 'sonar.host.url', 'http://3.35.220.195:9000'
-		property 'sonar.login', 'sqa_70c5c9136a5ed4575943d0ff368f20f2dfeb3c83'
+		property 'sonar.projectKey', 'MEETWEEN'
+		property 'sonar.host.url', ${{ SONARQUBE_URL }}
+		property 'sonar.login', ${{ SONARQUBE_TOKEN }}
 		property 'sonar.sources', 'src'
 		property 'sonar.language', 'java'
 		property 'sonar.projectVersion', '1.1.0-SNAPSHOT'
@@ -88,7 +89,8 @@ sonarqube {
 		property 'sonar.coverage.jacoco.xmlReportPaths', project.layout.buildDirectory.dir("reports/jacoco/test/jacocoTestReport.xml").get().asFile.path
 		property 'sonar.java.binaries', project.layout.buildDirectory.dir("classes").get().asFile.path
 		property 'sonar.test.inclusions', '**/*Test.java'
-		property 'sonar.exclusions', '**/test/**, **/resources/**'
+		property 'sonar.coverage.exclusions', '**/test/**/*, **/*Application*, **/global/config/**, **/dto/**, **/*Exception*, **/BaseEntity*, **/GlobalExceptionHandler*'
+		property 'sonar.exclusions', '**/test/**, **/resources/**, **/jacoco/**'
 	}
 }
 
