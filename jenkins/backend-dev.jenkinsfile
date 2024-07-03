@@ -16,6 +16,15 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube analysis') {
+            steps {
+                dir('backend') {
+                    withSonarQubeEnv('SonarQube Scanner') {
+                        sh './gradlew test sonarqube'
+                    }
+                }
+            }
+        }
         stage('Deploy') {
            steps {
                dir('backend/build/libs') {
