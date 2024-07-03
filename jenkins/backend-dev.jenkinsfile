@@ -16,6 +16,17 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube analysis') {
+            steps {
+                dir('backend') {
+                    withSonarQubeEnv('SonarQube Scanner') {
+                        sh 'cd backend && ./gradlew --info sonarqube' +
+                            ' -Dsonar.projectKey=MEETWEEN-' + env.BRANCH_NAME +
+                            ' -Dsonar.projectName=MEETWEEN-' + env.BRANCH_NAME
+                    }
+                }
+            }
+        }
         stage('Deploy') {
            steps {
                dir('backend/build/libs') {
