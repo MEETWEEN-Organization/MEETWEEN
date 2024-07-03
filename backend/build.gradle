@@ -25,7 +25,7 @@ repositories {
 }
 
 jacoco {
-	toolVersion = "0.8.7"
+	toolVersion = "0.8.8"
 }
 
 jacocoTestCoverageVerification {
@@ -112,6 +112,8 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	implementation 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3'
 }
 
 tasks.named('test') {
