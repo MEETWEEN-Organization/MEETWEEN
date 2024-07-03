@@ -16,7 +16,7 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube') {
+        stage('SonarQube analysis') {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQube') {
