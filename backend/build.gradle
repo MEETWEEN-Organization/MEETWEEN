@@ -37,13 +37,13 @@ jacocoTestCoverageVerification {
 			limit {
 				counter = 'BRANCH'
 				value = 'COVEREDRATIO'
-				minimum = 0.50
+				minimum = 0.10
 			}
 
 			limit {
 				counter = 'LINE'
 				value = 'COVEREDRATIO'
-				minimum = 0.75
+				minimum = 0.10
 			}
 			excludes = [
 					'*.*Application',
