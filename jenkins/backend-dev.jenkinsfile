@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Github') {
             steps {
-                git branch: 'develop', url: 'https://github.com/Durable-developers/MEETWEEN.git'
+                git branch: 'develop', url: 'https://github.com/MEETWEEN-Organization/MEETWEEN.git'
             }
         }
         stage('Build') {
