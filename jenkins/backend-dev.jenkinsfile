@@ -16,10 +16,10 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube analysis') {
+        stage('SonarQube') {
             steps {
                 dir('backend') {
-                    withSonarQubeEnv('SonarQube Scanner') {
+                    withSonarQubeEnv('SonarQube') {
                         sh 'cd backend && ./gradlew --info sonarqube' +
                             ' -Dsonar.projectKey=MEETWEEN-' + env.BRANCH_NAME +
                             ' -Dsonar.projectName=MEETWEEN-' + env.BRANCH_NAME
