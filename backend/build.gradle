@@ -80,7 +80,7 @@ jacocoTestReport {
 sonarqube {
 	properties {
 		property 'sonar.host.url', 'http://3.35.220.195:9000'
-		property 'sonar.token', 'sqa_70c5c9136a5ed4575943d0ff368f20f2dfeb3c83'
+		property 'sonar.login', 'sqa_70c5c9136a5ed4575943d0ff368f20f2dfeb3c83'
 		property 'sonar.sources', 'src'
 		property 'sonar.language', 'java'
 		property 'sonar.projectVersion', '1.1.0-SNAPSHOT'
