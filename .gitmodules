@@ -1,4 +1,0 @@
-[submodule "backend/src/main/resources/config"]
-	path = backend/src/main/resources/config
-	url = https://github.com/MEETWEEN-Organization/config.git
-	branch = main
