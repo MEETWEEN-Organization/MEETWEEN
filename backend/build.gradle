@@ -80,6 +80,7 @@ jacocoTestReport {
 sonarqube {
 	properties {
 		property 'sonar.projectKey', 'MEETWEEN'
+		property "sonar.profile", "MEETWEEN"
 		property 'sonar.host.url', System.getenv('SONARQUBE_URL')
 		property 'sonar.login', System.getenv('SONARQUBE_TOKEN')
 		property 'sonar.sources', 'src'
