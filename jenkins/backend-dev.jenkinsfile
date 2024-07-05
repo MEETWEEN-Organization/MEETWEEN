@@ -7,10 +7,9 @@ pipeline {
         stage('Github') {
             steps {
                 git branch: 'develop', url: 'https://github.com/MEETWEEN-Organization/MEETWEEN.git'
-                sh 'git submodule update --init --recursive'
-            }
-        }
-        stage('Build') {
+                withCredentials([GitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
+                    sh 'git submodule update --init --recursive'
+                }
             steps {
                 dir("./backend") {
                     sh "./gradlew clean build"
