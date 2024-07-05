@@ -7,7 +7,7 @@ pipeline {
         stage('Github') {
             steps {
                 git branch: 'develop', url: 'https://github.com/MEETWEEN-Organization/MEETWEEN.git'
-                withCredentials([GitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
+                withCredentials([GitUsernamePassword(credentialsId: 'github-signin', gitToolName: 'Default')]) {
                     sh 'git submodule update --init --recursive'
                 }
             }
