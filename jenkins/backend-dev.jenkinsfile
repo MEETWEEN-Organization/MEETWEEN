@@ -10,6 +10,7 @@ pipeline {
                 withCredentials([GitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
                     sh 'git submodule update --init --recursive'
                 }
+            }
             steps {
                 dir("./backend") {
                     sh "./gradlew clean build"
