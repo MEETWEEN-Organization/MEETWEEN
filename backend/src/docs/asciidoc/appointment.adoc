@@ -1,0 +1,61 @@
+== Appointment(약속)
+
+=== 약속 생성
+
+==== Request
+
+include::{snippets}/appointment/save/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/appointment/save/http-response.adoc[]
+
+=== 약속 참여
+
+==== Request
+
+include::{snippets}/appointment/participate/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/appointment/participate/http-response.adoc[]
+
+=== 내 전체 약속 조회
+
+==== Request
+
+include::{snippets}/appointment/findMyAllAppointments/http-request.adoc[]
+
+==== Request Parameters
+
+include::{snippets}/appointment/findMyAllAppointments/query-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/appointment/findMyAllAppointments/http-response.adoc[]
+
+=== 약속 구성멤버 권한 변경
+
+==== Request
+
+include::{snippets}/appointment/updateAuthority/http-request.adoc[]
+
+==== Request Parameters
+include::{snippets}/appointment/updateAuthority/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/appointment/updateAuthority/http-response.adoc[]
+
+=== 약속 구성멤버 권한 변경 (ADMIN이 아닌 멤버가 실행했을때)
+
+==== Request
+
+include::{snippets}/appointment/updateAuthority/failByNotAdminMember/http-request.adoc[]
+
+==== Request Parameters
+include::{snippets}/appointment/updateAuthority/failByNotAdminMember/path-parameters.adoc[]
+
+==== Response
+
+include::{snippets}/appointment/updateAuthority/failByNotAdminMember/http-response.adoc[]
