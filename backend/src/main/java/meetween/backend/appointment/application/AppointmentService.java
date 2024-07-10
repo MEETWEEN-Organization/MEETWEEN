@@ -8,6 +8,8 @@ import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.category.domain.Category;
 import meetween.backend.category.domain.CategoryColor;
 import meetween.backend.category.domain.CategoryRepository;
+import meetween.backend.invitecode.domain.InviteCode;
+import meetween.backend.location.domain.InviteCodeRepository;
 import meetween.backend.location.domain.Location;
 import meetween.backend.location.domain.LocationRepository;
 import meetween.backend.location.domain.LocationType;

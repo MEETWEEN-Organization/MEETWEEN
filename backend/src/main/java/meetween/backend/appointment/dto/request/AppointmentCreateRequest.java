@@ -2,7 +2,7 @@ package meetween.backend.appointment.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import meetween.backend.appointment.domain.Appointment;
-import meetween.backend.appointment.domain.InviteCode;
+import meetween.backend.invitecode.domain.InviteCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;

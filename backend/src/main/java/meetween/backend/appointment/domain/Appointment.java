@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import meetween.backend.appointment.exception.InvalidAppointmentException;
 import meetween.backend.category.domain.Category;
 import meetween.backend.global.entity.BaseEntity;
+import meetween.backend.invitecode.domain.InviteCode;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
