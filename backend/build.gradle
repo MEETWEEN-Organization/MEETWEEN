@@ -133,6 +133,7 @@ tasks.named('test') {
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
 	configurations 'asciidoctorExt'
+	baseDirFollowsSourceFile()
 	dependsOn test
 }
 
@@ -149,6 +150,7 @@ task copyDocument(type: Copy) { // 생성된 html 파일을 옮긴다
 build {
 	dependsOn copyDocument
 }
+
 
 bootJar {
     dependsOn asciidoctor // (1)
