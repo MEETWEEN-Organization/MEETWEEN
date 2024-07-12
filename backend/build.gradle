@@ -137,12 +137,12 @@ tasks.named('asciidoctor') {
 	dependsOn test
 }
 
-asciidoctor.doFirst { // asciidoctor Task가 수행될 때 가장 먼저 수행
+asciidoctor.doFirst {
 	delete file('src/main/resources/static/docs')
 }
 
-task copyDocument(type: Copy) { // 생성된 html 파일을 옮긴다
-	dependsOn asciidoctor // Gradle의 asciidoctor Task 이후 수행
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
 	from file("${asciidoctor.outputDir}")
 	into file("src/main/resources/static/docs")
 }
@@ -153,8 +153,5 @@ build {
 
 
 bootJar {
-    dependsOn asciidoctor // (1)
-    from("${asciidoctor.outputDir}") { // (2)
-        into 'static/docs'
-    }
+    dependsOn asciidoctor
 }
