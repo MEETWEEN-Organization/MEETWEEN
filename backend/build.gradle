@@ -132,7 +132,7 @@ tasks.named('test') {
 
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
-	configurations 'asciidoctorExt'
+	configurations 'asciidoctorExtensions'
 	baseDirFollowsSourceFile()
 	dependsOn test
 }
