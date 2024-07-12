@@ -14,6 +14,10 @@ java {
 	sourceCompatibility = '17'
 }
 
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+}
+
 configurations {
 	asciidoctorExt
 	compileOnly {
@@ -48,6 +52,15 @@ dependencies {
 	implementation 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3'
 }
 
+tasks.named('test') {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+	finalizedBy 'jacocoTestReport'
+}
+
+/**
+ * jacoco
+ */
 jacoco {
 	toolVersion = "0.8.8"
 }
@@ -101,6 +114,9 @@ jacocoTestReport {
 	finalizedBy 'jacocoTestCoverageVerification'
 }
 
+/**
+ * sonarqube
+ */
 sonarqube {
 	properties {
 		property 'sonar.projectKey', 'MEETWEEN'
@@ -119,16 +135,9 @@ sonarqube {
 	}
 }
 
-ext {
-	set('snippetsDir', file("build/generated-snippets"))
-}
-
-
-tasks.named('test') {
-	outputs.dir snippetsDir
-	useJUnitPlatform()
-	finalizedBy 'jacocoTestReport'
-}
+/**
+ * asciidoctor
+ */
 
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
@@ -147,11 +156,6 @@ task copyDocument(type: Copy) {
 	into file("src/main/resources/static/docs")
 }
 
-build {
-	dependsOn copyDocument
-}
-
-
 bootJar {
-    dependsOn asciidoctor
+    dependsOn copyDocument
 }
