@@ -139,25 +139,25 @@ sonarqube {
  * asciidoctor
  */
 
-//println "snippetsDir: $snippetsDir"
-//
-//tasks.named('asciidoctor') {
-//	configurations 'asciidoctorExt'
-//	baseDirFollowsSourceFile()
-//	inputs.dir snippetsDir
-//	dependsOn test
-//}
-//
-//asciidoctor.doFirst {
-//	delete file('src/main/resources/static/docs')
-//}
-//
-//task copyDocument(type: Copy) {
-//	dependsOn asciidoctor
-//	from file("build/docs/asciidoc")
-//	into file("src/main/resources/static/docs")
-//}
-//
-//build {
-//	dependsOn copyDocument
-//}
+println "snippetsDir: $snippetsDir"
+
+tasks.named('asciidoctor') {
+	configurations 'asciidoctorExt'
+	baseDirFollowsSourceFile()
+	inputs.dir snippetsDir
+	dependsOn test
+}
+
+asciidoctor.doFirst {
+	delete file('src/main/resources/static/docs')
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+	from file("build/docs/asciidoc")
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocument
+}
