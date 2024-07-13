@@ -139,6 +139,8 @@ sonarqube {
  * asciidoctor
  */
 
+println "snippetsDir: $snippetsDir"
+
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
 	configurations 'asciidoctorExt'
