@@ -28,6 +28,17 @@ public class AppointmentResponse {
         this.memberCount = appointment.getMemberCount();
     }
 
+    public AppointmentResponse(Long id, Long categoryId, String title, LocalDateTime appointmentDateTime, BigDecimal latitude, BigDecimal longitude, Long inviteCode, Long memberCount) {
+        this.id = id;
+        this.categoryId = categoryId;
+        this.title = title;
+        this.appointmentDateTime = appointmentDateTime;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.inviteCode = inviteCode;
+        this.memberCount = memberCount;
+    }
+
     public Long getId() {
         return id;
     }

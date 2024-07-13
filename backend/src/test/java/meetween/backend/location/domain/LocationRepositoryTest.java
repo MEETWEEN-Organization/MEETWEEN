@@ -5,8 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.appointment.domain.AppointmentRepository;
-import meetween.backend.appointment.domain.InviteCode;
-import meetween.backend.appointment.domain.InviteCodeRepository;
+import meetween.backend.invitecode.domain.InviteCode;
 import meetween.backend.global.config.JpaAuditConfig;
 import meetween.backend.location.exception.NoExistLocationException;
 import org.junit.jupiter.api.DisplayName;

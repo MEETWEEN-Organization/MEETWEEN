@@ -2,6 +2,8 @@ package meetween.backend.appointment.application;
 
 import jakarta.persistence.EntityManager;
 import meetween.backend.appointment.domain.*;
+import meetween.backend.invitecode.domain.InviteCode;
+import meetween.backend.location.domain.InviteCodeRepository;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import org.assertj.core.api.Assertions;
@@ -15,7 +17,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

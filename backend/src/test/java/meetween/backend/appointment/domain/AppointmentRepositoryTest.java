@@ -9,6 +9,8 @@ import meetween.backend.category.domain.Category;
 import meetween.backend.category.domain.CategoryColor;
 import meetween.backend.category.domain.CategoryRepository;
 import meetween.backend.global.config.JpaAuditConfig;
+import meetween.backend.invitecode.domain.InviteCode;
+import meetween.backend.location.domain.InviteCodeRepository;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.member.domain.SocialType;

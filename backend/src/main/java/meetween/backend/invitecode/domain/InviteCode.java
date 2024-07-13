@@ -1,6 +1,7 @@
-package meetween.backend.appointment.domain;
+package meetween.backend.invitecode.domain;
 
 import jakarta.persistence.*;
+import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.global.entity.BaseEntity;
 
 @Entity

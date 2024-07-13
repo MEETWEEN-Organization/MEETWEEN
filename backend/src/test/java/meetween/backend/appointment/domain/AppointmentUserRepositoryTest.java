@@ -7,6 +7,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import meetween.backend.appointment.exception.NoExistAppointmentUserException;
 import meetween.backend.global.config.JpaAuditConfig;
+import meetween.backend.invitecode.domain.InviteCode;
+import meetween.backend.location.domain.InviteCodeRepository;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.member.domain.SocialType;
