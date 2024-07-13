@@ -142,9 +142,9 @@ sonarqube {
 println "snippetsDir: $snippetsDir"
 
 tasks.named('asciidoctor') {
-	inputs.dir snippetsDir
 	configurations 'asciidoctorExt'
 	baseDirFollowsSourceFile()
+	inputs.dir snippetsDir
 	dependsOn test
 }
 
@@ -158,6 +158,6 @@ task copyDocument(type: Copy) {
 	into file("src/main/resources/static/docs")
 }
 
-bootJar {
-    dependsOn copyDocument
+build {
+	dependsOn copyDocument
 }
