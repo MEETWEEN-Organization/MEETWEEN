@@ -10,12 +10,12 @@ public class KakaoOAuthMember implements OAuthMember {
     @JsonProperty("kakao_account")
     private KakaoAccount kakaoAccount;
 
-    private class KakaoAccount {
+    public static class KakaoAccount {
         @JsonProperty("profile")
         private KakaoProfile kakaoProfile;
     }
 
-    private class KakaoProfile {
+    public static class KakaoProfile {
         @JsonProperty("nickname")
         private String nickname;
 
