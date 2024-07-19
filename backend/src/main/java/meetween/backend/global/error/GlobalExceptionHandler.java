@@ -19,6 +19,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Objects;
 
@@ -83,6 +84,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleTypeMismatch() {
         ExceptionResponse exceptionResponse = new ExceptionResponse("잘못된 데이터 형식입니다.");
         return ResponseEntity.badRequest().body(exceptionResponse);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public void handleNoResourceFound() {
+        log.warn("정적 리소스가 존재하지 않습니다.");
     }
 
     @ExceptionHandler(Exception.class)
