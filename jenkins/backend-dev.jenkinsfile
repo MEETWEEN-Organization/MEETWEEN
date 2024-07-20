@@ -8,7 +8,7 @@ pipeline {
             steps {
                 git branch: 'develop', url: 'https://github.com/MEETWEEN-Organization/MEETWEEN.git'
                 withCredentials([GitUsernamePassword(credentialsId: 'github-signin', gitToolName: 'Default')]) {
-                    sh 'git submodule update --init --recursive'
+                    sh 'git submodule update --init --remote'
                 }
             }
         }
