@@ -22,12 +22,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 
 
 @DataJpaTest
 @Import(JpaAuditConfig.class)
+@ActiveProfiles("test")
 class AppointmentRepositoryTest {
 
     @Autowired
