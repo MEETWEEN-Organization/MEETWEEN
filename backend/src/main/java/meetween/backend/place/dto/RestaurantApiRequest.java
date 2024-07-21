@@ -18,15 +18,16 @@ public class RestaurantApiRequest {
     @JsonProperty("UPTAENM")
     private String type;
 
-    @JsonProperty("X")
-    private BigDecimal longitude;
-
     @JsonProperty("Y")
     private BigDecimal latitude;
 
+    @JsonProperty("X")
+    private BigDecimal longitude;
+
+
     private RestaurantApiRequest() {}
 
-    public RestaurantApiRequest(String name, String address, String type, BigDecimal longitude, BigDecimal latitude) {
+    public RestaurantApiRequest(String name, String address, String type, BigDecimal latitude, BigDecimal longitude) {
         this.name = name;
         this.address = address;
         this.type = type;
@@ -35,6 +36,6 @@ public class RestaurantApiRequest {
     }
 
     public Restaurant toRestaurant() {
-        return new Restaurant(name, address, type, longitude, latitude);
+        return new Restaurant(name, address, type, latitude, longitude);
     }
 }
