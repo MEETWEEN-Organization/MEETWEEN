@@ -20,9 +20,6 @@ public class Restaurant extends BaseEntity {
     @Column(name = "address", nullable = false)
     private String adress;
 
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
-
     @Column(name = "type", nullable = false)
     private String type;
 
@@ -34,14 +31,31 @@ public class Restaurant extends BaseEntity {
 
     protected Restaurant() {}
 
-    public Restaurant(String name, String adress, String phoneNumber, String type, BigDecimal latitude, BigDecimal longitude) {
+    public Restaurant(String name, String adress, String type, BigDecimal latitude, BigDecimal longitude) {
         this.name = name;
         this.adress = adress;
-        this.phoneNumber = phoneNumber;
         this.type = type;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getAdress() {
+        return adress;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
 }
