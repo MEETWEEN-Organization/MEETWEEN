@@ -27,7 +27,6 @@ import static meetween.backend.support.fixture.common.MemberFixtures.*;
 
 
 @SpringBootTest
-@ActiveProfiles("test")
 public class MultiThreadTest {
 
     @Autowired
