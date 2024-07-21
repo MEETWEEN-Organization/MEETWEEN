@@ -58,4 +58,8 @@ public class Restaurant extends BaseEntity {
     public BigDecimal getLongitude() {
         return longitude;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
