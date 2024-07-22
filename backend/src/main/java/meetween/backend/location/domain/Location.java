@@ -7,7 +7,7 @@ import meetween.backend.global.entity.BaseEntity;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "loaction")
+@Table(name = "location")
 public class Location extends BaseEntity {
 
     @Id
