@@ -40,7 +40,7 @@ public class ScrappingService {
     }
 
     private int scrapTotalCount() {
-        return restaurantRequester.requestRestTemplate(START_INDEX_FOR_TOTAL_COUNT);
+        return (int)restaurantRequester.requestRestTemplate(START_INDEX_FOR_TOTAL_COUNT);
     }
 
     private void scrapForStartIndex(int startIndex) {
