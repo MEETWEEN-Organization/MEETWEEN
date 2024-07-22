@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@ConditionalOnProperty(name = "enable.initialize_restaurant", havingValue = "true")
+@ConditionalOnProperty(name = "enable.initialize_restaurant", havingValue = "true")
 public class InitialRestaurantLoader implements ApplicationRunner {
 
     private final ScrappingService scrappingService;
