@@ -53,7 +53,7 @@ public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequest
                 }
 
             } catch (Exception e) {
-                log.warn("페이지 요청 실패, 재시도합니다. 실행 횟수: {}, startIndex: {}", tryCount, startIndex);
+                log.warn("페이지 요청 실패, 재시도합니다. 실행 횟수: {}, startIndex: {}, 에러메세지: {}", tryCount, startIndex, e.getMessage());
                 waitForRetry();
             }
         }
