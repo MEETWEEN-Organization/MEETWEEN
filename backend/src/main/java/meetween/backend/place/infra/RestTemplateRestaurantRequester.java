@@ -21,9 +21,9 @@ public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequest
     private static final String BASE_URL = "http://openapi.seoul.go.kr:8088";
     private static final String DATA_TYPE = "JSON";
     private static final String SERVICE_NAME = "LOCALDATA_072404";
-    private static final int ROW_SIZE = 1000;
+    private static final int ROW_SIZE = 999;
     private static final int ONE_SECOND = 1000;
-    private static final int MAX_MIN_COUNT = 0;
+    private static final int MIN_TRY_COUNT = 0;
     private static final int MAX_TRY_COUNT = 10;
     private static final Logger log = LoggerFactory.getLogger(RestTemplateRestaurantRequester.class);
 
@@ -37,14 +37,8 @@ public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequest
 
     @Override
     public RestaurantRequest requestRestTemplate(int startIndex) {
-        int tryCount = MAX_MIN_COUNT;
-        while (true) {
+        for (int iterate = MIN_TRY_COUNT; iterate < MAX_TRY_COUNT; iterate++) {
             try {
-                tryCount++;
-                if (tryCount > 10) {
-                    throw new ApiResponseException("API 요청 횟수가 제한 범위를 초과했습니다.");
-                }
-
                 int endIndex = startIndex + ROW_SIZE;
                 RestaurantRequest request = requestRestaurantData(startIndex, endIndex);
 
@@ -53,10 +47,11 @@ public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequest
                 }
 
             } catch (Exception e) {
-                log.warn("페이지 요청 실패, 재시도합니다. 실행 횟수: {}, startIndex: {}, 에러메세지: {}", tryCount, startIndex, e.getMessage());
+                log.warn("페이지 요청 실패, 재시도합니다. 실행 횟수: {}, startIndex: {}, 에러메세지: {}", iterate, startIndex, e.getMessage());
                 waitForRetry();
             }
         }
+        throw new ApiResponseException("API 요청 횟수가 제한 범위를 초과했습니다.");
     }
 
     public int requestForGetTotalCount(int startIndex) {
@@ -65,7 +60,7 @@ public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequest
     }
 
 
-    private RestaurantRequest requestRestaurantData(int startIndex, int endIndex) {
+    public RestaurantRequest requestRestaurantData(int startIndex, int endIndex) {
         URI uri = generateUriWithParam(startIndex, endIndex);
         ResponseEntity<RestaurantRequest> exchange = restTemplate.exchange(new RequestEntity<>(GET, uri), RestaurantRequest.class);
         return exchange.getBody();
@@ -73,11 +68,11 @@ public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequest
 
     private URI generateUriWithParam(int startIndex, int endIndex) {
         return UriComponentsBuilder.fromUriString(BASE_URL)
-                .path(secretKey)
-                .path(DATA_TYPE)
-                .path(SERVICE_NAME)
-                .path(String.valueOf(startIndex))
-                .path(String.valueOf(endIndex))
+                .pathSegment(secretKey)
+                .pathSegment(DATA_TYPE)
+                .pathSegment(SERVICE_NAME)
+                .pathSegment(String.valueOf(startIndex))
+                .pathSegment(String.valueOf(endIndex))
                 .build()
                 .toUri();
     }
