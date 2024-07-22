@@ -5,12 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import meetween.backend.place.domain.Restaurant;
 
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantApiRequest {
 
+    private static final String IS_CLOSED = "폐업";
+
     @JsonProperty("BPLCNM")
     private String name;
+
+    @JsonProperty("TRDSTATENM")
+    private String status;
 
     @JsonProperty("RDNWHLADDR")
     private String address;
@@ -31,11 +38,14 @@ public class RestaurantApiRequest {
         this.name = name;
         this.address = address;
         this.type = type;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public Restaurant toRestaurant() {
-        return new Restaurant(name, address, type, latitude, longitude);
+    public Optional<Restaurant> toRestaurant() {
+        if (latitude == null || longitude == null || Objects.equals(status, IS_CLOSED)) {
+            return Optional.empty();
+        }
+        return Optional.of(new Restaurant(name, address, type, latitude, longitude));
     }
 }
