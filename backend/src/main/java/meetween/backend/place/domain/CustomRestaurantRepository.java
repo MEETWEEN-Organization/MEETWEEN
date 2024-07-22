@@ -17,7 +17,7 @@ public class CustomRestaurantRepository {
     }
 
     public void saveAllRestaurantsBatch(Collection<Restaurant> restaurants) {
-        String sql = "INSERT IGNORE INTO restaurant (restaurant_id, name, address, type, latitude, longitude)" +
+        String sql = "INSERT IGNORE INTO restaurant (id, name, address, type, latitude, longitude, created_at, updated_at)" +
                 " VALUES (:restaurantId, :name, :address, :type, :latitude, :longitude, :createdAt, :updatedAt)";
         namedParameterJdbcTemplate.batchUpdate(sql, restaurantSqlParameterSource(restaurants));
     }
