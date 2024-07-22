@@ -3,7 +3,6 @@ package meetween.backend.place.application;
 import meetween.backend.place.domain.CustomRestaurantRepository;
 import meetween.backend.place.domain.Restaurant;
 import meetween.backend.place.dto.RestaurantRequest;
-import meetween.backend.place.infra.RestTemplatePlaceRequester;
 import meetween.backend.place.infra.RestTemplateRestaurantRequester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,7 @@ public class ScrappingService {
     private static final int THREAD_COUNT = 8;
     private static final int START_ITERATE_NUM = 0;
     private static final Logger log = LoggerFactory.getLogger(ScrappingService.class);
-    private final RestTemplatePlaceRequester restaurantRequester;
+    private final RestTemplateRestaurantRequester restaurantRequester;
     private final CustomRestaurantRepository customRestaurantRepository;
 
     public ScrappingService(final RestTemplateRestaurantRequester restaurantRequester, final CustomRestaurantRepository customRestaurantRepository) {
@@ -40,7 +39,7 @@ public class ScrappingService {
     }
 
     private int scrapTotalCount() {
-        return (int)restaurantRequester.requestRestTemplate(START_INDEX_FOR_TOTAL_COUNT);
+        return restaurantRequester.requestForGetTotalCount(START_INDEX_FOR_TOTAL_COUNT);
     }
 
     private void scrapForStartIndex(int startIndex) {

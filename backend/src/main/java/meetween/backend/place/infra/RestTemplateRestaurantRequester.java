@@ -16,7 +16,7 @@ import java.net.URI;
 import static org.springframework.http.HttpMethod.GET;
 
 @Component
-public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequester {
+public class RestTemplateRestaurantRequester {
 
     private static final String BASE_URL = "http://openapi.seoul.go.kr:8088";
     private static final String DATA_TYPE = "JSON";
@@ -35,7 +35,6 @@ public class RestTemplateRestaurantRequester implements RestTemplatePlaceRequest
         this.secretKey = secretKey;
     }
 
-    @Override
     public RestaurantRequest requestRestTemplate(int startIndex) {
         for (int iterate = MIN_TRY_COUNT; iterate < MAX_TRY_COUNT; iterate++) {
             try {
