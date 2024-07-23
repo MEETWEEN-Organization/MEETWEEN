@@ -10,14 +10,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 public class ScrappingService {
     private static final int ROW_SIZE = 1000;
     private static final int START_INDEX_FOR_TOTAL_COUNT = 1;
-    private static final int THREAD_COUNT = 8;
     private static final int START_ITERATE_NUM = 0;
     private static final Logger log = LoggerFactory.getLogger(ScrappingService.class);
     private final RestTemplateRestaurantRequester restaurantRequester;
@@ -29,12 +26,11 @@ public class ScrappingService {
     }
 
     public void scrap() {
-        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         int totalCount = scrapTotalCount();
 
         for (int iterate = START_ITERATE_NUM; iterate < totalCount; iterate++) {
             int startIndex = (iterate * ROW_SIZE) + 1;
-            executorService.submit(() -> scrapForStartIndex(startIndex));
+            scrapForStartIndex(startIndex);
         }
     }
 
