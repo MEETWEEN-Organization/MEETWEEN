@@ -17,7 +17,7 @@ public class Restaurant extends BaseEntity {
     private String name;
 
     @Column(name = "address", nullable = false)
-    private String adress;
+    private String address;
 
     @Column(name = "type", nullable = false)
     private String type;
@@ -33,7 +33,7 @@ public class Restaurant extends BaseEntity {
     public Restaurant(String id, String name, String adress, String type, BigDecimal latitude, BigDecimal longitude) {
         this.id = id;
         this.name = name;
-        this.adress = adress;
+        this.address = adress;
         this.type = type;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -44,7 +44,7 @@ public class Restaurant extends BaseEntity {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     public String getType() {
@@ -62,4 +62,5 @@ public class Restaurant extends BaseEntity {
     public String  getId() {
         return id;
     }
+
 }
