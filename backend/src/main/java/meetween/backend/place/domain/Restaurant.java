@@ -10,9 +10,8 @@ import java.math.BigDecimal;
 public class Restaurant extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -31,7 +30,8 @@ public class Restaurant extends BaseEntity {
 
     protected Restaurant() {}
 
-    public Restaurant(String name, String adress, String type, BigDecimal latitude, BigDecimal longitude) {
+    public Restaurant(String id, String name, String adress, String type, BigDecimal latitude, BigDecimal longitude) {
+        this.id = id;
         this.name = name;
         this.adress = adress;
         this.type = type;
@@ -59,7 +59,7 @@ public class Restaurant extends BaseEntity {
         return longitude;
     }
 
-    public Long getId() {
+    public String  getId() {
         return id;
     }
 }

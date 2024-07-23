@@ -13,6 +13,9 @@ public class RestaurantApiRequest {
 
     private static final String IS_CLOSED = "폐업";
 
+    @JsonProperty("MGTNO")
+    private String restaurantId;
+
     @JsonProperty("BPLCNM")
     private String name;
 
@@ -34,7 +37,8 @@ public class RestaurantApiRequest {
 
     private RestaurantApiRequest() {}
 
-    public RestaurantApiRequest(String name, String address, String type, BigDecimal latitude, BigDecimal longitude) {
+    public RestaurantApiRequest(String restaurantId, String name, String address, String type, BigDecimal latitude, BigDecimal longitude) {
+        this.restaurantId = restaurantId;
         this.name = name;
         this.address = address;
         this.type = type;
@@ -46,6 +50,6 @@ public class RestaurantApiRequest {
         if (latitude == null || longitude == null || Objects.equals(status, IS_CLOSED)) {
             return Optional.empty();
         }
-        return Optional.of(new Restaurant(name, address, type, latitude, longitude));
+        return Optional.of(new Restaurant(restaurantId, name, address, type, latitude, longitude));
     }
 }
