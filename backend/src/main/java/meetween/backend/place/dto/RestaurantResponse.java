@@ -9,4 +9,8 @@ public class RestaurantResponse {
     public RestaurantResponse(List<RestaurantSpecificResponse> specificResponses) {
         this.specificResponses = specificResponses;
     }
+
+    public List<RestaurantSpecificResponse> getSpecificResponses() {
+        return specificResponses;
+    }
 }
