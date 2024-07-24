@@ -67,7 +67,7 @@ public class LocationService {
 
     private void validateIsIncludedMember(final Member member, final Appointment appointment) {
         if (!appointmentUserRepository.existsByAppointmentAndMember(appointment, member)) {
-            throw new NoExistAppointmentUserException();
+            throw new NoExistAppointmentUserException("약속 내 멤버가 아닙니다.");
         }
     }
 
