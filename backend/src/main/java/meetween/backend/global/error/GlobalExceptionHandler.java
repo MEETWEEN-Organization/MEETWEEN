@@ -94,7 +94,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleUnExpectedException(final Exception exception) {
         log.warn(exception.getMessage(), exception);
-        ExceptionResponse exceptionResponse = new ExceptionResponse("서버에 오류가 발생했습니다.");
+        ExceptionResponse exceptionResponse = new ExceptionResponse("서버에 오류가 발생했습니다. 오류 메세지: " + exception.getMessage());
         return ResponseEntity.internalServerError().body(exceptionResponse);
     }
 }
