@@ -13,14 +13,18 @@ public class RestaurantsByLocationRequest {
     private BigDecimal longitude;
 
     @NotNull(message = "Null일 수 없습니다.")
-    private BigDecimal delta;
+    private BigDecimal latitudeDelta;
+
+    @NotNull(message = "Null일 수 없습니다.")
+    private BigDecimal longitudeDelta;
 
     private RestaurantsByLocationRequest() {}
 
-    public RestaurantsByLocationRequest(final BigDecimal latitude, final BigDecimal longitude, final BigDecimal delta) {
+    public RestaurantsByLocationRequest(final BigDecimal latitude, final BigDecimal longitude, final BigDecimal latitudeDelta, final BigDecimal longitudeDelta) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.delta = delta;
+        this.latitudeDelta = latitudeDelta;
+        this.longitudeDelta = longitudeDelta;
     }
 
     public BigDecimal getLatitude() {
@@ -31,7 +35,12 @@ public class RestaurantsByLocationRequest {
         return longitude;
     }
 
-    public BigDecimal getDelta() {
-        return delta;
+
+    public BigDecimal getLatitudeDelta() {
+        return latitudeDelta;
+    }
+
+    public BigDecimal getLongitudeDelta() {
+        return longitudeDelta;
     }
 }

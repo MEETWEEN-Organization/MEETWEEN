@@ -16,11 +16,11 @@ public class Coordinate {
         this.maxLongitude = maxLongitude;
     }
 
-    public static Coordinate of(BigDecimal latitude, BigDecimal longitude, BigDecimal delta) {
-        BigDecimal minLatitude = latitude.subtract(delta);
-        BigDecimal maxLatitude = latitude.add(delta);
-        BigDecimal minLongitude = longitude.subtract(delta);
-        BigDecimal maxLongitude = longitude.add(delta);
+    public static Coordinate of(BigDecimal latitude, BigDecimal longitude, BigDecimal latitudeDelta, BigDecimal longitudeDelta) {
+        BigDecimal minLatitude = latitude.subtract(latitudeDelta);
+        BigDecimal maxLatitude = latitude.add(latitudeDelta);
+        BigDecimal minLongitude = longitude.subtract(longitudeDelta);
+        BigDecimal maxLongitude = longitude.add(longitudeDelta);
         return new Coordinate(minLatitude, maxLatitude, minLongitude, maxLongitude);
     }
 
