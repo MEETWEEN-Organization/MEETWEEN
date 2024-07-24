@@ -1,0 +1,11 @@
+== Place(식당, 카페)
+
+=== 좌표기준 근처 Place 탐색
+
+==== Request
+
+include::{snippets}/place/near/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/place/near/http-response.adoc[]

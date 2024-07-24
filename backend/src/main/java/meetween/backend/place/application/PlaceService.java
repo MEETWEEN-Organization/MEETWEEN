@@ -24,7 +24,7 @@ public class PlaceService {
     }
 
     public RestaurantResponse getNearRestaurants(final RestaurantsByLocationRequest request) {
-        Coordinate coordinate = Coordinate.of(request.getLatitude(), request.getLongitude(), request.getDelta());
+        Coordinate coordinate = Coordinate.of(request.getLatitude(), request.getLongitude(), request.getLatitudeDelta(), request.getLongitudeDelta());
 
         List<RestaurantSpecificResponse> restaurants = restaurantRepository.findAllByLatitudeAndLongitudeBetween(
                 coordinate.getMinLatitude(),

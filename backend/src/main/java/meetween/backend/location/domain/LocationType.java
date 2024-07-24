@@ -30,7 +30,6 @@ public enum LocationType {
         } else if (locationType.equals(PROPOSED.name)) {
             return CHOICED;
         }
-        System.out.println(locationType);
         throw new InvalidLocationTypeException();
     }
 }

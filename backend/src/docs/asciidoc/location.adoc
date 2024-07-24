@@ -1,0 +1,51 @@
+== Location(약속 내 선택된 장소들)
+
+=== 약속에 후보지 추가
+
+==== Request
+
+include::{snippets}/location/save/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/location/save/http-response.adoc[]
+
+=== 모든 요청(약속에 속하지 않은 멤버가 요청을 보냈을 때)
+
+==== Request
+
+include::{snippets}/location/save/failByNotGroupMember/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/location/save/failByNotGroupMember/http-response.adoc[]
+
+=== 메인 장소 변경
+
+==== Request
+
+include::{snippets}/location/update/main/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/location/update/main/http-response.adoc[]
+
+=== 메인 장소 변경(약속 내 메인 장소가 두 개인 예외 상황 발생 시)
+
+==== Request
+
+include::{snippets}/location/update/main/failByNotOneMain/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/location/update/main/failByNotOneMain/http-response.adoc[]
+
+=== 메인 장소 변경(이미 메인인 장소를 변경하려고 할 때)
+
+==== Request
+
+include::{snippets}/location/update/main/failByAlreadyMain/http-request.adoc[]
+
+==== Response
+
+include::{snippets}/location/update/main/failByAlreadyMain/http-response.adoc[]

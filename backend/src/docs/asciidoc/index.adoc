@@ -6,3 +6,5 @@
 :toclevels: 3
 
 include::appointment.adoc[]
+include::location.adoc[]
+include::place.adoc[]

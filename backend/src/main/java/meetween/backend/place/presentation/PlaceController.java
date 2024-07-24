@@ -19,7 +19,7 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
-    @GetMapping
+    @GetMapping("near")
     public ResponseEntity<RestaurantResponse> getNearRestaurants(@RequestBody final RestaurantsByLocationRequest request) {
         RestaurantResponse response = placeService.getNearRestaurants(request);
         return ResponseEntity.ok().body(response);
