@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 dir('backend') {
                     withSonarQubeEnv('SonarQube') {
