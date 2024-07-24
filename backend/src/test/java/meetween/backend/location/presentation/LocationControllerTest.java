@@ -1,10 +1,13 @@
 package meetween.backend.location.presentation;
 
 import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속;
+import static meetween.backend.support.fixture.common.AppointmentFixtures.수현_약속_응답;
 import static meetween.backend.support.fixture.common.LocationFixtures.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willThrow;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,7 +31,7 @@ class LocationControllerTest extends ControllerTest {
         //given
         Long appointmentId = 1L;
         LocationAddRequest request = new LocationAddRequest(인하대학교_위도, 인하대학교_경도);
-        AppointmentResponse response = new AppointmentResponse(수현_약속(), 수현약속_인하대학교());
+        AppointmentResponse response = 수현_약속_응답;
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
         given(locationService.addLocation(any(), any(), any())).willReturn(response);
 
@@ -39,6 +42,10 @@ class LocationControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
+                .andDo(document("location/save",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ))
                 .andExpect(status().isOk());
     }
 
@@ -61,6 +68,10 @@ class LocationControllerTest extends ControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
+                .andDo(document("location/save/failByNotGroupMember",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ))
                 .andExpect(status().isNotFound());
     }
 
@@ -70,7 +81,7 @@ class LocationControllerTest extends ControllerTest {
         //given
         Long appointmentId = 1L;
         Long locationId = 1L;
-        AppointmentResponse response = new AppointmentResponse(수현_약속(), 수현약속_인하대학교());
+        AppointmentResponse response = 수현_약속_응답;
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
         given(locationService.changeMain(anyLong(), anyLong(), anyLong())).willReturn(response);
 
@@ -78,6 +89,10 @@ class LocationControllerTest extends ControllerTest {
         mockMvc.perform(post("/location/{appointmentId}/change-main/{locationId}", appointmentId, locationId)
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc"))
                 .andDo(print())
+                .andDo(document("location/update/main",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ))
                 .andExpect(status().isOk());
     }
 
@@ -88,7 +103,7 @@ class LocationControllerTest extends ControllerTest {
         Long appointmentId = 1L;
         Long locationId = 1L;
         given(jwtTokenProvider.getMemberId(anyString())).willReturn(String.valueOf(1L));
-        willThrow(new NotOnlyOneLocationException())
+        willThrow(new NotOnlyOneLocationException("약속 내 멤버가 아닙니다."))
                 .given(locationService)
                 .changeMain(anyLong(), anyLong(), anyLong());
 
@@ -96,6 +111,10 @@ class LocationControllerTest extends ControllerTest {
         mockMvc.perform(post("/location/{appointmentId}/change-main/{locationId}", appointmentId, locationId)
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc"))
                 .andDo(print())
+                .andDo(document("location/update/main/failByNotOneMain",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ))
                 .andExpect(status().isBadRequest());
     }
 
@@ -114,6 +133,10 @@ class LocationControllerTest extends ControllerTest {
         mockMvc.perform(post("/location/{appointmentId}/change-main/{locationId}", appointmentId, locationId)
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc"))
                 .andDo(print())
+                .andDo(document("location/update/main/failByAlreadyMain",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint())
+                ))
                 .andExpect(status().isBadRequest());
     }
 }
