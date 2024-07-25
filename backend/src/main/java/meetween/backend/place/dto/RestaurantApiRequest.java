@@ -2,7 +2,9 @@ package meetween.backend.place.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import meetween.backend.place.domain.CoordinateConverter;
 import meetween.backend.place.domain.Restaurant;
+import meetween.backend.place.domain.SpecificCoordinate;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -42,14 +44,18 @@ public class RestaurantApiRequest {
         this.name = name;
         this.address = address;
         this.type = type;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        SpecificCoordinate specificCoordinate = CoordinateConverter.convertToWGS84(latitude, longitude);
+        this.latitude = specificCoordinate.getLatitude();
+        this.longitude = specificCoordinate.getLongitude();
+        System.out.println(latitude);
+        System.out.println(longitude);
     }
 
     public Optional<Restaurant> toRestaurant() {
         if (latitude == null || longitude == null || Objects.equals(status, IS_CLOSED)) {
             return Optional.empty();
         }
-        return Optional.of(new Restaurant(restaurantId, name, address, type, latitude, longitude));
+        SpecificCoordinate specificCoordinate = CoordinateConverter.convertToWGS84(latitude, longitude);
+        return Optional.of(new Restaurant(restaurantId, name, address, type, specificCoordinate.getLatitude(), specificCoordinate.getLongitude()));
     }
 }
