@@ -28,7 +28,7 @@ public class ScrappingService {
     public void scrap() {
         int totalCount = scrapTotalCount();
 
-        for (int iterate = START_ITERATE_NUM; iterate < totalCount; iterate++) {
+        for (int iterate = START_ITERATE_NUM; iterate <= totalCount; iterate++) {
             int startIndex = (iterate * ROW_SIZE) + 1;
             scrapForStartIndex(startIndex);
         }
