@@ -25,6 +25,7 @@ public class RestTemplateRestaurantRequester {
     private static final int ONE_SECOND = 1000;
     private static final int MIN_TRY_COUNT = 0;
     private static final int MAX_TRY_COUNT = 10;
+    private static final int DIVIDE_TOTAL_COUNT = 10;
     private static final Logger log = LoggerFactory.getLogger(RestTemplateRestaurantRequester.class);
 
     private final RestTemplate restTemplate;
@@ -55,7 +56,7 @@ public class RestTemplateRestaurantRequester {
 
     public int requestForGetTotalCount(int startIndex) {
         RestaurantRequest request = requestRestaurantData(startIndex, startIndex + 1);
-        return request.getTotalCount();
+        return request.getTotalCount()/DIVIDE_TOTAL_COUNT;
     }
 
 

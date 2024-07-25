@@ -12,9 +12,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     @Query("SELECT DISTINCT r FROM Restaurant r " +
             "WHERE r.latitude >= :minLatitude AND r.latitude <= :maxLatitude " +
-            "AND r.longitude >= :minLongitude AND r.latitude <= :maxLongitude"
+            "AND r.longitude >= :minLongitude AND r.longitude <= :maxLongitude"
     )
-    List<RestaurantSpecificResponse> findAllByLatitudeAndLongitudeBetween(@Param("minLatitude") BigDecimal minLatitude,
+    List<Restaurant> findAllByLatitudeAndLongitudeBetween(@Param("minLatitude") BigDecimal minLatitude,
                                                                           @Param("maxLatitude") BigDecimal maxLatitude,
                                                                           @Param("minLongitude") BigDecimal minLongitude,
                                                                           @Param("maxLongitude") BigDecimal maxLongitude);
