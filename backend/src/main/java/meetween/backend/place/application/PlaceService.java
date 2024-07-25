@@ -2,6 +2,7 @@ package meetween.backend.place.application;
 
 import meetween.backend.place.domain.Coordinate;
 import meetween.backend.member.domain.MemberRepository;
+import meetween.backend.place.domain.Restaurant;
 import meetween.backend.place.domain.RestaurantRepository;
 import meetween.backend.place.dto.RestaurantResponse;
 import meetween.backend.place.dto.RestaurantSpecificResponse;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -26,13 +29,21 @@ public class PlaceService {
     public RestaurantResponse getNearRestaurants(final RestaurantsByLocationRequest request) {
         Coordinate coordinate = Coordinate.of(request.getLatitude(), request.getLongitude(), request.getLatitudeDelta(), request.getLongitudeDelta());
 
-        List<RestaurantSpecificResponse> restaurants = restaurantRepository.findAllByLatitudeAndLongitudeBetween(
+        List<Restaurant> restaurants = restaurantRepository.findAllByLatitudeAndLongitudeBetween(
                 coordinate.getMinLatitude(),
                 coordinate.getMaxLatitude(),
                 coordinate.getMinLongitude(),
                 coordinate.getMaxLongitude()
         );
 
-        return new RestaurantResponse(restaurants);
+        List<RestaurantSpecificResponse> integratedRestaurants = toIntegratedRestaurants(restaurants);
+
+        return new RestaurantResponse(integratedRestaurants);
+    }
+
+    private List<RestaurantSpecificResponse> toIntegratedRestaurants(List<Restaurant> restaurants) {
+        return restaurants.stream()
+                .map(RestaurantSpecificResponse::new)
+                .collect(Collectors.toList());
     }
 }
