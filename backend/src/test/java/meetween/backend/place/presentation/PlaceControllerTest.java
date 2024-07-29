@@ -1,7 +1,7 @@
 package meetween.backend.place.presentation;
 
-import meetween.backend.place.dto.RestaurantResponse;
-import meetween.backend.place.dto.RestaurantsByLocationRequest;
+import meetween.backend.place.dto.response.RestaurantResponse;
+import meetween.backend.place.dto.request.PlacesByLocationRequest;
 import meetween.backend.support.annotation.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class PlaceControllerTest extends ControllerTest {
     @Test
     void 좌표를_통해_근처_식당_정보들을_가져온_후_200을_반환한다() throws Exception{
         // given
-        RestaurantsByLocationRequest request = new RestaurantsByLocationRequest(타임스퀘어_위도, 타임스퀘어_경도, 위도_델타, 경도_델타);
+        PlacesByLocationRequest request = new PlacesByLocationRequest(타임스퀘어_위도, 타임스퀘어_경도, 위도_델타, 경도_델타);
         RestaurantResponse response = new RestaurantResponse(List.of(타임스퀘어_응답, 삼일한우국밥_응답));
 
         given(placeService.getNearRestaurants(any())).willReturn(response);
