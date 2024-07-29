@@ -36,9 +36,6 @@ jobs:
       - name: Gradlew 권한 설정
         run: chmod +x gradlew
 
-      - name: 서브모듈 업데이트 & 인증
-        run: git submodule update --init --remote
-
       - name: 빌드 & 테스트 진행
         run: ./gradlew test
 
