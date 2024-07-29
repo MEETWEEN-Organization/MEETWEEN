@@ -4,9 +4,9 @@ import meetween.backend.place.domain.Coordinate;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.place.domain.Restaurant;
 import meetween.backend.place.domain.RestaurantRepository;
-import meetween.backend.place.dto.RestaurantResponse;
-import meetween.backend.place.dto.RestaurantSpecificResponse;
-import meetween.backend.place.dto.RestaurantsByLocationRequest;
+import meetween.backend.place.dto.response.RestaurantResponse;
+import meetween.backend.place.dto.response.RestaurantSpecificResponse;
+import meetween.backend.place.dto.request.PlacesByLocationRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +26,7 @@ public class PlaceService {
         this.memberRepository = memberRepository;
     }
 
-    public RestaurantResponse getNearRestaurants(final RestaurantsByLocationRequest request) {
+    public RestaurantResponse getNearRestaurants(final PlacesByLocationRequest request) {
         Coordinate coordinate = Coordinate.of(request.getLatitude(), request.getLongitude(), request.getLatitudeDelta(), request.getLongitudeDelta());
 
         List<Restaurant> restaurants = restaurantRepository.findAllByLatitudeAndLongitudeBetween(
