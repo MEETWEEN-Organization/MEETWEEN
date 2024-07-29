@@ -37,7 +37,6 @@ jobs:
       - name: 서브모듈 업데이트 & 인증
         run: git submodule update --init --remote
         with:
-          submodules: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 빌드 & 테스트 진행
