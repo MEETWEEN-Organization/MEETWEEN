@@ -1,7 +1,8 @@
-package meetween.backend.place.dto;
+package meetween.backend.place.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import meetween.backend.place.domain.Cafe;
 import meetween.backend.place.domain.CoordinateConverter;
 import meetween.backend.place.domain.Restaurant;
 import meetween.backend.place.domain.SpecificCoordinate;
@@ -57,5 +58,13 @@ public class PlaceApiRequest {
         }
         SpecificCoordinate specificCoordinate = CoordinateConverter.convertToWGS84(latitude, longitude);
         return Optional.of(new Restaurant(restaurantId, name, address, type, specificCoordinate.getLatitude(), specificCoordinate.getLongitude()));
+    }
+
+    public Optional<Cafe> toCafe() {
+        if (latitude == null || longitude == null || Objects.equals(status, IS_CLOSED)) {
+            return Optional.empty();
+        }
+        SpecificCoordinate specificCoordinate = CoordinateConverter.convertToWGS84(latitude, longitude);
+        return Optional.of(new Cafe(restaurantId, name, address, type, specificCoordinate.getLatitude(), specificCoordinate.getLongitude()));
     }
 }

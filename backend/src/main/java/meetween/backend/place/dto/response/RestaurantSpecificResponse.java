@@ -1,4 +1,4 @@
-package meetween.backend.place.dto;
+package meetween.backend.place.dto.response;
 
 import meetween.backend.place.domain.Restaurant;
 

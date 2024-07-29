@@ -1,4 +1,4 @@
-package meetween.backend.place.dto;
+package meetween.backend.place.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import java.util.List;
 public class RestaurantRequest {
 
     @JsonProperty("LOCALDATA_072404")
-    private RestaurantInfoRequest localData;
+    private PlaceInfoRequest localData;
 
     public List<Restaurant> toRestaurants() {
         return localData.toRestaurants();
