@@ -1,6 +1,6 @@
 package meetween.backend.place.infra;
 
-import meetween.backend.place.dto.request.RestaurantRequest;
+import meetween.backend.place.dto.request.CafeRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +13,23 @@ import java.net.URI;
 import static org.springframework.http.HttpMethod.GET;
 
 @Component
-public class RestTemplateRestaurantRequester extends RestTemplateRequester<RestaurantRequest>{
-    private static final String RESTAURANT_SERVICE_NAME = "LOCALDATA_072404";
+public class RestTemplateCafeRequester extends RestTemplateRequester<CafeRequest> {
+    private static final String CAFE_SERVICE_NAME = "LOCALDATA_072405";
 
-    public RestTemplateRestaurantRequester(RestTemplate restTemplate, @Value("${api.secret_key}") String secretKey) {
+    public RestTemplateCafeRequester(RestTemplate restTemplate, @Value("${api.secret_key}") String secretKey) {
         super(restTemplate, secretKey);
     }
 
     @Override
     public int requestForGetTotalCount(int startIndex) {
-        RestaurantRequest request = requestPlaceData(startIndex, startIndex + 1);
+        CafeRequest request = requestPlaceData(startIndex, startIndex + 1);
         return request.getTotalCount() / DIVIDE_TOTAL_COUNT;
     }
 
-
     @Override
-    public RestaurantRequest requestPlaceData(int startIndex, int endIndex) {
+    public CafeRequest requestPlaceData(int startIndex, int endIndex) {
         URI uri = generatePlaceUriWithParam(startIndex, endIndex);
-        ResponseEntity<RestaurantRequest> exchange = restTemplate.exchange(new RequestEntity<>(GET, uri), RestaurantRequest.class);
+        ResponseEntity<CafeRequest> exchange = restTemplate.exchange(new RequestEntity<>(GET, uri), CafeRequest.class);
         return exchange.getBody();
     }
 
@@ -39,7 +38,7 @@ public class RestTemplateRestaurantRequester extends RestTemplateRequester<Resta
         return UriComponentsBuilder.fromUriString(BASE_URL)
                 .pathSegment(secretKey)
                 .pathSegment(DATA_TYPE)
-                .pathSegment(RESTAURANT_SERVICE_NAME)
+                .pathSegment(CAFE_SERVICE_NAME)
                 .pathSegment(String.valueOf(startIndex))
                 .pathSegment(String.valueOf(endIndex))
                 .build()
