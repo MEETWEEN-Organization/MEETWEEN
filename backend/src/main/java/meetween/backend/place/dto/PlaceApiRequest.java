@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RestaurantApiRequest {
+public class PlaceApiRequest {
 
     private static final String IS_CLOSED = "폐업";
 
@@ -37,9 +37,9 @@ public class RestaurantApiRequest {
     private BigDecimal longitude;
 
 
-    private RestaurantApiRequest() {}
+    private PlaceApiRequest() {}
 
-    public RestaurantApiRequest(String restaurantId, String name, String address, String type, BigDecimal latitude, BigDecimal longitude) {
+    public PlaceApiRequest(String restaurantId, String name, String address, String type, BigDecimal latitude, BigDecimal longitude) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.address = address;
