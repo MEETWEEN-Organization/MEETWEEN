@@ -22,10 +22,10 @@ public class Restaurant extends BaseEntity {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "latitude", nullable = false)
+    @Column(name = "latitude", scale = 10, precision = 20, nullable = false)
     private BigDecimal latitude;
 
-    @Column(name = "longitude", nullable = false)
+    @Column(name = "longitude", scale = 10, precision = 20, nullable = false)
     private BigDecimal longitude;
 
     protected Restaurant() {}
