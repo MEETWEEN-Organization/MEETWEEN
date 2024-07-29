@@ -25,6 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          submodules: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: JDK 17 설정
