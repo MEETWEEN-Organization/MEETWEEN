@@ -1,10 +1,10 @@
-package meetween.backend.place.dto;
+package meetween.backend.place.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public class RestaurantsByLocationRequest {
+public class PlacesByLocationRequest {
 
     @NotNull(message = "Null일 수 없습니다.")
     private BigDecimal latitude;
@@ -18,9 +18,9 @@ public class RestaurantsByLocationRequest {
     @NotNull(message = "Null일 수 없습니다.")
     private BigDecimal longitudeDelta;
 
-    private RestaurantsByLocationRequest() {}
+    private PlacesByLocationRequest() {}
 
-    public RestaurantsByLocationRequest(final BigDecimal latitude, final BigDecimal longitude, final BigDecimal latitudeDelta, final BigDecimal longitudeDelta) {
+    public PlacesByLocationRequest(final BigDecimal latitude, final BigDecimal longitude, final BigDecimal latitudeDelta, final BigDecimal longitudeDelta) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.latitudeDelta = latitudeDelta;

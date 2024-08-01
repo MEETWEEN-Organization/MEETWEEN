@@ -1,6 +1,6 @@
 package meetween.backend.support.fixture.common;
 
-import meetween.backend.place.dto.RestaurantSpecificResponse;
+import meetween.backend.place.dto.response.RestaurantSpecificResponse;
 
 import java.math.BigDecimal;
 

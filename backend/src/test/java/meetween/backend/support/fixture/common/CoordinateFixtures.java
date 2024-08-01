@@ -1,8 +1,5 @@
 package meetween.backend.support.fixture.common;
 
-import meetween.backend.place.domain.Coordinate;
-import meetween.backend.place.dto.RestaurantsByLocationRequest;
-
 import java.math.BigDecimal;
 
 public class CoordinateFixtures {
