@@ -1,6 +1,6 @@
 package meetween.backend.place.infra;
 
-import meetween.backend.place.dto.request.RestaurantRequest;
+import meetween.backend.place.dto.request.api.RestaurantRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
