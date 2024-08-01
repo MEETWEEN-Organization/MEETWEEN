@@ -1,6 +1,6 @@
 package meetween.backend.place.dto.response;
 
-import meetween.backend.place.domain.Restaurant;
+import meetween.backend.place.domain.entity.Restaurant;
 
 import java.math.BigDecimal;
 
@@ -16,7 +16,7 @@ public class RestaurantSpecificResponse {
     public RestaurantSpecificResponse(Restaurant restaurant) {
         this.id = restaurant.getId();
         this.name = restaurant.getName();
-        this.address = restaurant.getAdress();
+        this.address = restaurant.getAddress();
         this.type = restaurant.getType();
         this.latitude = restaurant.getLatitude();
         this.longitude = restaurant.getLongitude();

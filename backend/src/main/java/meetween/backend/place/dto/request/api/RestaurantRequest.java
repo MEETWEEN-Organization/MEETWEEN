@@ -1,8 +1,8 @@
-package meetween.backend.place.dto.request;
+package meetween.backend.place.dto.request.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import meetween.backend.place.domain.Restaurant;
+import meetween.backend.place.domain.entity.Restaurant;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class RestaurantRequest {
     private PlaceInfoRequest localData;
 
     public List<Restaurant> toRestaurants() {
-        return localData.toRestaurants();
+        return localData.toPlaces(Restaurant.class);
     }
 
     public int getTotalCount() {

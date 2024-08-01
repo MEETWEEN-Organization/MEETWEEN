@@ -1,4 +1,4 @@
-package meetween.backend.place.domain;
+package meetween.backend.place.domain.coordinate;
 
 import org.locationtech.proj4j.*;
 

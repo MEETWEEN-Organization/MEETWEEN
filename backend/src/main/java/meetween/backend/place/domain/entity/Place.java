@@ -1,13 +1,22 @@
-package meetween.backend.place.domain;
+package meetween.backend.place.domain.entity;
 
 import jakarta.persistence.*;
-import meetween.backend.global.entity.BaseEntity;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "restaurant")
-public class Restaurant extends BaseEntity {
+@MappedSuperclass
+public class Place {
+
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @Id
     @Column(name = "id")
@@ -28,22 +37,34 @@ public class Restaurant extends BaseEntity {
     @Column(name = "longitude", scale = 10, precision = 20, nullable = false)
     private BigDecimal longitude;
 
-    protected Restaurant() {}
+    protected Place() {}
 
-    public Restaurant(String id, String name, String adress, String type, BigDecimal latitude, BigDecimal longitude) {
+    public Place(String id, String name, String address, String type, BigDecimal latitude, BigDecimal longitude) {
         this.id = id;
         this.name = name;
-        this.address = adress;
+        this.address = address;
         this.type = type;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAdress() {
+    public String getAddress() {
         return address;
     }
 
@@ -58,9 +79,4 @@ public class Restaurant extends BaseEntity {
     public BigDecimal getLongitude() {
         return longitude;
     }
-
-    public String  getId() {
-        return id;
-    }
-
 }
