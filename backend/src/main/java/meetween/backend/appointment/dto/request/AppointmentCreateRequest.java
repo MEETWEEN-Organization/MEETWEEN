@@ -1,9 +1,9 @@
 package meetween.backend.appointment.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.invitecode.domain.InviteCode;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class AppointmentCreateRequest {
     @NotNull(message = "Null일 수 없습니다.")
     private String title;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime appointmentDateTime;
 
     @NotNull(message = "Null일 수 없습니다.")
