@@ -1,17 +1,20 @@
 package meetween.backend.place.application;
 
+import meetween.backend.global.config.cache.CacheConfig;
 import meetween.backend.place.domain.coordinate.Coordinate;
 import meetween.backend.member.domain.MemberRepository;
 import meetween.backend.place.domain.entity.Restaurant;
 import meetween.backend.place.domain.RestaurantRepository;
 import meetween.backend.place.dto.response.RestaurantResponse;
 import meetween.backend.place.dto.response.RestaurantSpecificResponse;
-import meetween.backend.place.dto.request.PlacesByLocationRequest;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 
@@ -27,6 +30,7 @@ public class PlaceService {
         this.memberRepository = memberRepository;
     }
 
+    @Cacheable(value = CacheConfig.RESTAURANT, key = "#latitude+#longitude")
     public RestaurantResponse getNearRestaurants(final BigDecimal latitude, final BigDecimal longitude, final BigDecimal latitudeDelta, final BigDecimal longitudeDelta) {
         Coordinate coordinate = Coordinate.of(latitude, longitude, latitudeDelta, longitudeDelta);
 
