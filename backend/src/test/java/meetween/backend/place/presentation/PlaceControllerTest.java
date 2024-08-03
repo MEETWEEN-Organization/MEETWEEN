@@ -28,16 +28,18 @@ class PlaceControllerTest extends ControllerTest {
     @Test
     void 좌표를_통해_근처_식당_정보들을_가져온_후_200을_반환한다() throws Exception{
         // given
-        PlacesByLocationRequest request = new PlacesByLocationRequest(타임스퀘어_위도, 타임스퀘어_경도, 위도_델타, 경도_델타);
         RestaurantResponse response = new RestaurantResponse(List.of(타임스퀘어_응답, 삼일한우국밥_응답));
 
-        given(placeService.getNearRestaurants(any())).willReturn(response);
+        given(placeService.getNearRestaurants(any(), any(), any(), any())).willReturn(response);
 
         // when, then
         mockMvc.perform(get("/place/near")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .param("latitude", String.valueOf(타임스퀘어_위도))
+                        .param("longitude", String.valueOf(타임스퀘어_경도))
+                        .param("latitudeDelta", String.valueOf(위도_델타))
+                        .param("longitudeDelta", String.valueOf(경도_델타)))
                 .andDo(print())
                 .andDo(document("place/near",
                         preprocessRequest(prettyPrint()),
