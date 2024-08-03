@@ -53,8 +53,8 @@ public class AppointmentService {
         appointment.updateCategory(category);
 
         inviteCodeRepository.save(inviteCode);
-        locationRepository.save(location);
         appointmentRepository.save(appointment);
+        locationRepository.save(location);
         categoryRepository.save(category);
         appointmentUserRepository.save(new AppointmentUser(appointment, member, MemberAuthority.ADMIN));
 
