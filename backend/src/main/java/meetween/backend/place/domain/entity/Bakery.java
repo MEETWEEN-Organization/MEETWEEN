@@ -1,12 +1,17 @@
 package meetween.backend.place.domain.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "bakery")
+@Table(name = "bakery",
+        indexes = {
+                @Index(name = "idx_latitude_longitude", columnList = "latitude, longitude")
+        }
+)
 public class Bakery extends Place {
 
     protected Bakery() {}
