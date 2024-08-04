@@ -4,7 +4,6 @@ import meetween.backend.appointment.exception.NoExistAppointmentException;
 import meetween.backend.member.domain.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,7 +26,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     }
 
     @Query("SELECT DISTINCT a FROM Appointment a " +
-            "JOIN a.category c " +
+            "JOIN FETCH a.category c " +
+            "JOIN FETCH a.inviteCode ic " +
             "JOIN a.appointmentUsers au " +
             "WHERE au.member = :member " +
             "AND c.name = :categoryName")

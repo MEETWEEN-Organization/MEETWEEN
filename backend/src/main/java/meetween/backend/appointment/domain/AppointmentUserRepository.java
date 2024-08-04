@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public interface AppointmentUserRepository extends JpaRepository<AppointmentUser, Long> {
 
-    @EntityGraph(attributePaths = {"appointment", "appointment.category"})
+    @EntityGraph(attributePaths = {"appointment", "appointment.category", "appointment.inviteCode"})
     Page<AppointmentUser> findAllByMember(Member member, PageRequest pageRequest);
 
     Optional<AppointmentUser> findByAppointmentAndMember(Appointment appointment, Member member);

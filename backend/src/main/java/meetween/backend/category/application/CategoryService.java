@@ -6,6 +6,7 @@ import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.location.domain.Location;
 import meetween.backend.location.domain.LocationRepository;
+import meetween.backend.location.exception.NoExistLocationException;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
@@ -32,12 +34,15 @@ public class CategoryService {
     public IntegratedAppointmentResponses findByCategory(Long memberId, String categoryName, PageRequest pageRequest) {
         Member member = memberRepository.getById(memberId);
         Page<Appointment> appointmentPage = appointmentRepository.findByUserAndCategoryName(member, categoryName, pageRequest);
-        return new IntegratedAppointmentResponses(appointmentPage.stream()
-                .map(appointment -> new AppointmentResponse(appointment, getChoicedLocation(appointment)))
-                .collect(Collectors.toList()), appointmentPage.getTotalPages());
-    }
+        List<Location> choicedLocations = locationRepository.findAllChoicedLocations();
 
-    private Location getChoicedLocation(Appointment appointment) {
-        return locationRepository.getChoicedLocationByAppointment(appointment);
+        return new IntegratedAppointmentResponses(appointmentPage.stream()
+                .map(appointment -> {
+                    Location choicedLocation = choicedLocations.stream()
+                            .filter(location -> location.getAppointment().equals(appointment))
+                            .findFirst().orElseThrow(NoExistLocationException::new);
+                    return new AppointmentResponse(appointment, choicedLocation);
+                })
+                .collect(Collectors.toList()), appointmentPage.getTotalPages());
     }
 }
