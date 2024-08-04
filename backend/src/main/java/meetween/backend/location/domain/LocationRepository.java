@@ -20,6 +20,9 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
                 .orElseThrow(NoExistLocationException::new);
     }
 
+    @Query("select l from Location l where l.locationType = 'CHOICED'")
+    List<Location> findAllChoicedLocations();
+
     default Location getById(final Long id) {
         return findById(id)
                 .orElseThrow(NoExistLocationException::new);
