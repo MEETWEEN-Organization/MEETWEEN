@@ -58,4 +58,8 @@ public class Location extends BaseEntity {
     public Long getId() {
         return id;
     }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
 }
