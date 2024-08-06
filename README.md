@@ -18,15 +18,15 @@
 
 ## ⚙️ Tech Stacks
 ### Front-End
-![](https://velog.velcdn.com/images/asdjhqwd/post/d84c274c-240f-4fee-9926-71d504eeb57a/image.png)
+![](https://velog.velcdn.com/images/asdjhqwd/post/5e2a5dcf-6298-431a-a94c-a93d60dbfbfe/image.png)
 
 ### Back-End
-![](https://velog.velcdn.com/images/asdjhqwd/post/b59ab001-0480-4d6a-bd94-a61c20ca76a1/image.png)
+![](https://velog.velcdn.com/images/asdjhqwd/post/1cffadad-fac7-4626-a79e-8e898b562e19/image.png)
 
 <br>
 
 ## 🛠️ Architecture
-![](https://velog.velcdn.com/images/asdjhqwd/post/9468e535-3705-46cf-91b2-eecf27994b0e/image.png)
+![](https://velog.velcdn.com/images/asdjhqwd/post/d2071daa-7640-4d73-bf2e-084ede598d4f/image.png)
 
 <br>
 
