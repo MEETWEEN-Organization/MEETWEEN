@@ -1,4 +1,4 @@
-![](https://velog.velcdn.com/images/asdjhqwd/post/c8492795-3987-4c8a-8fa1-9b2e844bc00e/image.png)
+![](https://velog.velcdn.com/images/asdjhqwd/post/9c743fd6-0987-45f8-8984-14a1869b2696/image.png)
 
 # 미트윈<img src="https://velog.velcdn.com/images/soozzang/post/bdb5d886-8c90-4681-9f9f-f1bc909410ae/image.png" align=left width=90>
 
@@ -12,7 +12,7 @@
 <br>
 
 ## 🖥️ 서비스 화면
-![](https://velog.velcdn.com/images/asdjhqwd/post/b3cd3112-a291-4ebd-a6c7-057c3c1ace33/image.png)
+![](https://velog.velcdn.com/images/asdjhqwd/post/a3e84763-95c0-4f86-aaa6-6df654d6abc8/image.png)
 
 <br>
 
