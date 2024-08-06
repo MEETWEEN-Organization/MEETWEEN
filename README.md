@@ -1,4 +1,4 @@
-![](https://velog.velcdn.com/images/asdjhqwd/post/38a8823a-e9ef-41c7-823b-b6edbe73289b/image.png)
+![](https://velog.velcdn.com/images/asdjhqwd/post/5d800e2c-0d9a-4c7f-b760-899b771457af/image.png)
 
 # 미트윈<img src="https://velog.velcdn.com/images/soozzang/post/bdb5d886-8c90-4681-9f9f-f1bc909410ae/image.png" align=left width=90>
 
