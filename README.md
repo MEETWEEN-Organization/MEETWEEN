@@ -26,9 +26,9 @@
 <br>
 
 ## 🛠️ Architecture
-![](https://velog.velcdn.com/images/asdjhqwd/post/d2071daa-7640-4d73-bf2e-084ede598d4f/image.png)
+![](https://velog.velcdn.com/images/soozzang/post/5a4ff39d-309c-4e18-9d08-d64631e2d734/image.png)
 
 <br>
 
 ## ⛓️ Backend CI/CD Pipeline
-![](https://velog.velcdn.com/images/soozzang/post/c2228237-486b-4d29-b124-ffa9f137ae0a/image.png)
+![](https://velog.velcdn.com/images/soozzang/post/c6a6299e-c196-468b-9129-3592d8aaf86c/image.png)
