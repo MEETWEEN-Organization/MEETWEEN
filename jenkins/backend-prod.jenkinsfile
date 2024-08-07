@@ -1,0 +1,90 @@
+pipeline {
+    agent any
+    tools {
+        gradle 'gradle'
+    }
+    stages {
+        stage('Github') {
+            steps {
+                git branch: 'main', url: 'https://github.com/MEETWEEN-Organization/MEETWEEN.git'
+                withCredentials([GitUsernamePassword(credentialsId: 'github-signin', gitToolName: 'Default')]) {
+                    sh 'git submodule update --init --remote'
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                dir("./backend") {
+                    sh "./gradlew clean build"
+                }
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                dir('backend') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh './gradlew test sonarqube'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+           steps {
+               dir('backend/build/libs') {
+                   sshagent(credentials: ['aws_key']) {
+                        sh '''#!/bin/bash
+
+                        RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://${BACKEND_PROD_IP}:${BLUE_PORT}")
+                        if [ ${RESPONSE_CODE} -ge 100 ]
+                        then
+                            target_port=${GREEN_PORT}
+                        else
+                            target_port=${BLUE_PORT}
+                        fi
+                        echo "${target_port} 포트를 target_port로 설정합니다. 📌"
+
+
+                        scp -o StrictHostKeyChecking=no backend-0.0.1-SNAPSHOT.jar ubuntu@${BACKEND_PROD_IP}:/home/ubuntu
+                        ssh ubuntu@${BACKEND_PROD_IP} "sh run.sh ${target_port}" &
+
+
+                        for retry_count in \$(seq 10)
+                        do
+                            RESPONSE_CODE_HEALTH=$(curl -s -o /dev/null -w "%{http_code}" "http://${BACKEND_PROD_IP}:${target_port}")
+                            if [ ${RESPONSE_CODE_HEALTH} -ge 100 ]
+                            then
+                                echo "Health check 성공 ✅ 포트 번호: ${target_port}"
+                                break
+                            fi
+
+                            if [ $retry_count -eq 10 ]
+                            then
+                                echo "Health check 실패 ❌ 포트 번호: ${target_port}"
+                                exit 1
+                            fi
+
+                            echo "서버가 아직 가동되지 않았습니다. 10초 뒤에 다시 Health check를 진행합니다. ⏱️ 시도 횟수: ${retry_count}"
+                            sleep 10
+                        done
+
+
+                        ssh ubuntu@${BACKEND_DEV_IP} "echo 'set \\\$service_port ${target_port};' | sudo tee /etc/nginx/conf.d/service-port.inc && sudo service nginx reload"
+                        echo "nginx의 reverse proxy 방향을 ${target_port} 로 변경합니다. 🔄"
+
+
+                        if [ "${target_port}" == "${BLUE_PORT}" ]
+                        then
+                            ssh ubuntu@${BACKEND_PROD_IP} "fuser -s -k ${GREEN_PORT}/tcp"
+                        else
+                            ssh ubuntu@${BACKEND_PROD_IP} "fuser -s -k ${BLUE_PORT}/tcp"
+                        fi
+
+                        echo "비활성 서버의 프로세스를 kill 합니다. 🔪"
+
+                        '''
+                   }
+               }
+           }
+       }
+    }
+}
