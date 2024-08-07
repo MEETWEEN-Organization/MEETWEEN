@@ -30,4 +30,5 @@
 
 <br>
 
-## ⛓️ CI/CD
+## ⛓️ Backend CI/CD Pipeline
+![](https://velog.velcdn.com/images/soozzang/post/c2228237-486b-4d29-b124-ffa9f137ae0a/image.png)
