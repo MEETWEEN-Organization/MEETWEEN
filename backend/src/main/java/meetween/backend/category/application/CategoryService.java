@@ -2,6 +2,8 @@ package meetween.backend.category.application;
 
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.appointment.domain.AppointmentRepository;
+import meetween.backend.appointment.domain.CustomAppointmentRepository;
+import meetween.backend.appointment.dto.response.AppointmentPageDto;
 import meetween.backend.appointment.dto.response.AppointmentResponse;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.location.domain.Location;
@@ -24,8 +26,10 @@ public class CategoryService {
     private final AppointmentRepository appointmentRepository;
     private final MemberRepository memberRepository;
     private final LocationRepository locationRepository;
+    private final CustomAppointmentRepository customAppointmentRepository;
 
-    public CategoryService(final AppointmentRepository appointmentRepository, final MemberRepository memberRepository, final LocationRepository locationRepository) {
+    public CategoryService(final AppointmentRepository appointmentRepository, final MemberRepository memberRepository, final LocationRepository locationRepository, final CustomAppointmentRepository customAppointmentRepository) {
+        this.customAppointmentRepository = customAppointmentRepository;
         this.appointmentRepository = appointmentRepository;
         this.memberRepository = memberRepository;
         this.locationRepository = locationRepository;
@@ -33,16 +37,17 @@ public class CategoryService {
 
     public IntegratedAppointmentResponses findByCategory(Long memberId, String categoryName, PageRequest pageRequest) {
         Member member = memberRepository.getById(memberId);
-        Page<Appointment> appointmentPage = appointmentRepository.findByUserAndCategoryName(member, categoryName, pageRequest);
+        List<AppointmentPageDto> appointmentPages = customAppointmentRepository.paginationWithCoveringIndex(member, categoryName, pageRequest);
+        int totalPageCount = customAppointmentRepository.getTotalPageCount(member, categoryName, pageRequest);
         List<Location> choicedLocations = locationRepository.findAllChoicedLocations();
 
-        return new IntegratedAppointmentResponses(appointmentPage.stream()
-                .map(appointment -> {
+        return new IntegratedAppointmentResponses(appointmentPages.stream()
+                .map(appointmentPage -> {
                     Location choicedLocation = choicedLocations.stream()
-                            .filter(location -> location.getAppointment().equals(appointment))
+                            .filter(location -> location.getAppointment().getId().equals(appointmentPage.getId()))
                             .findFirst().orElseThrow(NoExistLocationException::new);
-                    return new AppointmentResponse(appointment, choicedLocation);
+                    return new AppointmentResponse(appointmentPage.getId(), appointmentPage.getCategoryId(), appointmentPage.getTitle(), appointmentPage.getAppointmentDateTime(), choicedLocation.getLatitude(), choicedLocation.getLongitude(), appointmentPage.getInviteCode(), appointmentPage.getMemberCount());
                 })
-                .collect(Collectors.toList()), appointmentPage.getTotalPages());
+                .collect(Collectors.toList()), totalPageCount);
     }
 }
