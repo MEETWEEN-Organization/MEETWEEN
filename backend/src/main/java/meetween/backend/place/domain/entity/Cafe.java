@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "cafe",
         indexes = {
-                @Index(name = "idx_latitude_longitude", columnList = "latitude, longitude")
+                @Index(name = "idx_cafe_latitude_longitude", columnList = "latitude, longitude")
         }
 )
 public class Cafe extends Place {
