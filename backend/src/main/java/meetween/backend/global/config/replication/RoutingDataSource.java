@@ -17,14 +17,10 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     protected Object determineCurrentLookupKey() {
         boolean isReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
 
-        log.info("Transaction의 ReadOnly는 " + isReadOnly +"입니다.");
-
         if (isReadOnly) {
-            log.info("Replica 서버로 요청합니다.");
-            return REPLICA_1;
+            return randomReplicaKeys.nextKey();
         }
 
-        log.info("Source 서버로 요청합니다.");
         return SOURCE;
     }
 }
