@@ -12,12 +12,15 @@ import static org.mockito.Mockito.when;
 
 import meetween.backend.appointment.domain.Appointment;
 import meetween.backend.appointment.domain.AppointmentRepository;
+import meetween.backend.appointment.domain.CustomAppointmentRepository;
+import meetween.backend.appointment.dto.response.AppointmentPageDto;
 import meetween.backend.appointment.dto.response.IntegratedAppointmentResponses;
 import meetween.backend.location.domain.Location;
 import meetween.backend.location.domain.LocationRepository;
 import meetween.backend.location.domain.LocationType;
 import meetween.backend.member.domain.Member;
 import meetween.backend.member.domain.MemberRepository;
+import meetween.backend.support.fixture.common.AppointmentFixtures;
 import meetween.backend.support.fixture.common.MemberFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,6 +34,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,17 +49,23 @@ class CategoryServiceTest {
     private AppointmentRepository appointmentRepository;
 
     @Mock
+    private CustomAppointmentRepository customAppointmentRepository;
+
+    @Mock
     private LocationRepository locationRepository;
 
     @Mock
     private MemberRepository memberRepository;
 
     private Member mockMember;
+    private Appointment mockAppointment;
 
     @BeforeEach
     void setUp() {
         mockMember = Mockito.spy(MemberFixtures.수현_유저());
         when(mockMember.getId()).thenReturn(1L);
+        mockAppointment = Mockito.spy(AppointmentFixtures.수현_약속());
+        when(mockAppointment.getId()).thenReturn(1L);
     }
 
     @DisplayName("카테고리 이름을 통해 약속들을 찾아 약속 응답을 만든다.")
@@ -63,17 +73,17 @@ class CategoryServiceTest {
     void 카테고리_이름을_통해_약속들을_찾아_약속_응답을_만든다() {
         //given
         PageRequest pageRequest = PageRequest.of(1, 1);
-        Appointment 수현_약속 = 수현_약속();
+        Appointment 수현_약속 = mockAppointment;
         Location 수현약속_인하대학교 = new Location(수현_약속, 인하대학교_위도, 인하대학교_경도, LocationType.CHOICED);
         List<Appointment> appointments = List.of(수현_약속);
         Page<Appointment> appointmentPage = new PageImpl<>(appointments, pageRequest, appointments.size());
 
         given(memberRepository.getById(anyLong()))
                 .willReturn(mockMember);
-        given(appointmentRepository.findByUserAndCategoryName(any(), any(), any()))
-                .willReturn(appointmentPage);
         given(locationRepository.findAllChoicedLocations())
                 .willReturn(List.of(수현약속_인하대학교));
+        given(customAppointmentRepository.paginationWithCoveringIndex(any(), any(), any()))
+                .willReturn(List.of(new AppointmentPageDto(1L, 1L, "수현약속", LocalDateTime.now(), 123450L, 4L)));
         String categoryName = 스터디_카테고리_제목;
 
         //when
@@ -81,6 +91,5 @@ class CategoryServiceTest {
 
         //then
         assertThat(actual.getAppointmentResponses()).hasSize(1);
-        assertThat(actual.getTotalPages()).isEqualTo(2);
     }
 }
