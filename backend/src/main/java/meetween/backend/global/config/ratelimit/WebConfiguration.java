@@ -1,4 +1,4 @@
-package meetween.backend.global.config.interceptor;
+package meetween.backend.global.config.ratelimit;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

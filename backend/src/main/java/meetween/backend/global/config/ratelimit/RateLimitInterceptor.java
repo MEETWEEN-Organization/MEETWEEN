@@ -1,4 +1,4 @@
-package meetween.backend.global.config.interceptor;
+package meetween.backend.global.config.ratelimit;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

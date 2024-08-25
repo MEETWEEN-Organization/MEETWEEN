@@ -1,4 +1,4 @@
-package meetween.backend.global.config.interceptor;
+package meetween.backend.global.config.ratelimit;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
