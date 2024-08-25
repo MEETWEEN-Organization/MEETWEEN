@@ -6,7 +6,11 @@ import meetween.backend.category.exception.InvalidCategoryException;
 import meetween.backend.global.entity.BaseEntity;
 
 @Entity
-@Table(name = "category")
+@Table(name = "category",
+    indexes = {
+        @Index(name = "idx_catrgory_name_appointment_id", columnList = "name, appointment_id")
+    }
+)
 public class Category extends BaseEntity {
 
     private static final int MAX_NAME_LENGTH = 10;
